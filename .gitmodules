@@ -1,0 +1,3 @@
+[submodule "dotnetrdf"]
+	path = dotnetrdf
+	url = https://github.com/langsamu/dotnetrdf.git
