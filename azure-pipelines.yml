@@ -1,0 +1,42 @@
+trigger:
+- master
+
+pool:
+  name: Hosted Windows 2019 with VS2019
+
+steps:
+- task: DotNetCoreCLI@2
+  displayName: Restore
+  inputs:
+    command: restore
+    projects: '$(RestoreBuildProjects)'
+
+- task: DotNetCoreCLI@2
+  displayName: Build
+  inputs:
+    projects: '$(RestoreBuildProjects)'
+    arguments: '--configuration $(BuildConfiguration)'
+
+- task: DotNetCoreCLI@2
+  displayName: Test
+  inputs:
+    command: test
+    projects: '$(TestProjects)'
+    arguments: '--configuration $(BuildConfiguration)'
+
+- task: DotNetCoreCLI@2
+  displayName: Publish
+  inputs:
+    command: publish
+    publishWebProjects: false
+    projects: '$(RestoreBuildProjects)'
+    arguments: '--configuration $(BuildConfiguration) --output $(build.ArtifactStagingDirectory)'
+    zipAfterPublish: True
+
+- task: AzureRmWebAppDeployment@4
+  displayName: Deploy
+  inputs:
+    azureSubscription: '$(AzureSubscription)'
+    WebAppName: '$(WebAppName)'
+    VirtualApplication: '$(VirtualApplication)'
+    packageForLinux: '$(Build.ArtifactStagingDirectory)/**/*.zip'
