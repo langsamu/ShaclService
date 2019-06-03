@@ -1,0 +1,26 @@
+﻿@model INode
+
+@if (Model.NodeType == NodeType.Uri)
+{
+    @Model
+}
+else if (Model.IsListRoot(Model.Graph))
+{
+    <details>
+        <summary>Sequence</summary>
+        @foreach (var item in Model.Graph.GetListItems(Model))
+        {
+            <vc:path node="item" />
+        }
+    </details>
+}
+else
+{
+    foreach (var t in Model.Graph.GetTriplesWithSubject(Model))
+    {
+        <details>
+            <summary>@t.Predicate</summary>
+            <vc:path node="t.Object" />
+        </details>
+    }
+}

@@ -1,0 +1,55 @@
+﻿@model Report
+@{
+    ViewBag.Title = "TITLE";
+    ViewBag.Description = "DESCRIPTION";
+}
+
+<div class="container">
+    <h1>TITLE</h1>
+    <p class="lead">LEAD</p>
+
+    <dl>
+        <dt>Conforms</dt>
+        <dd>@Model.Conforms</dd>
+        @if (Model.Results.Any())
+        {
+            <dt>Results</dt>
+            <dd>
+                <ul class="list-group list-group-flush">
+                    @foreach (var result in Model.Results)
+                    {
+                        <li class="list-group-item">
+                            <dl>
+                                <dt>Focus node</dt>
+                                <dd>
+                                    <vc:path node="result.FocusNode" />
+                                </dd>
+                                <dt>Path</dt>
+                                <dd>
+                                    <vc:path node="result.Path" />
+                                </dd>
+                                @if (result.Value != null)
+                                {
+                                    <dt>Value</dt>
+                                    <dd>@result.Value</dd>
+                                }
+                                <dt>Shape</dt>
+                                <dd>
+                                    <vc:node node="result.Shape" />
+                                </dd>
+                                <dt>Source constraint component</dt>
+                                <dd>
+                                    <vc:node node="result.SourceConstraintComponent" />
+                                </dd>
+                                <dt>Severity</dt>
+                                <dd>
+                                    <vc:node node="result.Severity" />
+                                </dd>
+                            </dl>
+                        </li>
+                    }
+                </ul>
+            </dd>
+        }
+    </dl>
+</div>

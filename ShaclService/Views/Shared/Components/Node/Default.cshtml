@@ -1,0 +1,10 @@
+﻿@model INode
+
+@if (Model.NodeType == NodeType.Blank)
+{
+    <span>Blank node</span>
+}
+else
+{
+    @Model
+}
