@@ -16,7 +16,9 @@
 
         private static void ConfigureMvc(MvcOptions mvc)
         {
+            mvc.InputFormatters.Clear();
             mvc.InputFormatters.Add(new GraphInputFormatter());
+
             mvc.OutputFormatters.Clear();
             mvc.OutputFormatters.Add(new GraphOutputFormatter());
         }

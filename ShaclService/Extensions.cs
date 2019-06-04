@@ -1,6 +1,8 @@
 ﻿namespace ShaclService
 {
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Primitives;
+    using Microsoft.Net.Http.Headers;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -42,6 +44,18 @@
         {
             var request = url.ActionContext.HttpContext.Request;
             return new Uri(new Uri(request.Scheme + "://" + request.Host.Value), url.Content(contentPath)).ToString();
+        }
+
+        internal static IInMemoryQueryableStore AsTripleStore(this IGraph g)
+        {
+            var store = new TripleStore();
+            store.Add(g);
+            return store;
+        }
+
+        internal static string AsMediaType(this StringValues values)
+        {
+            return new MediaTypeHeaderValue((string)values).MediaType.Value;
         }
     }
 }
