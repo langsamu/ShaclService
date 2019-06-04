@@ -35,7 +35,7 @@
 
         public INode FocusNode => Shacl.FocusNode.ObjectsOf(this).Single();
 
-        public INode Path => Shacl.ResultPath.ObjectsOf(this).Single();
+        public INode Path => Shacl.ResultPath.ObjectsOf(this).SingleOrDefault();
 
         public INode Severity => Shacl.ResultSeverity.ObjectsOf(this).Single();
 
@@ -43,5 +43,6 @@
 
         public INode Value => Shacl.Value.ObjectsOf(this).SingleOrDefault();
 
+        public INode Message => Shacl.ResultMessage.ObjectsOf(this).SingleOrDefault();
     }
 }
