@@ -22,7 +22,7 @@
                             <dl>
                                 <dt>Focus node</dt>
                                 <dd>
-                                    <vc:path node="result.FocusNode" />
+                                    <vc:node node="result.FocusNode" />
                                 </dd>
                                 <dt>Path</dt>
                                 <dd>
@@ -31,7 +31,9 @@
                                 @if (result.Value != null)
                                 {
                                     <dt>Value</dt>
-                                    <dd>@result.Value</dd>
+                                    <dd>
+                                        <vc:node node="result.Value" />
+                                    </dd>
                                 }
                                 <dt>Shape</dt>
                                 <dd>

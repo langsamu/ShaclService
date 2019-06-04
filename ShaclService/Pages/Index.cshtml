@@ -1,0 +1,18 @@
+﻿@page
+@{
+    ViewBag.Title = "TITLE";
+    ViewBag.Description = "DESCRIPTION";
+}
+
+<div class="container">
+    <h1>TITLE</h1>
+    <p class="lead">LEAD</p>
+    <ul>
+        <li>
+            <a asp-controller="Validate" asp-action="ValidationReport" asp-route-DataGraphUri="@Url.AbsoluteContent("~/personexample.ttl")" asp-route-ShapesGraphUri="@Url.AbsoluteContent("~/personexample.ttl")">personexample report</a>
+        </li>
+        <li>
+            <a asp-controller="Validate" asp-action="ValidateRaw" asp-route-DataGraphUri="@Url.AbsoluteContent("~/personexample.ttl")" asp-route-ShapesGraphUri="@Url.AbsoluteContent("~/personexample.ttl")">personexample raw</a>
+        </li>
+    </ul>
+</div>

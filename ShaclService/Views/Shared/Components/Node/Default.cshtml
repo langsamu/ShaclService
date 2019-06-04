@@ -1,10 +1,24 @@
 ﻿@model INode
 
-@if (Model.NodeType == NodeType.Blank)
+@switch (Model.NodeType)
 {
-    <span>Blank node</span>
-}
-else
-{
-    @Model
+    case NodeType.Blank:
+        <span>[blank]</span>
+        break;
+
+    case NodeType.Uri:
+        <a href="@Model">@Model.AsQName()</a>
+        break;
+
+    default:
+    case NodeType.Literal:
+        var literal = (ILiteralNode)Model;
+        @if (literal.DataType != null)
+        {
+            <div>
+                <vc:node node="literal.Graph.CreateUriNode(literal.DataType)" />
+            </div>
+        }
+        <span>@literal.Value</span>
+        break;
 }

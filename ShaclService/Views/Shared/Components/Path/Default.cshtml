@@ -2,7 +2,7 @@
 
 @if (Model.NodeType == NodeType.Uri)
 {
-    @Model
+    <vc:node node="Model"/>
 }
 else if (Model.IsListRoot(Model.Graph))
 {

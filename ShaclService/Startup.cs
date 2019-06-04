@@ -3,7 +3,9 @@
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.StaticFiles;
     using Microsoft.Extensions.DependencyInjection;
+    using System.Collections.Generic;
 
     public class Startup
     {
@@ -25,6 +27,15 @@
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseStaticFiles(
+                new StaticFileOptions
+                {
+                    ContentTypeProvider = new FileExtensionContentTypeProvider(new Dictionary<string, string>
+                    {
+                        {".ttl", "text/turtle" }
+                    })
+                });
 
             app.UseMvc();
         }

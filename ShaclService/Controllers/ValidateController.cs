@@ -7,11 +7,6 @@
 
     public class ValidateController : Controller
     {
-        [Route("validate")]
-        [HttpGet]
-        public IActionResult Default() =>
-            View();
-
         [Route("validate/report")]
         [HttpPost]
         [HttpGet]
