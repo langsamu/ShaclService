@@ -26,26 +26,26 @@
         [HttpGet]
         [HttpPost]
         [FormatFilter]
-        public IActionResult Default(Parameters parameters)
-        {
-            var report = Validate(parameters.DataGraph, parameters.ShapesGraph);
-
-            switch (GetResponseContentType(parameters.Format))
-            {
-                case "text/html":
-                    return this.View(Report.Parse(report));
-
-                default:
-                    return this.Ok(report);
-            }
-        }
+        public IActionResult Default(Parameters parameters) =>
+            Validate(parameters.DataGraph, parameters.ShapesGraph, parameters.Format);
 
         [HttpPost("body")]
-        public IGraph ValidateBody([FromBody] IGraph g) =>
-            Validate(g, g);
+        public IActionResult Body([FromBody] IGraph g, Parameters parameters) =>
+            Validate(g, g, parameters.Format);
 
-        private static IGraph Validate(IGraph data, IGraph shapes) =>
-            new ShapesGraph(shapes).Validate(data).Normalised;
+        private IActionResult Validate(IGraph data, IGraph shapes, string format)
+        {
+            var report = new ShapesGraph(shapes).Validate(data).Normalised;
+
+            switch (GetResponseContentType(format))
+            {
+                case "text/html":
+                    return View("Default", Report.Parse(report));
+
+                default:
+                    return Ok(report);
+            }
+        }
 
         private string GetResponseContentType(string format)
         {

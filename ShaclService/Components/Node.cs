@@ -5,8 +5,9 @@
 
     public class Node : ViewComponent
     {
-        public IViewComponentResult Invoke(INode node)
+        public IViewComponentResult Invoke(INode node, string property)
         {
+            ViewBag.Property = property;
             return View(node);
         }
     }

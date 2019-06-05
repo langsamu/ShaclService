@@ -3,22 +3,17 @@
 @switch (Model.NodeType)
 {
     case NodeType.Blank:
-        <span>[blank]</span>
+        <span property="@ViewBag.Property" resource="@Model">[blank]</span>
         break;
 
     case NodeType.Uri:
-        <a href="@Model">@Model.AsQName()</a>
+        <a property="@ViewBag.Property" href="@Model">@Model.AsQName()</a>
         break;
 
     default:
     case NodeType.Literal:
         var literal = (ILiteralNode)Model;
-        @if (literal.DataType != null)
-        {
-            <div>
-                <vc:node node="literal.Graph.CreateUriNode(literal.DataType)" />
-            </div>
-        }
-        <span>@literal.Value</span>
+
+        <span property="@ViewBag.Property" datatype="@literal.DataType" lang="@literal.Language">@literal</span>
         break;
 }

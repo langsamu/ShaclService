@@ -2,7 +2,7 @@
 
 @if (Model.NodeType == NodeType.Uri)
 {
-    <vc:node node="Model"/>
+    <vc:node node="Model" property="sh:resultPath"/>
 }
 else if (Model.IsListRoot(Model.Graph))
 {

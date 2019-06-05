@@ -8,9 +8,9 @@
     <h1>TITLE</h1>
     <p class="lead">LEAD</p>
 
-    <dl>
+    <dl typeof="sh:ValidationReport" prefix="sh: http://www.w3.org/ns/shacl# xsd: http://www.w3.org/2001/XMLSchema#" lang="">
         <dt>Conforms</dt>
-        <dd>@Model.Conforms</dd>
+        <dd property="sh:conforms" datatype="xsd:boolean">@Model.Conforms</dd>
         @if (Model.Results.Any())
         {
             <dt>Results</dt>
@@ -18,11 +18,11 @@
                 <ul class="list-group list-group-flush">
                     @foreach (var result in Model.Results)
                     {
-                        <li class="list-group-item">
+                        <li class="list-group-item" property="sh:result" typeof="sh:ValidationResult">
                             <dl>
                                 <dt>Focus node</dt>
                                 <dd>
-                                    <vc:node node="result.FocusNode" />
+                                    <vc:node node="result.FocusNode" property="sh:focueNode" />
                                 </dd>
                                 @if (result.Path != null)
                                 {
@@ -35,26 +35,26 @@
                                 {
                                     <dt>Value</dt>
                                     <dd>
-                                        <vc:node node="result.Value" />
+                                        <vc:node node="result.Value" property="sh:value" />
                                     </dd>
                                 }
                                 <dt>Shape</dt>
                                 <dd>
-                                    <vc:node node="result.Shape" />
+                                    <vc:node node="result.Shape" property="sh:sourceShape" />
                                 </dd>
                                 <dt>Source constraint component</dt>
                                 <dd>
-                                    <vc:node node="result.SourceConstraintComponent" />
+                                    <vc:node node="result.SourceConstraintComponent" property="sh:sourceConstraintComponent" />
                                 </dd>
                                 <dt>Severity</dt>
                                 <dd>
-                                    <vc:node node="result.Severity" />
+                                    <vc:node node="result.Severity" property="sh:resultSeverity" />
                                 </dd>
                                 @if (result.Message != null)
                                 {
                                     <dt>Value</dt>
                                     <dd>
-                                        <vc:node node="result.Message" />
+                                        <vc:node node="result.Message" property="sh:resultMessage" />
                                     </dd>
                                 }
                             </dl>

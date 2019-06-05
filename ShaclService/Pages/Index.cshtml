@@ -11,12 +11,21 @@
     <details open>
         <summary>EXAMPLES</summary>
         <ul>
-            <li>
-                <a asp-controller="Validate" asp-action="Default" asp-route-DataGraphUri="@Url.AbsoluteContent("~/test-suite/core/complex/personexample.ttl")" asp-route-ShapesGraphUri="@Url.AbsoluteContent("~/test-suite/core/complex/personexample.ttl")">personexample report</a>
-            </li>
-            <li>
-                <a asp-controller="Validate" asp-action="Default" asp-route-format="ttl" asp-route-DataGraphUri="@Url.AbsoluteContent("~/test-suite/core/complex/personexample.ttl")" asp-route-ShapesGraphUri="@Url.AbsoluteContent("~/test-suite/core/complex/personexample.ttl")">personexample raw</a>
-            </li>
+            @{
+                var paths = new[] { "core/complex/personexample", "core/misc/message-001" };
+                var formats = new[] { "html", "ttl", "rj" };
+                foreach (var path in paths)
+                {
+                    foreach (var format in formats)
+                    {
+                        var u = Url.AbsoluteContent($"~/test-suite/{path}.ttl");
+
+                        <li>
+                            <a asp-controller="Validate" asp-action="Default" asp-route-DataGraphUri="@u" asp-route-ShapesGraphUri="@u" asp-route-format="@format">@path (@format)</a>
+                        </li>
+                    }
+                }
+            }
         </ul>
     </details>
 </div>
