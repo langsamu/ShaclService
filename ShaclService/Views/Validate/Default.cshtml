@@ -10,7 +10,7 @@
 
     <dl typeof="sh:ValidationReport" prefix="sh: http://www.w3.org/ns/shacl# xsd: http://www.w3.org/2001/XMLSchema#" lang="">
         <dt>Conforms</dt>
-        <dd property="sh:conforms" datatype="xsd:boolean">@Model.Conforms</dd>
+        <dd rel="sh:conforms" datatype="xsd:boolean">@Model.Conforms</dd>
         @if (Model.Results.Any())
         {
             <dt>Results</dt>
@@ -18,43 +18,54 @@
                 <ul class="list-group list-group-flush">
                     @foreach (var result in Model.Results)
                     {
-                        <li class="list-group-item" property="sh:result" typeof="sh:ValidationResult">
+                        <li class="list-group-item" rel="sh:result" typeof="sh:ValidationResult">
                             <dl>
                                 <dt>Focus node</dt>
-                                <dd>
-                                    <vc:node node="result.FocusNode" property="sh:focueNode" />
+                                <dd rel="sh:focusNode">
+                                    <partial name="Node" model="result.FocusNode" />
                                 </dd>
                                 @if (result.Path != null)
                                 {
                                     <dt>Path</dt>
-                                    <dd>
-                                        <vc:path node="result.Path" />
-                                    </dd>
+                                    @if (result.Path.IsListRoot(result.Graph))
+                                    {
+                                        <dd>
+                                            <ol rel="sh:resultPath" inlist>
+                                                <partial name="Path" model="result.Path" />
+                                            </ol>
+                                        </dd>
+                                    }
+                                    else
+                                    {
+                                        <dd rel="sh:resultPath">
+                                            <partial name="Path" model="result.Path" />
+                                        </dd>
+                                    }
                                 }
                                 @if (result.Value != null)
                                 {
                                     <dt>Value</dt>
-                                    <dd>
-                                        <vc:node node="result.Value" property="sh:value" />
+                                    <dd rel="sh:value">
+                                        <partial name="Node" model="result.Value" />
                                     </dd>
                                 }
                                 <dt>Shape</dt>
-                                <dd>
-                                    <vc:node node="result.Shape" property="sh:sourceShape" />
+                                <dd rel="sh:sourceShape">
+                                    <partial name="Node" model="result.Shape" />
                                 </dd>
                                 <dt>Source constraint component</dt>
-                                <dd>
-                                    <vc:node node="result.SourceConstraintComponent" property="sh:sourceConstraintComponent" />
+                                <dd rel="sh:sourceConstraintComponent">
+                                    <partial name="Node" model="result.SourceConstraintComponent" />
                                 </dd>
                                 <dt>Severity</dt>
-                                <dd>
-                                    <vc:node node="result.Severity" property="sh:resultSeverity" />
+                                <dd rel="sh:resultSeverity">
+                                    <partial name="Node" model="result.Severity" />
                                 </dd>
                                 @if (result.Message != null)
                                 {
                                     <dt>Value</dt>
-                                    <dd>
-                                        <vc:node node="result.Message" property="sh:resultMessage" />
+                                    <dd property="sh:resultMessage">
+                                        <partial name="Node" model="result.Message" />
                                     </dd>
                                 }
                             </dl>

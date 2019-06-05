@@ -1,0 +1,40 @@
+﻿@model INode
+
+@if (Model.NodeType == NodeType.Uri)
+{
+    <partial name="Node" model="Model" />
+}
+else if (Model.IsListRoot(Model.Graph))
+{
+    @foreach (var item in Model.Graph.GetListItems(Model))
+    {
+        <li>
+            <partial name="Path" model="item" />
+        </li>
+    }
+}
+else
+{
+    <dl about="@Model">
+        @foreach (var t in Model.Graph.GetTriplesWithSubject(Model))
+        {
+            <dt>
+                <partial name="Node" model="t.Predicate" />
+            </dt>
+            @if (t.Object.IsListRoot(t.Graph))
+            {
+                <dd>
+                    <ol rel="@t.Predicate" inlist>
+                        <partial name="Path" model="t.Object" />
+                    </ol>
+                </dd>
+            }
+            else
+            {
+                <dd rel="@t.Predicate">
+                    <partial name="Path" model="t.Object" />
+                </dd>
+            }
+        }
+    </dl>
+}

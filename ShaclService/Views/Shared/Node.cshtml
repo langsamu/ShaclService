@@ -1,0 +1,19 @@
+﻿@model INode
+
+@switch (Model.NodeType)
+{
+    case NodeType.Blank:
+        <span resource="@Model">[blank]</span>
+        break;
+
+    case NodeType.Uri:
+        <a href="@Model">@Model.AsQName()</a>
+        break;
+
+    default:
+    case NodeType.Literal:
+        var literal = (ILiteralNode)Model;
+
+        <span datatype="@literal.DataType" lang="@literal.Language">@literal</span>
+        break;
+}
