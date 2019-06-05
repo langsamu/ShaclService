@@ -52,10 +52,5 @@
             store.Add(g);
             return store;
         }
-
-        internal static string AsMediaType(this StringValues values)
-        {
-            return new MediaTypeHeaderValue((string)values).MediaType.Value;
-        }
     }
 }

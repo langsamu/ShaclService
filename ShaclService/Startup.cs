@@ -17,10 +17,18 @@
         private static void ConfigureMvc(MvcOptions mvc)
         {
             mvc.InputFormatters.Clear();
-            mvc.InputFormatters.Add(new GraphInputFormatter());
+            foreach (var item in Configuration.MediaTypes)
+            {
+                mvc.InputFormatters.Add(new GraphInputFormatter(item.MediaType, item.Read));
+            }
 
             mvc.OutputFormatters.Clear();
-            mvc.OutputFormatters.Add(new GraphOutputFormatter());
+            foreach (var item in Configuration.MediaTypes)
+            {
+                mvc.OutputFormatters.Add(new GraphOutputFormatter(item.MediaType, item.Write));
+                mvc.FormatterMappings.SetMediaTypeMappingForFormat(item.Extension, item.MediaType);
+                mvc.FormatterMappings.SetMediaTypeMappingForFormat(item.MediaType, item.MediaType);
+            }
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
