@@ -1,5 +1,7 @@
 ﻿namespace ShaclService
 {
+    using System.Collections.Generic;
+    using System.Linq;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Mvc;
@@ -7,14 +9,34 @@
     using Microsoft.AspNetCore.StaticFiles;
     using Microsoft.Extensions.DependencyInjection;
     using Swashbuckle.AspNetCore.SwaggerUI;
-    using System.Collections.Generic;
-    using System.Linq;
 
     public class Startup
     {
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc(ConfigureMvc);
+        }
+
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        {
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+
+            app.UseStaticFiles(
+                new StaticFileOptions
+                {
+                    ContentTypeProvider = new FileExtensionContentTypeProvider(new Dictionary<string, string>
+                    {
+                        { ".ttl", "text/turtle" },
+                        { ".json", "application/json" },
+                    }),
+                });
+
+            app.UseRewriter(new RewriteOptions().AddRewrite("^openapi.html$", "swagger/index.html", false).AddRewrite("^(swagger|favicon)(.+)$", "swagger/$1$2", true));
+            app.UseMvc();
+            app.UseSwaggerUI(Startup.ConfigureSwaggerUI);
         }
 
         private static void ConfigureMvc(MvcOptions mvc)
@@ -34,32 +56,10 @@
             }
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
-        {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-
-            app.UseStaticFiles(
-                new StaticFileOptions
-                {
-                    ContentTypeProvider = new FileExtensionContentTypeProvider(new Dictionary<string, string>
-                    {
-                        {".ttl", "text/turtle" },
-                        {".json", "application/json" }
-                    })
-                });
-
-            app.UseRewriter(new RewriteOptions().AddRewrite("^openapi.html$", "swagger/index.html", false).AddRewrite("^(swagger|favicon)(.+)$", "swagger/$1$2", true));
-            app.UseMvc();
-            app.UseSwaggerUI(Startup.ConfigureSwaggerUI);
-        }
-
         private static void ConfigureSwaggerUI(SwaggerUIOptions swaggerUI)
         {
             swaggerUI.DocumentTitle = "dotNetRDF SHACL validator service";
-            swaggerUI.SwaggerEndpoint("../openapi.json", "live");
+            swaggerUI.SwaggerEndpoint("./openapi.json", "live");
         }
     }
 }

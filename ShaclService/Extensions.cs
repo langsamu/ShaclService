@@ -1,37 +1,28 @@
 ﻿namespace ShaclService
 {
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.Extensions.Primitives;
-    using Microsoft.Net.Http.Headers;
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using Microsoft.AspNetCore.Mvc;
     using VDS.RDF;
     using VDS.RDF.Parsing;
     using VDS.RDF.Shacl;
 
     public static class Extensions
     {
-        private static readonly NamespaceMapper mapper = new NamespaceMapper();
+        private static readonly NamespaceMapper Mapper = new NamespaceMapper();
 
         static Extensions()
         {
-            mapper.AddNamespace("sh", UriFactory.Create(Vocabulary.BaseUri));
-            mapper.AddNamespace("xsd", UriFactory.Create(XmlSpecsHelper.NamespaceXmlSchema));
-        }
-
-        internal static IEnumerable<INode> ObjectsOf(this INode predicate, INode subject)
-        {
-            return
-                from t in subject.Graph.GetTriplesWithSubjectPredicate(subject, predicate)
-                select t.Object;
+            Mapper.AddNamespace("sh", UriFactory.Create(Vocabulary.BaseUri));
+            Mapper.AddNamespace("xsd", UriFactory.Create(XmlSpecsHelper.NamespaceXmlSchema));
         }
 
         public static string AsQName(this INode n)
         {
             if (n is IUriNode uriNode)
             {
-                if (mapper.ReduceToQName(uriNode.Uri.AbsoluteUri, out var qname))
+                if (Mapper.ReduceToQName(uriNode.Uri.AbsoluteUri, out var qname))
                 {
                     return qname;
                 }
@@ -44,6 +35,13 @@
         {
             var request = url.ActionContext.HttpContext.Request;
             return new Uri(new Uri(request.Scheme + "://" + request.Host.Value), url.Content(contentPath)).ToString();
+        }
+
+        internal static IEnumerable<INode> ObjectsOf(this INode predicate, INode subject)
+        {
+            return
+                from t in subject.Graph.GetTriplesWithSubjectPredicate(subject, predicate)
+                select t.Object;
         }
 
         internal static IInMemoryQueryableStore AsTripleStore(this IGraph g)

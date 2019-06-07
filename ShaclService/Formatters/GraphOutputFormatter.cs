@@ -1,11 +1,11 @@
 ﻿namespace ShaclService
 {
-    using Microsoft.AspNetCore.Mvc.Formatters;
-    using Microsoft.Net.Http.Headers;
     using System;
     using System.IO;
     using System.Text;
     using System.Threading.Tasks;
+    using Microsoft.AspNetCore.Mvc.Formatters;
+    using Microsoft.Net.Http.Headers;
     using VDS.RDF;
 
     internal class GraphOutputFormatter : TextOutputFormatter
@@ -15,13 +15,8 @@
         public GraphOutputFormatter(string mediaType, Action<IGraph, TextWriter> write)
         {
             this.write = write;
-            SupportedMediaTypes.Add(new MediaTypeHeaderValue(mediaType));
-            SupportedEncodings.Add(new UTF8Encoding(false));
-        }
-
-        protected override bool CanWriteType(Type type)
-        {
-            return typeof(IGraph).IsAssignableFrom(type);
+            this.SupportedMediaTypes.Add(new MediaTypeHeaderValue(mediaType));
+            this.SupportedEncodings.Add(new UTF8Encoding(false));
         }
 
         public override Task WriteResponseBodyAsync(OutputFormatterWriteContext context, Encoding encoding)
@@ -30,10 +25,15 @@
 
             using (var writer = context.WriterFactory(context.HttpContext.Response.Body, encoding))
             {
-                write(g, writer);
+                this.write(g, writer);
             }
 
             return Task.CompletedTask;
+        }
+
+        protected override bool CanWriteType(Type type)
+        {
+            return typeof(IGraph).IsAssignableFrom(type);
         }
     }
 }

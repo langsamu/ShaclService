@@ -1,11 +1,11 @@
 ﻿namespace ShaclService
 {
+    using System.Linq;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.Formatters;
     using Microsoft.AspNetCore.Mvc.Infrastructure;
     using Microsoft.Extensions.Options;
     using Microsoft.Net.Http.Headers;
-    using System.Linq;
     using VDS.RDF;
     using VDS.RDF.Shacl;
 
@@ -27,30 +27,30 @@
         [HttpPost]
         [FormatFilter]
         public IActionResult Default(Parameters parameters) =>
-            Validate(parameters.DataGraph, parameters.ShapesGraph, parameters.Format);
+            this.Validate(parameters.DataGraph, parameters.ShapesGraph, parameters.Format);
 
         [HttpPost("body")]
         public IActionResult Body([FromBody] IGraph g)
         {
             if (g is null)
             {
-                return BadRequest();
+                return this.BadRequest();
             }
 
-            return Validate(g, g);
+            return this.Validate(g, g);
         }
 
         private IActionResult Validate(IGraph data, IGraph shapes, string format = null)
         {
             var report = new ShapesGraph(shapes).Validate(data).Normalised;
 
-            switch (GetResponseContentType(format))
+            switch (this.GetResponseContentType(format))
             {
                 case "text/html":
-                    return View("Default", Report.Parse(report));
+                    return this.View("Default", Report.Parse(report));
 
                 default:
-                    return Ok(report);
+                    return this.Ok(report);
             }
         }
 
@@ -61,17 +61,17 @@
             {
                 mediaTypes.Add(
                     new MediaTypeHeaderValue(
-                        options.FormatterMappings.GetMediaTypeMappingForFormat(
+                        this.options.FormatterMappings.GetMediaTypeMappingForFormat(
                             format)));
             }
 
-            var formatter = selector.SelectFormatter(
+            var formatter = this.selector.SelectFormatter(
                 new OutputFormatterWriteContext(
                     this.HttpContext,
                     (s, e) => null,
                     typeof(IGraph),
                     null),
-                options.OutputFormatters.OfType<GraphOutputFormatter>().Cast<IOutputFormatter>().ToList(),
+                this.options.OutputFormatters.OfType<GraphOutputFormatter>().Cast<IOutputFormatter>().ToList(),
                 mediaTypes);
 
             return ((GraphOutputFormatter)formatter).SupportedMediaTypes.Single();

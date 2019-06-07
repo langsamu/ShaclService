@@ -8,7 +8,7 @@
 <div class="container">
     <h1>TITLE</h1>
     <p class="lead">LEAD</p>
-    <form asp-controller="Validate" asp-action="ValidationReport" asp-antiforgery="false">
+    <form asp-controller="Validate" asp-action="Default" asp-antiforgery="false">
         <div class="form-group">
             <label asp-for="DataGraphUri"></label>
             <input asp-for="DataGraphUri" class="form-control" aria-describedby="dataUriDescription" />
@@ -29,7 +29,7 @@
         </div>
         <div class="float-right">
             <button class="btn btn-primary">Validate</button>
-            <button asp-controller="Validate" asp-action="ValidateRaw" class="btn btn-secondary">Validate raw</button>
+            <button asp-controller="Validate" asp-action="Default" asp-route-format="ttl" class="btn btn-secondary">Validate raw</button>
         </div>
     </form>
 </div>

@@ -1,11 +1,11 @@
 ﻿namespace ShaclService
 {
-    using Microsoft.AspNetCore.Mvc.Formatters;
-    using Microsoft.Net.Http.Headers;
     using System;
     using System.IO;
     using System.Text;
     using System.Threading.Tasks;
+    using Microsoft.AspNetCore.Mvc.Formatters;
+    using Microsoft.Net.Http.Headers;
     using VDS.RDF;
 
     internal class GraphInputFormatter : TextInputFormatter
@@ -15,13 +15,8 @@
         public GraphInputFormatter(string mediaType, Action<IGraph, TextReader> read)
         {
             this.read = read;
-            SupportedMediaTypes.Add(new MediaTypeHeaderValue(mediaType));
-            SupportedEncodings.Add(UTF8EncodingWithoutBOM);
-        }
-
-        protected override bool CanReadType(Type type)
-        {
-            return typeof(IGraph).IsAssignableFrom(type);
+            this.SupportedMediaTypes.Add(new MediaTypeHeaderValue(mediaType));
+            this.SupportedEncodings.Add(UTF8EncodingWithoutBOM);
         }
 
         public override Task<InputFormatterResult> ReadRequestBodyAsync(InputFormatterContext context, Encoding encoding)
@@ -30,10 +25,15 @@
 
             using (var reader = context.ReaderFactory(context.HttpContext.Request.Body, encoding))
             {
-                read(g, reader);
+                this.read(g, reader);
             }
 
             return InputFormatterResult.SuccessAsync(g);
+        }
+
+        protected override bool CanReadType(Type type)
+        {
+            return typeof(IGraph).IsAssignableFrom(type);
         }
     }
 }
