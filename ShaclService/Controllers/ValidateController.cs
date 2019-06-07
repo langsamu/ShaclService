@@ -30,10 +30,17 @@
             Validate(parameters.DataGraph, parameters.ShapesGraph, parameters.Format);
 
         [HttpPost("body")]
-        public IActionResult Body([FromBody] IGraph g, Parameters parameters) =>
-            Validate(g, g, parameters.Format);
+        public IActionResult Body([FromBody] IGraph g)
+        {
+            if (g is null)
+            {
+                return BadRequest();
+            }
 
-        private IActionResult Validate(IGraph data, IGraph shapes, string format)
+            return Validate(g, g);
+        }
+
+        private IActionResult Validate(IGraph data, IGraph shapes, string format = null)
         {
             var report = new ShapesGraph(shapes).Validate(data).Normalised;
 

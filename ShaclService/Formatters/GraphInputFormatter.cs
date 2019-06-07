@@ -27,7 +27,7 @@
         public override Task<InputFormatterResult> ReadRequestBodyAsync(InputFormatterContext context, Encoding encoding)
         {
             var g = new Graph();
-            
+
             using (var reader = context.ReaderFactory(context.HttpContext.Request.Body, encoding))
             {
                 read(g, reader);

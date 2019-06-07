@@ -15,7 +15,7 @@
             ("text/turtle", "ttl", (g, reader) => new TurtleParser().Load(g, reader), (g, writer) => new CompressingTurtleWriter().Save(g, writer)),
             ("text/n-triples", "nt", (g, reader) => new NTriplesParser().Load(g, reader), (g, writer) => new NTriplesWriter().Save(g, writer)),
             ("application/ld+json", "json", (g, reader) => new JsonLdParser().Load(g.AsTripleStore(), reader), (g, writer) => new JsonLdWriter().Save(g.AsTripleStore(), writer)),
-            ("application/rdf+xml", "xml", (g, reader) => new RdfXmlParser().Load(g, reader), (g, writer) => new RdfXmlWriter().Save(g, writer)),
+            ("application/rdf+xml", "xml", (g, reader) => new RdfXmlParser().Load(g, reader), (g, writer) => new RdfXmlWriter(WriterCompressionLevel.High, false).Save(g, writer)),
             ("application/rdf+json", "rj", (g, reader) => new RdfJsonParser().Load(g, reader), (g, writer) => new RdfJsonWriter().Save(g, writer))
         };
     }
