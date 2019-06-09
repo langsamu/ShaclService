@@ -14,6 +14,7 @@
     {
         public void ConfigureServices(IServiceCollection services)
         {
+            // TODO: Add CORS
             services.AddMvc(ConfigureMvc);
         }
 

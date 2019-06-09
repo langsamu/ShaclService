@@ -7,9 +7,9 @@
     using VDS.RDF.Parsing;
     using VDS.RDF.Writing;
 
-    internal static class Configuration
+    public static class Configuration
     {
-        internal static IEnumerable<(string MediaType, string Extension, Action<IGraph, TextReader> Read, Action<IGraph, TextWriter> Write)> MediaTypes { get; } = new (string, string, Action<IGraph, TextReader>, Action<IGraph, TextWriter>)[]
+        public static IEnumerable<(string MediaType, string Extension, Action<IGraph, TextReader> Read, Action<IGraph, TextWriter> Write)> MediaTypes { get; } = new (string, string, Action<IGraph, TextReader>, Action<IGraph, TextWriter>)[]
         {
             ("text/html", "html", null, null),
             ("text/turtle", "ttl", (g, reader) => new TurtleParser().Load(g, reader), (g, writer) => new CompressingTurtleWriter().Save(g, writer)),

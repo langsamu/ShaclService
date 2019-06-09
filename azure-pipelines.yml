@@ -1,6 +1,6 @@
 variables:
   RestoreBuildProjects: '**/ShaclService.csproj'
-  TestProjects: '**/ShaclServiceTests.csproj;'
+  TestProjects: '**/ShaclServiceTests.csproj'
 
 trigger:
 - master

@@ -13,6 +13,11 @@
     },
     "version": "Live"
   },
+  "servers": [
+    {
+      "url": "http://langsamu.net/shacl"
+    }
+  ],
   "tags": [
     {
       "name": "Validate",
