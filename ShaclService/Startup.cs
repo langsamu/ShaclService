@@ -35,7 +35,7 @@
                     }),
                 });
 
-            app.UseRewriter(new RewriteOptions().AddRewrite("^openapi.html$", "swagger/index.html", false).AddRewrite("^(swagger|favicon)(.+)$", "swagger/$1$2", true));
+            app.UseRewriter(new RewriteOptions().AddRewrite("^openapi$", "swagger/index.html", false).AddRewrite("^(swagger|favicon)(.+)$", "swagger/$1$2", true));
             app.UseMvc();
             app.UseSwaggerUI(Startup.ConfigureSwaggerUI);
         }
@@ -47,6 +47,9 @@
             {
                 mvc.InputFormatters.Add(new GraphInputFormatter(item.MediaType, item.Read));
             }
+
+            // TODO: why?
+            mvc.InputFormatters.Add(new GraphInputFormatter("*/*", (g, reader) => { }));
 
             mvc.OutputFormatters.Clear();
             foreach (var item in Configuration.MediaTypes)

@@ -1,0 +1,18 @@
+﻿@model (Parameters Parameters, Report Report)
+@{
+    ViewBag.Title = "TITLE";
+    ViewBag.Description = "DESCRIPTION";
+}
+
+<div class="container">
+    <h1>TITLE</h1>
+    <p class="lead">LEAD</p>
+    <partial name="Form" model="@Model.Parameters" />
+</div>
+
+@if (Model.Report != null)
+{
+    <div class="container" id="report">
+        <partial name="Report" model="@Model.Report" />
+    </div>
+}

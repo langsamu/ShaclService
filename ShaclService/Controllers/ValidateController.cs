@@ -10,6 +10,7 @@
     using VDS.RDF.Shacl;
 
     [Route("validate")]
+    [Route("validate.{format}")]
     public class ValidateController : Controller
     {
         private readonly MvcOptions options;
@@ -21,33 +22,45 @@
             this.selector = selector;
         }
 
-        [Route("report")]
-        [Route("report.{format}")]
         [HttpGet]
-        [HttpPost]
         [FormatFilter]
-        public IActionResult Default(Parameters parameters) =>
-            this.Validate(parameters.DataGraph, parameters.ShapesGraph, parameters.Format);
-
-        [HttpPost("body")]
-        public IActionResult Body([FromBody] IGraph g)
+        public IActionResult Index(Parameters parameters)
         {
-            if (g is null)
+            // TODO: Move to parameters
+            if (parameters.DataGraphUri is null && parameters.ShapesGraphUri is null && parameters.DataGraphRdf is null && parameters.ShapesGraphRdf is null)
             {
-                return this.BadRequest();
+                return this.View((parameters, (Report)null));
             }
 
-            return this.Validate(g, g);
+            // TODO: Validation
+            if ((parameters.DataGraphUri != null && !parameters.DataGraphUri.IsAbsoluteUri) || (parameters.ShapesGraphUri != null && !parameters.ShapesGraphUri.IsAbsoluteUri))
+            {
+                return this.BadRequest("Absolute URIs only.");
+            }
+
+            return this.Validate(parameters.DataGraph, parameters.ShapesGraph, parameters);
         }
 
-        private IActionResult Validate(IGraph data, IGraph shapes, string format = null)
+        [HttpPost]
+        [FormatFilter]
+        public IActionResult Index([FromBody] IGraph g, Parameters parameters)
+        {
+            if (g is null || g.IsEmpty)
+            {
+                return this.Index(parameters);
+            }
+
+            return this.Validate(g, g, parameters);
+        }
+
+        private IActionResult Validate(IGraph data, IGraph shapes, Parameters parameters)
         {
             var report = new ShapesGraph(shapes).Validate(data).Normalised;
 
-            switch (this.GetResponseContentType(format))
+            switch (this.GetResponseContentType(parameters.Format))
             {
                 case "text/html":
-                    return this.View("Default", Report.Parse(report));
+                    return this.View((parameters, Report.Parse(report)));
 
                 default:
                     return this.Ok(report);

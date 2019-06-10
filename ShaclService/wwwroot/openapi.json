@@ -22,10 +22,6 @@
     {
       "name": "Validate",
       "description": "DESCRIPTION"
-    },
-    {
-      "name": "Validate body",
-      "description": "DESCRIPTION"
     }
   ],
   "externalDocs": {
@@ -125,10 +121,47 @@
         },
         "example": "@prefix sh: <http://www.w3.org/ns/shacl#> .\r\n@prefix ex: <http://example.com/> .\r\n\r\n[\r\n    sh:targetNode ex:s ;\r\n    sh:property ex:shape\r\n] .\r\n\r\nex:shape\r\n    sh:path ex:p ;\r\n    sh:class ex:C ."
       }
+    },
+    "requestBodies": {
+      "GraphRequest": {
+        "description": "DESCRIPTION",
+        "content": {
+          "text/turtle": {
+            "schema": {
+              "type": "string",
+              "example": "@prefix sh: <http://www.w3.org/ns/shacl#> .\r\n@prefix ex: <http://example.com/> .\r\n\r\nex:s ex:p ex:o .\r\n\r\n[\r\n    sh:targetNode ex:s ;\r\n    sh:property ex:shape\r\n] .\r\n\r\nex:shape\r\n    sh:path ex:p ;\r\n    sh:class ex:C ."
+            }
+          },
+          "text/n-triples": {
+            "schema": {
+              "type": "string",
+              "example": "<http://example.com/s> <http://example.com/p> <http://example.com/o> .\r\n\r\n_:b1 <http://www.w3.org/ns/shacl#targetNode> <http://example.com/s> .\r\n_:b1 <http://www.w3.org/ns/shacl#property> <http://example.com/shape> .\r\n\r\n<http://example.com/shape> <http://www.w3.org/ns/shacl#path> <http://example.com/p> .\r\n<http://example.com/shape> <http://www.w3.org/ns/shacl#class> <http://example.com/C> ."
+            }
+          },
+          "application/ld+json": {
+            "schema": {
+              "type": "string",
+              "example": "{\r\n  \"@context\": {\r\n    \"sh\": \"http://www.w3.org/ns/shacl#\",\r\n    \"ex\": \"http://example.com/\"\r\n  },\r\n  \"@graph\": [{\r\n      \"@id\": \"ex:s\",\r\n      \"ex:p\": {\r\n        \"@id\": \"ex:o\"\r\n      }\r\n    }, {\r\n      \"sh:targetNode\": {\r\n        \"@id\": \"ex:s\"\r\n      },\r\n      \"sh:property\": {\r\n        \"@id\": \"ex:shape\",\r\n        \"sh:path\": {\r\n          \"@id\": \"ex:p\"\r\n        },\r\n        \"sh:class\": {\r\n          \"@id\": \"ex:C\"\r\n        }\r\n      }\r\n    }\r\n  ]\r\n}"
+            }
+          },
+          "application/rdf+xml": {
+            "schema": {
+              "type": "string",
+              "example": "<rdf:RDF xml:base=\"http://example.com/\" xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:ex=\"http://example.com/\" xmlns=\"http://www.w3.org/ns/shacl#\">\r\n  <rdf:Description rdf:about=\"s\">\r\n    <ex:p rdf:resource=\"o\"/>\r\n  </rdf:Description>\r\n  <rdf:Description>\r\n    <targetNode rdf:resource=\"s\"/>\r\n    <property>\r\n      <rdf:Description rdf:about=\"shape\">\r\n        <path rdf:resource=\"p\"/>\r\n        <class rdf:resource=\"C\"/>\r\n      </rdf:Description>\r\n    </property>\r\n  </rdf:Description>\r\n</rdf:RDF>"
+            }
+          },
+          "application/rdf+json": {
+            "schema": {
+              "type": "string",
+              "example": "{\r\n  \"http://example.com/s\": {\r\n    \"http://example.com/p\": [{\r\n        \"type\": \"uri\",\r\n        \"value\": \"http://example.com/o\"\r\n      }\r\n    ]\r\n  },\r\n  \"_:b1\": {\r\n    \"http://www.w3.org/ns/shacl#targetNode\": [{\r\n        \"type\": \"uri\",\r\n        \"value\": \"http://example.com/s\"\r\n      }\r\n    ],\r\n    \"http://www.w3.org/ns/shacl#property\": [{\r\n        \"type\": \"uri\",\r\n        \"value\": \"http://example.com/shape\"\r\n      }\r\n    ]\r\n  },\r\n  \"http://example.com/shape\": {\r\n    \"http://www.w3.org/ns/shacl#path\": [{\r\n        \"type\": \"uri\",\r\n        \"value\": \"http://example.com/p\"\r\n      }\r\n    ],\r\n    \"http://www.w3.org/ns/shacl#class\": [{\r\n        \"type\": \"uri\",\r\n        \"value\": \"http://example.com/C\"\r\n      }\r\n    ]\r\n  }\r\n}"
+            }
+          }
+        }
+      }
     }
   },
   "paths": {
-    "/validate/report": {
+    "/validate": {
       "get": {
         "tags": [ "Validate" ],
         "summary": "SUMMARY",
@@ -153,12 +186,13 @@
           { "$ref": "#/components/parameters/shapesGraphUri" },
           { "$ref": "#/components/parameters/shapesGraphRdf" }
         ],
+        "requestBody": { "$ref": "#/components/requestBodies/GraphRequest" },
         "responses": {
           "200": { "$ref": "#/components/responses/GraphResponse" }
         }
       }
     },
-    "/validate/report.{extension}": {
+    "/validate.{extension}": {
       "get": {
         "tags": [ "Validate" ],
         "summary": "SUMMARY",
@@ -185,57 +219,9 @@
           { "$ref": "#/components/parameters/shapesGraphUri" },
           { "$ref": "#/components/parameters/shapesGraphRdf" }
         ],
+        "requestBody": { "$ref": "#/components/requestBodies/GraphRequest" },
         "responses": {
           "200": { "$ref": "#/components/responses/GraphResponse" }
-        }
-      }
-    },
-    "/validate/body": {
-      "post": {
-        "tags": [ "Validate body" ],
-        "summary": "SUMMARY",
-        "description": "DESCRIPTION",
-        "requestBody": {
-          "description": "DESCRIPTION",
-          "required": true,
-          "content": {
-            "text/turtle": {
-              "schema": {
-                "type": "string",
-                "example": "@prefix sh: <http://www.w3.org/ns/shacl#> .\r\n@prefix ex: <http://example.com/> .\r\n\r\nex:s ex:p ex:o .\r\n\r\n[\r\n    sh:targetNode ex:s ;\r\n    sh:property ex:shape\r\n] .\r\n\r\nex:shape\r\n    sh:path ex:p ;\r\n    sh:class ex:C ."
-              }
-            },
-            "text/n-triples": {
-              "schema": {
-                "type": "string",
-                "example": "<http://example.com/s> <http://example.com/p> <http://example.com/o> .\r\n\r\n_:b1 <http://www.w3.org/ns/shacl#targetNode> <http://example.com/s> .\r\n_:b1 <http://www.w3.org/ns/shacl#property> <http://example.com/shape> .\r\n\r\n<http://example.com/shape> <http://www.w3.org/ns/shacl#path> <http://example.com/p> .\r\n<http://example.com/shape> <http://www.w3.org/ns/shacl#class> <http://example.com/C> ."
-              }
-            },
-            "application/ld+json": {
-              "schema": {
-                "type": "string",
-                "example": "{\r\n  \"@context\": {\r\n    \"sh\": \"http://www.w3.org/ns/shacl#\",\r\n    \"ex\": \"http://example.com/\"\r\n  },\r\n  \"@graph\": [{\r\n      \"@id\": \"ex:s\",\r\n      \"ex:p\": {\r\n        \"@id\": \"ex:o\"\r\n      }\r\n    }, {\r\n      \"sh:targetNode\": {\r\n        \"@id\": \"ex:s\"\r\n      },\r\n      \"sh:property\": {\r\n        \"@id\": \"ex:shape\",\r\n        \"sh:path\": {\r\n          \"@id\": \"ex:p\"\r\n        },\r\n        \"sh:class\": {\r\n          \"@id\": \"ex:C\"\r\n        }\r\n      }\r\n    }\r\n  ]\r\n}"
-              }
-            },
-            "application/rdf+xml": {
-              "schema": {
-                "type": "string",
-                "example": "<rdf:RDF xml:base=\"http://example.com/\" xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:ex=\"http://example.com/\" xmlns=\"http://www.w3.org/ns/shacl#\">\r\n  <rdf:Description rdf:about=\"s\">\r\n    <ex:p rdf:resource=\"o\"/>\r\n  </rdf:Description>\r\n  <rdf:Description>\r\n    <targetNode rdf:resource=\"s\"/>\r\n    <property>\r\n      <rdf:Description rdf:about=\"shape\">\r\n        <path rdf:resource=\"p\"/>\r\n        <class rdf:resource=\"C\"/>\r\n      </rdf:Description>\r\n    </property>\r\n  </rdf:Description>\r\n</rdf:RDF>"
-              }
-            },
-            "application/rdf+json": {
-              "schema": {
-                "type": "string",
-                "example": "{\r\n  \"http://example.com/s\": {\r\n    \"http://example.com/p\": [{\r\n        \"type\": \"uri\",\r\n        \"value\": \"http://example.com/o\"\r\n      }\r\n    ]\r\n  },\r\n  \"_:b1\": {\r\n    \"http://www.w3.org/ns/shacl#targetNode\": [{\r\n        \"type\": \"uri\",\r\n        \"value\": \"http://example.com/s\"\r\n      }\r\n    ],\r\n    \"http://www.w3.org/ns/shacl#property\": [{\r\n        \"type\": \"uri\",\r\n        \"value\": \"http://example.com/shape\"\r\n      }\r\n    ]\r\n  },\r\n  \"http://example.com/shape\": {\r\n    \"http://www.w3.org/ns/shacl#path\": [{\r\n        \"type\": \"uri\",\r\n        \"value\": \"http://example.com/p\"\r\n      }\r\n    ],\r\n    \"http://www.w3.org/ns/shacl#class\": [{\r\n        \"type\": \"uri\",\r\n        \"value\": \"http://example.com/C\"\r\n      }\r\n    ]\r\n  }\r\n}"
-              }
-            }
-          }
-
-        },
-        "responses": {
-          "200": { "$ref": "#/components/responses/GraphResponse" },
-          "400": { "description": "When the input graph is ill-formed" },
-          "415": { "description": "When the supplied Content-Type header denotes an unsupported media type" }
         }
       }
     }

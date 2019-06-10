@@ -7,7 +7,7 @@
 <div class="container">
     <h1>TITLE</h1>
     <p class="lead">LEAD</p>
-    <a asp-page="validate">VALIDATE</a>
+    <a asp-controller="validate" asp-action="index">VALIDATE</a>
     <details open>
         <summary>EXAMPLES</summary>
         <ul>
@@ -26,7 +26,7 @@
                         var u = Url.AbsoluteContent($"~/test-suite/{path}.ttl");
 
                         <li>
-                            <a asp-controller="Validate" asp-action="Default" asp-route-DataGraphUri="@u" asp-route-ShapesGraphUri="@u" asp-route-format="@format">@path (@format)</a>
+                            <a asp-controller="validate" asp-action="index" asp-fragment="report" asp-route-DataGraphUri="@u" asp-route-ShapesGraphUri="@u" asp-route-format="@format">@path (@format)</a>
                         </li>
                     }
                 }
