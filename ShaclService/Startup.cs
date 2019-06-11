@@ -3,18 +3,21 @@
     using System.Collections.Generic;
     using System.Linq;
     using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Cors.Infrastructure;
     using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Rewrite;
     using Microsoft.AspNetCore.StaticFiles;
     using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Net.Http.Headers;
     using Swashbuckle.AspNetCore.SwaggerUI;
 
     public class Startup
     {
         public void ConfigureServices(IServiceCollection services)
         {
-            // TODO: Add CORS
+            services.AddCors(ConfigureCors);
             services.AddMvc(ConfigureMvc);
         }
 
@@ -36,6 +39,7 @@
                 });
 
             app.UseRewriter(new RewriteOptions().AddRewrite("^openapi$", "swagger/index.html", false).AddRewrite("^(swagger|favicon)(.+)$", "swagger/$1$2", true));
+            app.UseCors();
             app.UseMvc();
             app.UseSwaggerUI(Startup.ConfigureSwaggerUI);
         }
@@ -64,6 +68,14 @@
         {
             swaggerUI.DocumentTitle = "dotNetRDF SHACL validator service";
             swaggerUI.SwaggerEndpoint("./openapi.json", "live");
+        }
+
+        private static void ConfigureCors(CorsOptions cors)
+        {
+            cors.AddDefaultPolicy(policy => policy
+                .AllowAnyOrigin()
+                .WithHeaders(HeaderNames.ContentType)
+                .WithMethods(HttpMethods.Post));
         }
     }
 }

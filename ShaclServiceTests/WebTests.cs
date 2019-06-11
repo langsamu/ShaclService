@@ -1,6 +1,8 @@
 namespace ShaclServiceTests
 {
+    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc.Testing;
+    using Microsoft.Net.Http.Headers;
     using Microsoft.OpenApi.Readers;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using ShaclService;
@@ -82,6 +84,32 @@ namespace ShaclServiceTests
                 using (var response = await client.SendAsync(request))
                 {
                     Assert.AreEqual(mediaType, response.Content.Headers.ContentType.MediaType);
+                }
+            }
+        }
+
+        [TestMethod]
+        public async Task Sends_CORS_headers()
+        {
+            using (var request = new HttpRequestMessage(HttpMethod.Options, "/"))
+            {
+                request.Headers.Add(HeaderNames.Origin, "example.com");
+                request.Headers.Add(HeaderNames.AccessControlRequestHeaders, HeaderNames.ContentType);
+                request.Headers.Add(HeaderNames.AccessControlRequestMethod, HttpMethods.Post);
+
+                using (var response = await client.SendAsync(request))
+                {
+                    var exists = response.Headers.TryGetValues(HeaderNames.AccessControlAllowOrigin, out var values);
+                    Assert.IsTrue(exists);
+                    Assert.IsTrue(values.Contains("*"));
+
+                    exists = response.Headers.TryGetValues(HeaderNames.AccessControlAllowHeaders, out values);
+                    Assert.IsTrue(exists);
+                    Assert.IsTrue(values.Contains(HeaderNames.ContentType));
+
+                    exists = response.Headers.TryGetValues(HeaderNames.AccessControlAllowMethods, out values);
+                    Assert.IsTrue(exists);
+                    Assert.IsTrue(values.Contains(HttpMethods.Post));
                 }
             }
         }
