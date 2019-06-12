@@ -68,6 +68,7 @@
         {
             swaggerUI.DocumentTitle = "dotNetRDF SHACL validator service";
             swaggerUI.SwaggerEndpoint("./openapi.json", "live");
+            swaggerUI.ConfigObject.DefaultModelsExpandDepth = -1;
         }
 
         private static void ConfigureCors(CorsOptions cors)

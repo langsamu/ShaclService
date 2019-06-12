@@ -2,7 +2,7 @@
   "openapi": "3.0.1",
   "info": {
     "title": "dotNetRDF SHACL validator service",
-    "description": "DESCRIPTION",
+    "description": "- TODO: CORS\n\n- TODO: PR\n\n- TODO: spec\n\n- TODO: implementation report",
     "contact": {
       "name": "Samu Láng",
       "url": "https://twitter.com/langsamu"
@@ -21,7 +21,7 @@
   "tags": [
     {
       "name": "Validate",
-      "description": "DESCRIPTION"
+      "description": "Endpoints for validating data graphs agains SHACL shapes graphs."
     }
   ],
   "externalDocs": {
@@ -31,43 +31,31 @@
   "components": {
     "responses": {
       "GraphResponse": {
-        "description": "GraphResponse DESCRIPTION",
+        "description": "An RDF document representing the SHACL validation report graph result.",
         "content": {
           "text/html": {
-            "schema": {
-              "type": "string",
-              "example": "<dl typeof=\"sh:ValidationReport\" prefix=\"sh: http://www.w3.org/ns/shacl# xsd: http://www.w3.org/2001/XMLSchema#\" lang=\"\">\r\n  <dt>Conforms</dt>\r\n  <dd rel=\"sh:conforms\" datatype=\"xsd:boolean\">False</dd>\r\n  <dt>Results</dt>\r\n  <dd>\r\n    <ul>\r\n      <li rel=\"sh:result\" typeof=\"sh:ValidationResult\">\r\n        <dl>\r\n          <dt>Focus node</dt>\r\n          <dd rel=\"sh:focusNode\">\r\n            <a href=\"http://example.com/s\">http://example.com/s</a>\r\n          </dd>\r\n          <dt>Path</dt>\r\n          <dd rel=\"sh:resultPath\">\r\n            <a href=\"http://example.com/p\">http://example.com/p</a>\r\n          </dd>\r\n          <dt>Value</dt>\r\n          <dd rel=\"sh:value\">\r\n            <a href=\"http://example.com/o\">http://example.com/o</a>\r\n          </dd>\r\n          <dt>Shape</dt>\r\n          <dd rel=\"sh:sourceShape\">\r\n            <a href=\"http://example.com/shape\">http://example.com/shape</a>\r\n          </dd>\r\n          <dt>Source constraint component</dt>\r\n          <dd rel=\"sh:sourceConstraintComponent\">\r\n            <a href=\"http://www.w3.org/ns/shacl#PatternConstraintComponent\">sh:PatternConstraintComponent</a>\r\n          </dd>\r\n          <dt>Severity</dt>\r\n          <dd rel=\"sh:resultSeverity\">\r\n            <a href=\"http://www.w3.org/ns/shacl#Violation\">sh:Violation</a>\r\n          </dd>\r\n        </dl>\r\n      </li>\r\n    </ul>\r\n  </dd>\r\n</dl>"
-            }
+            "schema": { "$ref": "#/components/schemas/rdfa" },
+            "example": "<dl typeof=\"sh:ValidationReport\" prefix=\"sh: http://www.w3.org/ns/shacl# xsd: http://www.w3.org/2001/XMLSchema#\" lang=\"\">\n  <dt>Conforms</dt>\n  <dd rel=\"sh:conforms\" datatype=\"xsd:boolean\">False</dd>\n  <dt>Results</dt>\n  <dd>\n    <ul>\n      <li rel=\"sh:result\" typeof=\"sh:ValidationResult\">\n        <dl>\n          <dt>Focus node</dt>\n          <dd rel=\"sh:focusNode\">\n            <a href=\"http://example.com/s\">http://example.com/s</a>\n          </dd>\n          <dt>Path</dt>\n          <dd rel=\"sh:resultPath\">\n            <a href=\"http://example.com/p\">http://example.com/p</a>\n          </dd>\n          <dt>Value</dt>\n          <dd rel=\"sh:value\">\n            <a href=\"http://example.com/o\">http://example.com/o</a>\n          </dd>\n          <dt>Shape</dt>\n          <dd rel=\"sh:sourceShape\">\n            <a href=\"http://example.com/shape\">http://example.com/shape</a>\n          </dd>\n          <dt>Source constraint component</dt>\n          <dd rel=\"sh:sourceConstraintComponent\">\n            <a href=\"http://www.w3.org/ns/shacl#PatternConstraintComponent\">sh:PatternConstraintComponent</a>\n          </dd>\n          <dt>Severity</dt>\n          <dd rel=\"sh:resultSeverity\">\n            <a href=\"http://www.w3.org/ns/shacl#Violation\">sh:Violation</a>\n          </dd>\n        </dl>\n      </li>\n    </ul>\n  </dd>\n</dl>"
           },
           "text/turtle": {
-            "schema": {
-              "type": "string",
-              "example": "@prefix sh: <http://www.w3.org/ns/shacl#> .\r\n@prefix ex: <http://example.com/> .\r\n\r\n[\r\n  a sh:ValidationReport ;\r\n  sh:result [\r\n    a sh:ValidationResult ;\r\n    sh:focusNode ex:s ;\r\n    sh:resultPath ex:p ;\r\n    sh:value ex:o ;\r\n    sh:sourceShape ex:shape ;\r\n    sh:resultSeverity sh:Violation ;\r\n    sh:sourceConstraintComponent sh:PatternConstraintComponent\r\n  ]\r\n] ."
-            }
+            "schema": { "$ref": "#/components/schemas/turtle" },
+            "example": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix ex: <http://example.com/> .\n\n[\n  a sh:ValidationReport ;\n  sh:result [\n    a sh:ValidationResult ;\n    sh:focusNode ex:s ;\n    sh:resultPath ex:p ;\n    sh:value ex:o ;\n    sh:sourceShape ex:shape ;\n    sh:resultSeverity sh:Violation ;\n    sh:sourceConstraintComponent sh:PatternConstraintComponent\n  ]\n] ."
           },
           "text/n-triples": {
-            "schema": {
-              "type": "string",
-              "example": "_:b1 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/shacl#ValidationReport> .\r\n_:b1 <http://www.w3.org/ns/shacl#result> _:b2 .\r\n_:b2 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/shacl#ValidationResult> .\r\n_:b2 <http://www.w3.org/ns/shacl#focusNode> <http://example.com/s> .\r\n_:b2 <http://www.w3.org/ns/shacl#resultPath> <http://example.com/p> .\r\n_:b2 <http://www.w3.org/ns/shacl#value> <http://example.com/o> .\r\n_:b2 <http://www.w3.org/ns/shacl#sourceShape> <http://example.com/shape> .\r\n_:b2 <http://www.w3.org/ns/shacl#resultSeverity> <http://www.w3.org/ns/shacl#Violation> .\r\n_:b2 <http://www.w3.org/ns/shacl#sourceConstraintComponent> <http://www.w3.org/ns/shacl#PatternConstraintComponent> ."
-            }
+            "schema": { "$ref": "#/components/schemas/ntriples" },
+            "example": "_:b1 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/shacl#ValidationReport> .\n_:b1 <http://www.w3.org/ns/shacl#result> _:b2 .\n_:b2 <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/shacl#ValidationResult> .\n_:b2 <http://www.w3.org/ns/shacl#focusNode> <http://example.com/s> .\n_:b2 <http://www.w3.org/ns/shacl#resultPath> <http://example.com/p> .\n_:b2 <http://www.w3.org/ns/shacl#value> <http://example.com/o> .\n_:b2 <http://www.w3.org/ns/shacl#sourceShape> <http://example.com/shape> .\n_:b2 <http://www.w3.org/ns/shacl#resultSeverity> <http://www.w3.org/ns/shacl#Violation> .\n_:b2 <http://www.w3.org/ns/shacl#sourceConstraintComponent> <http://www.w3.org/ns/shacl#PatternConstraintComponent> ."
           },
           "application/ld+json": {
-            "schema": {
-              "type": "string",
-              "example": "{\r\n  \"@context\":{\r\n    \"sh\":\"http://www.w3.org/ns/shacl#\",\r\n    \"ex\":\"http://example.com/\"\r\n  },\r\n  \"@type\": \"sh:ValidationReport\",\r\n  \"sh:result\": {\r\n    \"@type\": \"sh:ValidationResult\",\r\n    \"sh:focusNode\": {\r\n      \"@id\": \"ex:s\"\r\n    },\r\n    \"sh:resultPath\": {\r\n      \"@id\": \"ex:p\"\r\n    },\r\n    \"sh:value\": {\r\n      \"@id\": \"ex:o\"\r\n    },\r\n    \"sh:sourceShape\": {\r\n      \"@id\": \"ex:shape\"\r\n    },\r\n    \"sh:resultSeverity\": {\r\n      \"@id\": \"sh:Violation\"\r\n    },\r\n    \"sh:sourceConstraintComponent\": {\r\n      \"@id\": \"sh:PatternConstraintComponent\"\r\n    }\r\n  }\r\n}"
-            }
+            "schema": { "$ref": "#/components/schemas/jsonld" },
+            "example": "{\n  \"@context\":{\n    \"sh\":\"http://www.w3.org/ns/shacl#\",\n    \"ex\":\"http://example.com/\"\n  },\n  \"@type\": \"sh:ValidationReport\",\n  \"sh:result\": {\n    \"@type\": \"sh:ValidationResult\",\n    \"sh:focusNode\": {\n      \"@id\": \"ex:s\"\n    },\n    \"sh:resultPath\": {\n      \"@id\": \"ex:p\"\n    },\n    \"sh:value\": {\n      \"@id\": \"ex:o\"\n    },\n    \"sh:sourceShape\": {\n      \"@id\": \"ex:shape\"\n    },\n    \"sh:resultSeverity\": {\n      \"@id\": \"sh:Violation\"\n    },\n    \"sh:sourceConstraintComponent\": {\n      \"@id\": \"sh:PatternConstraintComponent\"\n    }\n  }\n}"
           },
           "application/rdf+xml": {
-            "schema": {
-              "type": "string",
-              "example": "<rdf:RDF xml:base=\"http://example.com\" xmlns=\"http://www.w3.org/ns/shacl#\" xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\">\r\n  <ValidationReport>\r\n    <result>\r\n      <ValidationResult>\r\n        <focusNode resource=\"s\" />\r\n        <resultPath resource=\"p\" />\r\n        <value resource=\"o\" />\r\n        <sourceShape resource=\"shape\" />\r\n        <resultSeverity resource=\"http://www.w3.org/ns/shacl#Violation\" />\r\n        <sourceConstraintComponent resource=\"http://www.w3.org/ns/shacl#PatternConstraintComponent\" />\r\n      </ValidationResult>\r\n    </result>\r\n  </ValidationReport>\r\n</rdf:RDF>"
-            }
+            "schema": { "$ref": "#/components/schemas/rdfxml" },
+            "example": "<rdf:RDF xml:base=\"http://example.com\" xmlns=\"http://www.w3.org/ns/shacl#\" xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\">\n  <ValidationReport>\n    <result>\n      <ValidationResult>\n        <focusNode resource=\"s\" />\n        <resultPath resource=\"p\" />\n        <value resource=\"o\" />\n        <sourceShape resource=\"shape\" />\n        <resultSeverity resource=\"http://www.w3.org/ns/shacl#Violation\" />\n        <sourceConstraintComponent resource=\"http://www.w3.org/ns/shacl#PatternConstraintComponent\" />\n      </ValidationResult>\n    </result>\n  </ValidationReport>\n</rdf:RDF>"
           },
           "application/rdf+json": {
-            "schema": {
-              "type": "string",
-              "example": "{\r\n  \"_:b1\": {\r\n    \"http://www.w3.org/1999/02/22-rdf-syntax-ns#type\": [{\r\n        \"type\": \"uri\",\r\n        \"value\": \"http://www.w3.org/ns/shacl#ValidationReport\"\r\n      }\r\n    ],\r\n    \"http://www.w3.org/ns/shacl#result\": [{\r\n        \"type\": \"bnode\",\r\n        \"value\": \"_:b2\"\r\n      }\r\n    ]\r\n  },\r\n  \"_:b2\": {\r\n    \"http://www.w3.org/1999/02/22-rdf-syntax-ns#type\": [{\r\n        \"type\": \"uri\",\r\n        \"value\": \"http://www.w3.org/ns/shacl#ValidationResult\"\r\n      }\r\n    ],\r\n    \"http://www.w3.org/ns/shacl#focusNode\": [{\r\n        \"type\": \"uri\",\r\n        \"value\": \"http://example.com/s\"\r\n      }\r\n    ],\r\n    \"http://www.w3.org/ns/shacl#resultPath\": [{\r\n        \"type\": \"uri\",\r\n        \"value\": \"http://example.com/p\"\r\n      }\r\n    ],\r\n    \"http://www.w3.org/ns/shacl#value\": [{\r\n        \"type\": \"uri\",\r\n        \"value\": \"http://example.com/o\"\r\n      }\r\n    ],\r\n    \"http://www.w3.org/ns/shacl#sourceShape\": [{\r\n        \"type\": \"uri\",\r\n        \"value\": \"http://example.com/shape\"\r\n      }\r\n    ],\r\n    \"http://www.w3.org/ns/shacl#resultSeverity\": [{\r\n        \"type\": \"uri\",\r\n        \"value\": \"http://www.w3.org/ns/shacl#Violation\"\r\n      }\r\n    ],\r\n    \"http://www.w3.org/ns/shacl#sourceConstraintComponent\": [{\r\n        \"type\": \"uri\",\r\n        \"value\": \"http://www.w3.org/ns/shacl#PatternConstraintComponent\"\r\n      }\r\n    ]\r\n  }\r\n}"
-            }
+            "schema": { "$ref": "#/components/schemas/rdfjson" },
+            "example": "{\n  \"_:b1\": {\n    \"http://www.w3.org/1999/02/22-rdf-syntax-ns#type\": [{\n        \"type\": \"uri\",\n        \"value\": \"http://www.w3.org/ns/shacl#ValidationReport\"\n      }\n    ],\n    \"http://www.w3.org/ns/shacl#result\": [{\n        \"type\": \"bnode\",\n        \"value\": \"_:b2\"\n      }\n    ]\n  },\n  \"_:b2\": {\n    \"http://www.w3.org/1999/02/22-rdf-syntax-ns#type\": [{\n        \"type\": \"uri\",\n        \"value\": \"http://www.w3.org/ns/shacl#ValidationResult\"\n      }\n    ],\n    \"http://www.w3.org/ns/shacl#focusNode\": [{\n        \"type\": \"uri\",\n        \"value\": \"http://example.com/s\"\n      }\n    ],\n    \"http://www.w3.org/ns/shacl#resultPath\": [{\n        \"type\": \"uri\",\n        \"value\": \"http://example.com/p\"\n      }\n    ],\n    \"http://www.w3.org/ns/shacl#value\": [{\n        \"type\": \"uri\",\n        \"value\": \"http://example.com/o\"\n      }\n    ],\n    \"http://www.w3.org/ns/shacl#sourceShape\": [{\n        \"type\": \"uri\",\n        \"value\": \"http://example.com/shape\"\n      }\n    ],\n    \"http://www.w3.org/ns/shacl#resultSeverity\": [{\n        \"type\": \"uri\",\n        \"value\": \"http://www.w3.org/ns/shacl#Violation\"\n      }\n    ],\n    \"http://www.w3.org/ns/shacl#sourceConstraintComponent\": [{\n        \"type\": \"uri\",\n        \"value\": \"http://www.w3.org/ns/shacl#PatternConstraintComponent\"\n      }\n    ]\n  }\n}"
           }
         }
       }
@@ -75,17 +63,18 @@
     "parameters": {
       "extension": {
         "name": "extension",
-        "description": "DESCRIPTION",
+        "description": "An optional 'file extension' that controls the validation report serialisation format.\n\nOverrides the Accept request header.",
         "in": "path",
         "required": true,
+        "allowEmptyValue": true,
         "schema": {
           "type": "string",
-          "enum": [ "html", "ttl", "nt", "json", "xml", "rj" ]
+          "enum": [ "", ".html", ".ttl", ".nt", ".json", ".xml", ".rj" ]
         }
       },
       "dataGraphUri": {
         "name": "dataGraphUri",
-        "description": "DATAGRAPHURI",
+        "description": "An optional URI string where the data graph is loaded from.\n\nOverrides the dataGraphRdf parameter.",
         "in": "query",
         "schema": {
           "type": "string",
@@ -95,16 +84,16 @@
       },
       "dataGraphRdf": {
         "name": "dataGraphRdf",
-        "description": "DATAGRAPHRDF",
+        "description": "An optional RDF string representing the data graph.\n\nOverridden by the dataGraphUri parameter.",
         "in": "query",
         "schema": {
           "type": "string"
         },
-        "example": "@prefix ex: <http://example.com/> .\r\n\r\nex:s ex:p ex:o ."
+        "example": "@prefix ex: <http://example.com/> .\n\nex:s ex:p ex:o ."
       },
       "shapesGraphUri": {
         "name": "shapesGraphUri",
-        "description": "SHAPESGRAPHURI",
+        "description": "An optional URI string where the shapes graph is loaded from.\n\nOverrides the shapesGraphRdf parameter.",
         "in": "query",
         "schema": {
           "type": "string",
@@ -114,89 +103,93 @@
       },
       "shapesGraphRdf": {
         "name": "shapesGraphRdf",
-        "description": "SHAPESGRAPHRDF",
+        "description": "An optional RDF string representing the shapes graph.\n\nOverridden by the shapesGraphUri parameter.",
         "in": "query",
         "schema": {
           "type": "string"
         },
-        "example": "@prefix sh: <http://www.w3.org/ns/shacl#> .\r\n@prefix ex: <http://example.com/> .\r\n\r\n[\r\n    sh:targetNode ex:s ;\r\n    sh:property ex:shape\r\n] .\r\n\r\nex:shape\r\n    sh:path ex:p ;\r\n    sh:class ex:C ."
+        "example": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix ex: <http://example.com/> .\n\n[\n    sh:targetNode ex:s ;\n    sh:property ex:shape\n] .\n\nex:shape\n    sh:path ex:p ;\n    sh:class ex:C ."
       }
     },
     "requestBodies": {
       "GraphRequest": {
-        "description": "DESCRIPTION",
+        "description": "An optional RDF document representing a graph that contains both data to be validated and SHACL shapes to validate it.",
         "content": {
           "text/turtle": {
-            "schema": {
-              "type": "string",
-              "example": "@prefix sh: <http://www.w3.org/ns/shacl#> .\r\n@prefix ex: <http://example.com/> .\r\n\r\nex:s ex:p ex:o .\r\n\r\n[\r\n    sh:targetNode ex:s ;\r\n    sh:property ex:shape\r\n] .\r\n\r\nex:shape\r\n    sh:path ex:p ;\r\n    sh:class ex:C ."
-            }
+            "schema": { "$ref": "#/components/schemas/turtle" },
+            "example": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix ex: <http://example.com/> .\n\nex:s ex:p ex:o .\n\n[\n    sh:targetNode ex:s ;\n    sh:property ex:shape\n] .\n\nex:shape\n    sh:path ex:p ;\n    sh:class ex:C ."
           },
           "text/n-triples": {
-            "schema": {
-              "type": "string",
-              "example": "<http://example.com/s> <http://example.com/p> <http://example.com/o> .\r\n\r\n_:b1 <http://www.w3.org/ns/shacl#targetNode> <http://example.com/s> .\r\n_:b1 <http://www.w3.org/ns/shacl#property> <http://example.com/shape> .\r\n\r\n<http://example.com/shape> <http://www.w3.org/ns/shacl#path> <http://example.com/p> .\r\n<http://example.com/shape> <http://www.w3.org/ns/shacl#class> <http://example.com/C> ."
-            }
+            "schema": { "$ref": "#/components/schemas/ntriples" },
+            "example": "<http://example.com/s> <http://example.com/p> <http://example.com/o> .\n\n_:b1 <http://www.w3.org/ns/shacl#targetNode> <http://example.com/s> .\n_:b1 <http://www.w3.org/ns/shacl#property> <http://example.com/shape> .\n\n<http://example.com/shape> <http://www.w3.org/ns/shacl#path> <http://example.com/p> .\n<http://example.com/shape> <http://www.w3.org/ns/shacl#class> <http://example.com/C> ."
           },
           "application/ld+json": {
-            "schema": {
-              "type": "string",
-              "example": "{\r\n  \"@context\": {\r\n    \"sh\": \"http://www.w3.org/ns/shacl#\",\r\n    \"ex\": \"http://example.com/\"\r\n  },\r\n  \"@graph\": [{\r\n      \"@id\": \"ex:s\",\r\n      \"ex:p\": {\r\n        \"@id\": \"ex:o\"\r\n      }\r\n    }, {\r\n      \"sh:targetNode\": {\r\n        \"@id\": \"ex:s\"\r\n      },\r\n      \"sh:property\": {\r\n        \"@id\": \"ex:shape\",\r\n        \"sh:path\": {\r\n          \"@id\": \"ex:p\"\r\n        },\r\n        \"sh:class\": {\r\n          \"@id\": \"ex:C\"\r\n        }\r\n      }\r\n    }\r\n  ]\r\n}"
-            }
+            "schema": { "$ref": "#/components/schemas/jsonld" },
+            "example": "{\n  \"@context\": {\n    \"sh\": \"http://www.w3.org/ns/shacl#\",\n    \"ex\": \"http://example.com/\"\n  },\n  \"@graph\": [{\n      \"@id\": \"ex:s\",\n      \"ex:p\": {\n        \"@id\": \"ex:o\"\n      }\n    }, {\n      \"sh:targetNode\": {\n        \"@id\": \"ex:s\"\n      },\n      \"sh:property\": {\n        \"@id\": \"ex:shape\",\n        \"sh:path\": {\n          \"@id\": \"ex:p\"\n        },\n        \"sh:class\": {\n          \"@id\": \"ex:C\"\n        }\n      }\n    }\n  ]\n}"
           },
           "application/rdf+xml": {
-            "schema": {
-              "type": "string",
-              "example": "<rdf:RDF xml:base=\"http://example.com/\" xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:ex=\"http://example.com/\" xmlns=\"http://www.w3.org/ns/shacl#\">\r\n  <rdf:Description rdf:about=\"s\">\r\n    <ex:p rdf:resource=\"o\"/>\r\n  </rdf:Description>\r\n  <rdf:Description>\r\n    <targetNode rdf:resource=\"s\"/>\r\n    <property>\r\n      <rdf:Description rdf:about=\"shape\">\r\n        <path rdf:resource=\"p\"/>\r\n        <class rdf:resource=\"C\"/>\r\n      </rdf:Description>\r\n    </property>\r\n  </rdf:Description>\r\n</rdf:RDF>"
-            }
+            "schema": { "$ref": "#/components/schemas/rdfxml" },
+            "example": "<rdf:RDF xml:base=\"http://example.com/\" xmlns:rdf=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#\" xmlns:ex=\"http://example.com/\" xmlns=\"http://www.w3.org/ns/shacl#\">\n  <rdf:Description rdf:about=\"s\">\n    <ex:p rdf:resource=\"o\"/>\n  </rdf:Description>\n  <rdf:Description>\n    <targetNode rdf:resource=\"s\"/>\n    <property>\n      <rdf:Description rdf:about=\"shape\">\n        <path rdf:resource=\"p\"/>\n        <class rdf:resource=\"C\"/>\n      </rdf:Description>\n    </property>\n  </rdf:Description>\n</rdf:RDF>"
           },
           "application/rdf+json": {
-            "schema": {
-              "type": "string",
-              "example": "{\r\n  \"http://example.com/s\": {\r\n    \"http://example.com/p\": [{\r\n        \"type\": \"uri\",\r\n        \"value\": \"http://example.com/o\"\r\n      }\r\n    ]\r\n  },\r\n  \"_:b1\": {\r\n    \"http://www.w3.org/ns/shacl#targetNode\": [{\r\n        \"type\": \"uri\",\r\n        \"value\": \"http://example.com/s\"\r\n      }\r\n    ],\r\n    \"http://www.w3.org/ns/shacl#property\": [{\r\n        \"type\": \"uri\",\r\n        \"value\": \"http://example.com/shape\"\r\n      }\r\n    ]\r\n  },\r\n  \"http://example.com/shape\": {\r\n    \"http://www.w3.org/ns/shacl#path\": [{\r\n        \"type\": \"uri\",\r\n        \"value\": \"http://example.com/p\"\r\n      }\r\n    ],\r\n    \"http://www.w3.org/ns/shacl#class\": [{\r\n        \"type\": \"uri\",\r\n        \"value\": \"http://example.com/C\"\r\n      }\r\n    ]\r\n  }\r\n}"
-            }
+            "schema": { "$ref": "#/components/schemas/rdfjson" },
+            "example": "{\n  \"http://example.com/s\": {\n    \"http://example.com/p\": [{\n        \"type\": \"uri\",\n        \"value\": \"http://example.com/o\"\n      }\n    ]\n  },\n  \"_:b1\": {\n    \"http://www.w3.org/ns/shacl#targetNode\": [{\n        \"type\": \"uri\",\n        \"value\": \"http://example.com/s\"\n      }\n    ],\n    \"http://www.w3.org/ns/shacl#property\": [{\n        \"type\": \"uri\",\n        \"value\": \"http://example.com/shape\"\n      }\n    ]\n  },\n  \"http://example.com/shape\": {\n    \"http://www.w3.org/ns/shacl#path\": [{\n        \"type\": \"uri\",\n        \"value\": \"http://example.com/p\"\n      }\n    ],\n    \"http://www.w3.org/ns/shacl#class\": [{\n        \"type\": \"uri\",\n        \"value\": \"http://example.com/C\"\n      }\n    ]\n  }\n}"
           }
         }
+      }
+    },
+    "schemas": {
+      "rdfa": {
+        "description": "HTML+RDFa 1.1",
+        "externalDocs": {
+          "url": "https://www.w3.org/TR/html-rdfa/"
+        },
+        "type": "string"
+      },
+      "turtle": {
+        "description": "RDF 1.1 Turtle",
+        "externalDocs": {
+          "url": "https://www.w3.org/TR/turtle/"
+        },
+        "type": "string"
+      },
+      "ntriples": {
+        "description": "RDF 1.1 N-Triples",
+        "externalDocs": {
+          "url": "https://www.w3.org/TR/n-triples/"
+        },
+        "type": "string"
+      },
+      "jsonld": {
+        "description": "JSON-LD 1.0",
+        "externalDocs": {
+          "url": "https://www.w3.org/TR/json-ld/"
+        },
+        "type": "string"
+      },
+      "rdfxml": {
+        "description": "RDF 1.1 XML Syntax",
+        "externalDocs": {
+          "url": "https://www.w3.org/TR/rdf-syntax-grammar/"
+        },
+        "type": "string"
+      },
+      "rdfjson": {
+        "description": "RDF 1.1 JSON Alternate Serialization (RDF/JSON)",
+        "externalDocs": {
+          "url": "https://www.w3.org/TR/rdf-json/"
+        },
+        "type": "string"
       }
     }
   },
   "paths": {
-    "/validate": {
+    "/validate{extension}": {
       "get": {
+        "operationId": "getValidate",
         "tags": [ "Validate" ],
-        "summary": "SUMMARY",
-        "description": "DESCRIPTION",
-        "parameters": [
-          { "$ref": "#/components/parameters/dataGraphUri" },
-          { "$ref": "#/components/parameters/dataGraphRdf" },
-          { "$ref": "#/components/parameters/shapesGraphUri" },
-          { "$ref": "#/components/parameters/shapesGraphRdf" }
-        ],
-        "responses": {
-          "200": { "$ref": "#/components/responses/GraphResponse" }
-        }
-      },
-      "post": {
-        "tags": [ "Validate" ],
-        "summary": "SUMMARY",
-        "description": "DESCRIPTION",
-        "parameters": [
-          { "$ref": "#/components/parameters/dataGraphUri" },
-          { "$ref": "#/components/parameters/dataGraphRdf" },
-          { "$ref": "#/components/parameters/shapesGraphUri" },
-          { "$ref": "#/components/parameters/shapesGraphRdf" }
-        ],
-        "requestBody": { "$ref": "#/components/requestBodies/GraphRequest" },
-        "responses": {
-          "200": { "$ref": "#/components/responses/GraphResponse" }
-        }
-      }
-    },
-    "/validate.{extension}": {
-      "get": {
-        "tags": [ "Validate" ],
-        "summary": "SUMMARY",
-        "description": "extension path parameter overrides accept header",
+        "summary": "Validate with query string parameters",
+        "description": "### Validates a data graph against a SHACL shapes graph and returns a SHACL validation report graph.\n\n- Input graphs are specified as query string parameters.\n\n- Input graphs can be given as either URIs or RDF.\n\n- URI parameters take precedence over RDF parameters.\n\n- The following combinations of parameters can be used:\n\n  - DataGraphUri & ShapesGraphUri\n\n  - DataGraphUri & ShapesGraphRdf\n\n  - DataGraphRdf & ShapesGraphUri\n\n  - DataGraphRdf & ShapesGraphRdf\n\n- Input graph serialisation format is auto-detected.\n\n  - For RDF parameters the format is chosen based on heuristics by dotNetRDF's [StringParser](https://github.com/dotnetrdf/dotnetrdf/blob/2d8c65f9fd49d8d90e9eedabe709631f99e06207/Libraries/dotNetRDF/Parsing/StringParser.cs#L84-L97).\n\n  - For URI parameters the format is chosen based on the response Content-Type header by dotNetRDF's [MimeTypeHelper](https://github.com/dotnetrdf/dotnetrdf/blob/2d8c65f9fd49d8d90e9eedabe709631f99e06207/Libraries/dotNetRDF/Core/MIMETypesHelper.cs).\n\n- Output graph serialisation format is controlled by the Accept request header. Supported ouput formats:\n\n  - RDFa (default)\n\n  - Turtle\n\n  - N-Triples\n\n  - JSON-LD\n\n  - RDF/XML\n\n  - RDF/JSON\n\n- An 'extension' route parameter can be used to override output format. Supported 'extensions':\n\n  - html (RDFa)\n\n  - ttl (Turtle)\n\n  - nt (N-Triples)\n\n  - json (JSON-LD)\n\n  - xml (RDF/XML)\n\n  - rj (RDF/JSON)",
         "parameters": [
           { "$ref": "#/components/parameters/extension" },
           { "$ref": "#/components/parameters/dataGraphUri" },
@@ -209,9 +202,10 @@
         }
       },
       "post": {
+        "operationId": "postValidate",
         "tags": [ "Validate" ],
-        "summary": "SUMMARY",
-        "description": "DESCRIPTION",
+        "summary": "Validate with either request body, query string or form parameters",
+        "description": "### Validates a data graph against a SHACL shapes graph and returns a SHACL validation report graph.\n\n- Input graphs are specified as either request body, query string parameters or form parameters.\n\n- When using parameters (not request body), input graphs can be given as either URIs or RDF.\n\n- URI parameters take precedence over RDF parameters.\n\n- When using request body, data graph and shapes graph must both be in the same graph.\n\n- The following combinations of parameters can be used:\n\n  - DataGraphUri & ShapesGraphUri\n\n  - DataGraphUri & ShapesGraphRdf\n\n  - DataGraphRdf & ShapesGraphUri\n\n  - DataGraphRdf & ShapesGraphRdf\n\n  - Request body\n\n- Input graph serialisation format is auto-detected.\n\n  - For RDF parameters the format is chosen based on heuristics by dotNetRDF's [StringParser](https://github.com/dotnetrdf/dotnetrdf/blob/2d8c65f9fd49d8d90e9eedabe709631f99e06207/Libraries/dotNetRDF/Parsing/StringParser.cs#L84-L97).\n\n  - For URI parameters the format is chosen based on the response Content-Type header by dotNetRDF's [MimeTypeHelper](https://github.com/dotnetrdf/dotnetrdf/blob/2d8c65f9fd49d8d90e9eedabe709631f99e06207/Libraries/dotNetRDF/Core/MIMETypesHelper.cs).\n\n- Output graph serialisation format is controlled by the Accept request header. Supported ouput formats:\n\n  - RDFa (default)\n\n  - Turtle\n\n  - N-Triples\n\n  - JSON-LD\n\n  - RDF/XML\n\n  - RDF/JSON\n\n- An 'extension' route parameter can be used to override output format. Supported 'extensions':\n\n  - html (RDFa)\n\n  - ttl (Turtle)\n\n  - nt (N-Triples)\n\n  - json (JSON-LD)\n\n  - xml (RDF/XML)\n\n  - rj (RDF/JSON)",
         "parameters": [
           { "$ref": "#/components/parameters/extension" },
           { "$ref": "#/components/parameters/dataGraphUri" },
