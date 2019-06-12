@@ -4,15 +4,18 @@
     ViewBag.Description = "DESCRIPTION";
 }
 
-<div class="container">
+<details class="container" open="@(Model.Report is null ? string.Empty : null)">
+    <summary>Form</summary>
     <h1>TITLE</h1>
     <p class="lead">LEAD</p>
-    <partial name="Form" model="@Model.Parameters" />
-</div>
+    <partial name="Form" model="Model.Parameters" />
+</details>
 
 @if (Model.Report != null)
 {
-    <div class="container" id="report">
-        <partial name="Report" model="@Model.Report" />
-    </div>
+    <section id="report" class="container">
+        <h1>TITLE</h1>
+        <p class="lead">LEAD</p>
+        <partial name="Report" model="Model.Report" />
+    </section>
 }
