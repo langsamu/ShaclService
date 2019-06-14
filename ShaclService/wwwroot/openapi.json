@@ -60,6 +60,10 @@
           "application/rdf+json": {
             "schema": { "$ref": "#/components/schemas/rdfjson" },
             "example": "{\n  \"_:b1\": {\n    \"http://www.w3.org/1999/02/22-rdf-syntax-ns#type\": [{\n        \"type\": \"uri\",\n        \"value\": \"http://www.w3.org/ns/shacl#ValidationReport\"\n      }\n    ],\n    \"http://www.w3.org/ns/shacl#result\": [{\n        \"type\": \"bnode\",\n        \"value\": \"_:b2\"\n      }\n    ]\n  },\n  \"_:b2\": {\n    \"http://www.w3.org/1999/02/22-rdf-syntax-ns#type\": [{\n        \"type\": \"uri\",\n        \"value\": \"http://www.w3.org/ns/shacl#ValidationResult\"\n      }\n    ],\n    \"http://www.w3.org/ns/shacl#focusNode\": [{\n        \"type\": \"uri\",\n        \"value\": \"http://example.com/s\"\n      }\n    ],\n    \"http://www.w3.org/ns/shacl#resultPath\": [{\n        \"type\": \"uri\",\n        \"value\": \"http://example.com/p\"\n      }\n    ],\n    \"http://www.w3.org/ns/shacl#value\": [{\n        \"type\": \"uri\",\n        \"value\": \"http://example.com/o\"\n      }\n    ],\n    \"http://www.w3.org/ns/shacl#sourceShape\": [{\n        \"type\": \"uri\",\n        \"value\": \"http://example.com/shape\"\n      }\n    ],\n    \"http://www.w3.org/ns/shacl#resultSeverity\": [{\n        \"type\": \"uri\",\n        \"value\": \"http://www.w3.org/ns/shacl#Violation\"\n      }\n    ],\n    \"http://www.w3.org/ns/shacl#sourceConstraintComponent\": [{\n        \"type\": \"uri\",\n        \"value\": \"http://www.w3.org/ns/shacl#PatternConstraintComponent\"\n      }\n    ]\n  }\n}"
+          },
+          "text/csv": {
+            "schema": { "$ref": "#/components/schemas/csv" },
+            "example": "focusNode,resultPath,value,sourceShape,sourceConstraint,sourceConstraintComponent,resultSeverity,resultMessage\nhttp://example.com/s,http://example.com/p,http://example.com/o,http://example.com/shape,,http://www.w3.org/ns/shacl#ClassConstraintComponent,http://www.w3.org/ns/shacl#Violation,\n"
           }
         }
       },
@@ -182,6 +186,13 @@
         },
         "type": "string"
       },
+      "csv": {
+        "description": "Common Format and MIME Type for Comma-Separated Values (CSV) Files",
+        "externalDocs": {
+          "url": "https://tools.ietf.org/html/rfc4180"
+        },
+        "type": "string"
+      },
       "dataGraphUri": {
         "description": "DESCRIPTION",
         "type": "string",
@@ -215,7 +226,7 @@
       },
       "format": {
         "type": "string",
-        "enum": [ "html", "ttl", "nt", "json", "xml", "rj" ]
+        "enum": [ "html", "ttl", "nt", "json", "xml", "rj", "csv" ]
       }
     }
   },

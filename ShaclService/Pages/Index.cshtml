@@ -21,7 +21,7 @@
                     "core/complex/shacl-shacl-data-shapes",
                     "sparql/node/prefixes-001"
                 };
-                var formats = new[] { "html", "ttl", "rj" };
+                var formats = Configuration.MediaTypes.Select(m => m.Extension);
                 foreach (var path in paths)
                 {
                     var u = Url.AbsoluteContent($"~/test-suite/{path}.ttl");
