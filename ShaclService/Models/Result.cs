@@ -29,5 +29,7 @@
         public INode Value => Shacl.Value.ObjectsOf(this).SingleOrDefault();
 
         public INode Message => Shacl.ResultMessage.ObjectsOf(this).SingleOrDefault();
+
+        public INode SourceConstraint => Shacl.SourceConstraint.ObjectsOf(this).SingleOrDefault();
     }
 }

@@ -45,6 +45,13 @@
                             <dd rel="sh:sourceShape">
                                 <partial name="Node" model="result.Shape" />
                             </dd>
+                            @if (result.SourceConstraint != null)
+                            {
+                                <dt>Constraint</dt>
+                                <dd property="sh:sourceConstraint">
+                                    <partial name="Node" model="result.SourceConstraint" />
+                                </dd>
+                            }
                             <dt>Source constraint component</dt>
                             <dd rel="sh:sourceConstraintComponent">
                                 <partial name="Node" model="result.SourceConstraintComponent" />
