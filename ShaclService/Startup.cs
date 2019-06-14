@@ -55,10 +55,9 @@
             // TODO: why?
             mvc.InputFormatters.Add(new GraphInputFormatter("*/*", (g, reader) => { }));
 
-            mvc.OutputFormatters.Clear();
-            foreach (var item in Configuration.MediaTypes)
+            foreach (var item in Configuration.MediaTypes.Reverse())
             {
-                mvc.OutputFormatters.Add(new GraphOutputFormatter(item.MediaType, item.Write));
+                mvc.OutputFormatters.Insert(0, new GraphOutputFormatter(item.MediaType, item.Write));
                 mvc.FormatterMappings.SetMediaTypeMappingForFormat(item.Extension, item.MediaType);
                 mvc.FormatterMappings.SetMediaTypeMappingForFormat(item.MediaType, item.MediaType);
             }

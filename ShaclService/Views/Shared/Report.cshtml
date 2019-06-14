@@ -2,7 +2,7 @@
 
 <dl typeof="sh:ValidationReport" prefix="sh: http://www.w3.org/ns/shacl# xsd: http://www.w3.org/2001/XMLSchema#" lang="">
     <dt>Conforms</dt>
-    <dd rel="sh:conforms" datatype="xsd:boolean">@Model.Conforms</dd>
+    <dd property="sh:conforms" datatype="xsd:boolean">@Model.Conforms</dd>
     @if (Model.Results.Any())
     {
         <dt>Results</dt>

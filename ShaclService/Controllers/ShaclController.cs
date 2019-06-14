@@ -9,22 +9,21 @@
     using VDS.RDF;
     using VDS.RDF.Shacl;
 
-    [Route("validate")]
-    [Route("validate.{format}")]
-    public class ValidateController : Controller
+    public class ShaclController : Controller
     {
         private readonly MvcOptions options;
         private readonly OutputFormatterSelector selector;
 
-        public ValidateController(IOptions<MvcOptions> options, OutputFormatterSelector selector)
+        public ShaclController(IOptions<MvcOptions> options, OutputFormatterSelector selector)
         {
             this.options = options.Value;
             this.selector = selector;
         }
 
-        [HttpGet]
+        [HttpGet("validate")]
+        [HttpGet("validate.{format}")]
         [FormatFilter]
-        public IActionResult Index(Parameters parameters)
+        public IActionResult Validate(Parameters parameters)
         {
             // TODO: Move to parameters
             if (parameters.DataGraphUri is null && parameters.ShapesGraphUri is null && parameters.DataGraphRdf is null && parameters.ShapesGraphRdf is null)
@@ -41,16 +40,49 @@
             return this.Validate(parameters.DataGraph, parameters.ShapesGraph, parameters);
         }
 
-        [HttpPost]
+        [HttpPost("validate")]
+        [HttpPost("validate.{format}")]
         [FormatFilter]
-        public IActionResult Index([FromBody] IGraph g, Parameters parameters)
+        public IActionResult Validate([FromBody] IGraph g, Parameters parameters)
         {
+            // TODO: Validation
             if (g is null || g.IsEmpty)
             {
-                return this.Index(parameters);
+                return this.Validate(parameters);
             }
 
             return this.Validate(g, g, parameters);
+        }
+
+        [HttpGet("conforms")]
+        public IActionResult Conforms(Parameters parameters)
+        {
+            // TODO: Move to parameters
+            if (parameters.DataGraphUri is null && parameters.ShapesGraphUri is null && parameters.DataGraphRdf is null && parameters.ShapesGraphRdf is null)
+            {
+                return this.View((parameters, (bool?)null));
+            }
+
+            // TODO: Validation
+            if ((parameters.DataGraphUri != null && !parameters.DataGraphUri.IsAbsoluteUri) || (parameters.ShapesGraphUri != null && !parameters.ShapesGraphUri.IsAbsoluteUri))
+            {
+                return this.BadRequest("Absolute URIs only.");
+            }
+
+            return this.Conforms(parameters.DataGraph, parameters.ShapesGraph, parameters);
+        }
+
+        [HttpPost("conforms")]
+        [FormatFilter]
+        public IActionResult Conforms([FromBody] IGraph g, Parameters parameters)
+        {
+            // TODO: Validation
+            if (g is null || g.IsEmpty)
+            {
+                return this.Conforms(parameters);
+            }
+
+            return this.Conforms(g, g, parameters);
         }
 
         private IActionResult Validate(IGraph data, IGraph shapes, Parameters parameters)
@@ -64,6 +96,20 @@
 
                 default:
                     return this.Ok(report);
+            }
+        }
+
+        private IActionResult Conforms(IGraph data, IGraph shapes, Parameters parameters)
+        {
+            var conforms = new ShapesGraph(shapes).Conforms(data);
+
+            switch (this.GetResponseContentType(parameters.Format))
+            {
+                case "text/html":
+                    return this.View((parameters, (bool?)conforms));
+
+                default:
+                    return this.Ok(conforms);
             }
         }
 

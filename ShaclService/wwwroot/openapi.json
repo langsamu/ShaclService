@@ -22,6 +22,10 @@
     {
       "name": "Validate",
       "description": "Endpoints for validating data graphs agains SHACL shapes graphs."
+    },
+    {
+      "name": "Conforms",
+      "description": "DESC"
     }
   ],
   "externalDocs": {
@@ -35,7 +39,7 @@
         "content": {
           "text/html": {
             "schema": { "$ref": "#/components/schemas/rdfa" },
-            "example": "<dl typeof=\"sh:ValidationReport\" prefix=\"sh: http://www.w3.org/ns/shacl# xsd: http://www.w3.org/2001/XMLSchema#\" lang=\"\">\n  <dt>Conforms</dt>\n  <dd rel=\"sh:conforms\" datatype=\"xsd:boolean\">False</dd>\n  <dt>Results</dt>\n  <dd>\n    <ul>\n      <li rel=\"sh:result\" typeof=\"sh:ValidationResult\">\n        <dl>\n          <dt>Focus node</dt>\n          <dd rel=\"sh:focusNode\">\n            <a href=\"http://example.com/s\">http://example.com/s</a>\n          </dd>\n          <dt>Path</dt>\n          <dd rel=\"sh:resultPath\">\n            <a href=\"http://example.com/p\">http://example.com/p</a>\n          </dd>\n          <dt>Value</dt>\n          <dd rel=\"sh:value\">\n            <a href=\"http://example.com/o\">http://example.com/o</a>\n          </dd>\n          <dt>Shape</dt>\n          <dd rel=\"sh:sourceShape\">\n            <a href=\"http://example.com/shape\">http://example.com/shape</a>\n          </dd>\n          <dt>Source constraint component</dt>\n          <dd rel=\"sh:sourceConstraintComponent\">\n            <a href=\"http://www.w3.org/ns/shacl#PatternConstraintComponent\">sh:PatternConstraintComponent</a>\n          </dd>\n          <dt>Severity</dt>\n          <dd rel=\"sh:resultSeverity\">\n            <a href=\"http://www.w3.org/ns/shacl#Violation\">sh:Violation</a>\n          </dd>\n        </dl>\n      </li>\n    </ul>\n  </dd>\n</dl>"
+            "example": "<dl typeof=\"sh:ValidationReport\" prefix=\"sh: http://www.w3.org/ns/shacl# xsd: http://www.w3.org/2001/XMLSchema#\" lang=\"\">\n  <dt>Conforms</dt>\n  <dd property=\"sh:conforms\" datatype=\"xsd:boolean\">False</dd>\n  <dt>Results</dt>\n  <dd>\n    <ul>\n      <li rel=\"sh:result\" typeof=\"sh:ValidationResult\">\n        <dl>\n          <dt>Focus node</dt>\n          <dd rel=\"sh:focusNode\">\n            <a href=\"http://example.com/s\">http://example.com/s</a>\n          </dd>\n          <dt>Path</dt>\n          <dd rel=\"sh:resultPath\">\n            <a href=\"http://example.com/p\">http://example.com/p</a>\n          </dd>\n          <dt>Value</dt>\n          <dd rel=\"sh:value\">\n            <a href=\"http://example.com/o\">http://example.com/o</a>\n          </dd>\n          <dt>Shape</dt>\n          <dd rel=\"sh:sourceShape\">\n            <a href=\"http://example.com/shape\">http://example.com/shape</a>\n          </dd>\n          <dt>Source constraint component</dt>\n          <dd rel=\"sh:sourceConstraintComponent\">\n            <a href=\"http://www.w3.org/ns/shacl#PatternConstraintComponent\">sh:PatternConstraintComponent</a>\n          </dd>\n          <dt>Severity</dt>\n          <dd rel=\"sh:resultSeverity\">\n            <a href=\"http://www.w3.org/ns/shacl#Violation\">sh:Violation</a>\n          </dd>\n        </dl>\n      </li>\n    </ul>\n  </dd>\n</dl>"
           },
           "text/turtle": {
             "schema": { "$ref": "#/components/schemas/turtle" },
@@ -56,6 +60,19 @@
           "application/rdf+json": {
             "schema": { "$ref": "#/components/schemas/rdfjson" },
             "example": "{\n  \"_:b1\": {\n    \"http://www.w3.org/1999/02/22-rdf-syntax-ns#type\": [{\n        \"type\": \"uri\",\n        \"value\": \"http://www.w3.org/ns/shacl#ValidationReport\"\n      }\n    ],\n    \"http://www.w3.org/ns/shacl#result\": [{\n        \"type\": \"bnode\",\n        \"value\": \"_:b2\"\n      }\n    ]\n  },\n  \"_:b2\": {\n    \"http://www.w3.org/1999/02/22-rdf-syntax-ns#type\": [{\n        \"type\": \"uri\",\n        \"value\": \"http://www.w3.org/ns/shacl#ValidationResult\"\n      }\n    ],\n    \"http://www.w3.org/ns/shacl#focusNode\": [{\n        \"type\": \"uri\",\n        \"value\": \"http://example.com/s\"\n      }\n    ],\n    \"http://www.w3.org/ns/shacl#resultPath\": [{\n        \"type\": \"uri\",\n        \"value\": \"http://example.com/p\"\n      }\n    ],\n    \"http://www.w3.org/ns/shacl#value\": [{\n        \"type\": \"uri\",\n        \"value\": \"http://example.com/o\"\n      }\n    ],\n    \"http://www.w3.org/ns/shacl#sourceShape\": [{\n        \"type\": \"uri\",\n        \"value\": \"http://example.com/shape\"\n      }\n    ],\n    \"http://www.w3.org/ns/shacl#resultSeverity\": [{\n        \"type\": \"uri\",\n        \"value\": \"http://www.w3.org/ns/shacl#Violation\"\n      }\n    ],\n    \"http://www.w3.org/ns/shacl#sourceConstraintComponent\": [{\n        \"type\": \"uri\",\n        \"value\": \"http://www.w3.org/ns/shacl#PatternConstraintComponent\"\n      }\n    ]\n  }\n}"
+          }
+        }
+      },
+      "conforms": {
+        "description": "DESC",
+        "content": {
+          "text/html": {
+            "schema": { "$ref": "#/components/schemas/rdfa" },
+            "example": "<dl typeof=\"sh:ValidationReport\" prefix=\"sh: http://www.w3.org/ns/shacl# xsd: http://www.w3.org/2001/XMLSchema#\" lang=\"\">\n  <dt>Conforms</dt>\n  <dd property=\"sh:conforms\" datatype=\"xsd:boolean\">False</dd>\n</dl>"
+          },
+          "application/json": {
+            "schema": { "type": "boolean" },
+            "example": false
           }
         }
       }
@@ -230,6 +247,33 @@
         "requestBody": { "$ref": "#/components/requestBodies/validate" },
         "responses": {
           "200": { "$ref": "#/components/responses/validate" }
+        }
+      }
+    },
+    "/conforms": {
+      "get": {
+        "operationId": "getConforms",
+        "tags": [ "Conforms" ],
+        "summary": "SUMMARY",
+        "description": "DESCRIPTION",
+        "parameters": [
+          { "$ref": "#/components/parameters/dataGraphUri" },
+          { "$ref": "#/components/parameters/dataGraphRdf" },
+          { "$ref": "#/components/parameters/shapesGraphUri" },
+          { "$ref": "#/components/parameters/shapesGraphRdf" }
+        ],
+        "responses": {
+          "200": { "$ref": "#/components/responses/conforms" }
+        }
+      },
+      "post": {
+        "operationId": "postConforms",
+        "tags": [ "Conforms" ],
+        "summary": "SUMMARY",
+        "description": "DESCRIPTION",
+        "requestBody": { "$ref": "#/components/requestBodies/validate" },
+        "responses": {
+          "200": { "$ref": "#/components/responses/conforms" }
         }
       }
     }
