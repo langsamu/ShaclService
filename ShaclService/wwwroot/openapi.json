@@ -2,13 +2,13 @@
   "openapi": "3.0.1",
   "info": {
     "title": "dotNetRDF SHACL validator service",
-    "description": "- TODO: CORS\n\n- TODO: PR\n\n- TODO: spec\n\n- TODO: implementation report",
+    "description": "- TODO: CORS\n\n- TODO: PR\n\n- TODO: spec\n\n- TODO: implementation report\n\n### Validates a data graph against a SHACL shapes graph and returns a SHACL validation report graph.\n\n- Input graphs are specified as either request body, query string parameters or form parameters.\n\n- Request body takes precedence over parameters.\n\n- When using parameters (not request body), input graphs can be given as either URIs or RDF.\n\n- URI parameters take precedence over RDF parameters.\n\n- When using request body, data graph and shapes graph must both be in the same graph.\n\n- The following combinations of parameters can be used:\n\n  - DataGraphUri & ShapesGraphUri\n\n  - DataGraphUri & ShapesGraphRdf\n\n  - DataGraphRdf & ShapesGraphUri\n\n  - DataGraphRdf & ShapesGraphRdf\n\n  - Request body\n\n- Input graph serialisation format is auto-detected.\n\n  - For RDF parameters the format is chosen based on heuristics by dotNetRDF's [StringParser](https://github.com/dotnetrdf/dotnetrdf/blob/2d8c65f9fd49d8d90e9eedabe709631f99e06207/Libraries/dotNetRDF/Parsing/StringParser.cs#L84-L97).\n\n  - For URI parameters the format is chosen based on the response Content-Type header by dotNetRDF's [MimeTypeHelper](https://github.com/dotnetrdf/dotnetrdf/blob/2d8c65f9fd49d8d90e9eedabe709631f99e06207/Libraries/dotNetRDF/Core/MIMETypesHelper.cs).\n\n- Output graph serialisation format is controlled by the Accept request header. Supported ouput formats:\n\n  - text/html: RDFa (default)\n\n  - text/turtle: Turtle\n\n  - application/n-triples: N-Triples\n\n  - application/ld+json: JSON-LD\n\n  - application/rdf+xml: RDF/XML\n\n  - application/rdf+json: RDF/JSON\n\n- A 'format' parameter can be used to override output format. Supported 'extensions':\n\n  - html: RDFa\n\n  - ttl: Turtle\n\n  - nt: N-Triples\n\n  - json: JSON-LD\n\n  - xml: RDF/XML\n\n  - rj: RDF/JSON",
     "contact": {
-      "name": "Samu Láng",
+      "name": "Written by Samu Láng",
       "url": "https://twitter.com/langsamu"
     },
     "license": {
-      "name": "MIT License",
+      "name": "Released under the MIT License",
       "url": "https://github.com/langsamu/ShaclService/blob/master/LICENSE"
     },
     "version": "Live"
@@ -21,15 +21,15 @@
   "tags": [
     {
       "name": "Validate",
-      "description": "Endpoints for validating data graphs agains SHACL shapes graphs."
+      "description": "Endpoints for validating data graphs against SHACL shapes graphs"
     },
     {
       "name": "Conforms",
-      "description": "DESC"
+      "description": "Endpoints for checking data graphs for conformance against SHACL shapes graphs"
     }
   ],
   "externalDocs": {
-    "description": "GitHub README",
+    "description": "More information in the GitHub README",
     "url": "https://github.com/langsamu/ShaclService/blob/master/README.md"
   },
   "components": {
@@ -68,7 +68,7 @@
         }
       },
       "conforms": {
-        "description": "DESC",
+        "description": "A value representing SHACL conformance.",
         "content": {
           "text/html": {
             "schema": { "$ref": "#/components/schemas/rdfa" },
@@ -139,6 +139,9 @@
           },
           "application/x-www-form-urlencoded": {
             "schema": { "$ref": "#/components/schemas/postValidateForm" }
+          },
+          "multipart/form-data": {
+            "schema": { "$ref": "#/components/schemas/postValidateForm" }
           }
         }
       }
@@ -194,24 +197,24 @@
         "type": "string"
       },
       "dataGraphUri": {
-        "description": "DESCRIPTION",
+        "description": "An optional URI string where the data graph is loaded from.\n\nOverrides the dataGraphRdf parameter.",
         "type": "string",
         "format": "uri",
         "example": "http://langsamu.net/shacl/test-suite/core/complex/personexample.ttl"
       },
       "dataGraphRdf": {
-        "description": "DESCRIPTION",
+        "description": "An optional RDF string representing the data graph.\n\nOverridden by the dataGraphUri parameter.",
         "type": "string",
         "example": "@prefix ex: <http://example.com/> .\n\nex:s ex:p ex:o ."
       },
       "shapesGraphUri": {
-        "description": "DESCRIPTION",
+        "description": "An optional URI string where the shapes graph is loaded from.\n\nOverrides the shapesGraphRdf parameter.",
         "type": "string",
         "format": "uri",
         "example": "http://langsamu.net/shacl/test-suite/core/complex/personexample.ttl"
       },
       "shapesGraphRdf": {
-        "description": "DESCRIPTION",
+        "description": "An optional RDF string representing the shapes graph.\n\nOverridden by the shapesGraphUri parameter.",
         "type": "string",
         "example": "@prefix sh: <http://www.w3.org/ns/shacl#> .\n@prefix ex: <http://example.com/> .\n\n[\n    sh:targetNode ex:s ;\n    sh:property ex:shape\n] .\n\nex:shape\n    sh:path ex:p ;\n    sh:class ex:C ."
       },
@@ -239,7 +242,6 @@
         "operationId": "getValidate",
         "tags": [ "Validate" ],
         "summary": "Validate with query string parameters",
-        "description": "### Validates a data graph against a SHACL shapes graph and returns a SHACL validation report graph.\n\n- Input graphs are specified as query string parameters.\n\n- Input graphs can be given as either URIs or RDF.\n\n- URI parameters take precedence over RDF parameters.\n\n- The following combinations of parameters can be used:\n\n  - DataGraphUri & ShapesGraphUri\n\n  - DataGraphUri & ShapesGraphRdf\n\n  - DataGraphRdf & ShapesGraphUri\n\n  - DataGraphRdf & ShapesGraphRdf\n\n- Input graph serialisation format is auto-detected.\n\n  - For RDF parameters the format is chosen based on heuristics by dotNetRDF's [StringParser](https://github.com/dotnetrdf/dotnetrdf/blob/2d8c65f9fd49d8d90e9eedabe709631f99e06207/Libraries/dotNetRDF/Parsing/StringParser.cs#L84-L97).\n\n  - For URI parameters the format is chosen based on the response Content-Type header by dotNetRDF's [MimeTypeHelper](https://github.com/dotnetrdf/dotnetrdf/blob/2d8c65f9fd49d8d90e9eedabe709631f99e06207/Libraries/dotNetRDF/Core/MIMETypesHelper.cs).\n\n- Output graph serialisation format is controlled by the Accept request header. Supported ouput formats:\n\n  - RDFa (default)\n\n  - Turtle\n\n  - N-Triples\n\n  - JSON-LD\n\n  - RDF/XML\n\n  - RDF/JSON\n\n- An 'extension' route parameter can be used to override output format. Supported 'extensions':\n\n  - html (RDFa)\n\n  - ttl (Turtle)\n\n  - nt (N-Triples)\n\n  - json (JSON-LD)\n\n  - xml (RDF/XML)\n\n  - rj (RDF/JSON)",
         "parameters": [
           { "$ref": "#/components/parameters/dataGraphUri" },
           { "$ref": "#/components/parameters/dataGraphRdf" },
@@ -254,7 +256,6 @@
         "operationId": "postValidate",
         "tags": [ "Validate" ],
         "summary": "Validate with either request body or form parameters",
-        "description": "### Validates a data graph against a SHACL shapes graph and returns a SHACL validation report graph.\n\n- Input graphs are specified as either request body, query string parameters or form parameters.\n\n- Request body takes precedence over parameters.\n\n- When using parameters (not request body), input graphs can be given as either URIs or RDF.\n\n- URI parameters take precedence over RDF parameters.\n\n- When using request body, data graph and shapes graph must both be in the same graph.\n\n- The following combinations of parameters can be used:\n\n  - DataGraphUri & ShapesGraphUri\n\n  - DataGraphUri & ShapesGraphRdf\n\n  - DataGraphRdf & ShapesGraphUri\n\n  - DataGraphRdf & ShapesGraphRdf\n\n  - Request body\n\n- Input graph serialisation format is auto-detected.\n\n  - For RDF parameters the format is chosen based on heuristics by dotNetRDF's [StringParser](https://github.com/dotnetrdf/dotnetrdf/blob/2d8c65f9fd49d8d90e9eedabe709631f99e06207/Libraries/dotNetRDF/Parsing/StringParser.cs#L84-L97).\n\n  - For URI parameters the format is chosen based on the response Content-Type header by dotNetRDF's [MimeTypeHelper](https://github.com/dotnetrdf/dotnetrdf/blob/2d8c65f9fd49d8d90e9eedabe709631f99e06207/Libraries/dotNetRDF/Core/MIMETypesHelper.cs).\n\n- Output graph serialisation format is controlled by the Accept request header. Supported ouput formats:\n\n  - text/html: RDFa (default)\n\n  - text/turtle: Turtle\n\n  - application/n-triples: N-Triples\n\n  - application/ld+json: JSON-LD\n\n  - application/rdf+xml: RDF/XML\n\n  - application/rdf+json: RDF/JSON\n\n- An 'extension' route parameter can be used to override output format. Supported 'extensions':\n\n  - html: RDFa\n\n  - ttl: Turtle\n\n  - nt: N-Triples\n\n  - json: JSON-LD\n\n  - xml: RDF/XML\n\n  - rj: RDF/JSON",
         "requestBody": { "$ref": "#/components/requestBodies/validate" },
         "responses": {
           "200": { "$ref": "#/components/responses/validate" }
@@ -265,8 +266,7 @@
       "get": {
         "operationId": "getConforms",
         "tags": [ "Conforms" ],
-        "summary": "SUMMARY",
-        "description": "DESCRIPTION",
+        "summary": "Check conformance with query string parameters",
         "parameters": [
           { "$ref": "#/components/parameters/dataGraphUri" },
           { "$ref": "#/components/parameters/dataGraphRdf" },
@@ -280,8 +280,7 @@
       "post": {
         "operationId": "postConforms",
         "tags": [ "Conforms" ],
-        "summary": "SUMMARY",
-        "description": "DESCRIPTION",
+        "summary": "Check conformance with either request body or form parameters",
         "requestBody": { "$ref": "#/components/requestBodies/validate" },
         "responses": {
           "200": { "$ref": "#/components/responses/conforms" }

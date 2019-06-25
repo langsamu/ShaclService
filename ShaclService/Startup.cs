@@ -35,6 +35,7 @@
                     {
                         { ".ttl", "text/turtle" },
                         { ".json", "application/json" },
+                        { ".css", "text/css" },
                     }),
                 });
 
@@ -67,7 +68,10 @@
         {
             swaggerUI.DocumentTitle = "dotNetRDF SHACL validator service";
             swaggerUI.SwaggerEndpoint("./openapi.json", "live");
-            swaggerUI.ConfigObject.DefaultModelsExpandDepth = -1;
+            swaggerUI.DefaultModelsExpandDepth(-1);
+            swaggerUI.DisplayRequestDuration();
+            swaggerUI.InjectStylesheet("./openapi.css");
+            swaggerUI.EnableDeepLinking();
         }
 
         private static void ConfigureCors(CorsOptions cors)

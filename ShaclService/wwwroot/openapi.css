@@ -1,0 +1,10 @@
+﻿.topbar,
+.scheme-container,
+.response-col_links,
+.parameters-container > .opblock-description-wrapper > p {
+    display: none
+}
+
+.info > .main > .link::before {
+    content: 'OpenApi document: ';
+}

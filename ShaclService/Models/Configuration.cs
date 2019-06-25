@@ -18,7 +18,8 @@
             ("application/ld+json", "json", (g, reader) => new JsonLdParser().Load(g.AsTripleStore(), reader), (g, writer) => new JsonLdWriter().Save(g.AsTripleStore(), writer)),
             ("application/rdf+xml", "xml", (g, reader) => new RdfXmlParser().Load(g, reader), (g, writer) => new RdfXmlWriter(WriterCompressionLevel.High, false).Save(g, writer)),
             ("application/rdf+json", "rj", (g, reader) => new RdfJsonParser().Load(g, reader), (g, writer) => new RdfJsonWriter().Save(g, writer)),
-            ("text/csv", "csv", null, (g, writer) => {
+            ("text/csv", "csv", null, (g, writer) =>
+            {
                 var results = (SparqlResultSet)g.ExecuteQuery($@"
 PREFIX sh: <{VDS.RDF.Shacl.Vocabulary.BaseUri}>
 

@@ -26,7 +26,7 @@ steps:
   inputs:
     command: test
     projects: '$(TestProjects)'
-    arguments: '--configuration $(BuildConfiguration)'
+    arguments: '--configuration $(BuildConfiguration) --collect "Code coverage" --settings:CodeCoverage.runsettings'
 
 - task: DotNetCoreCLI@2
   displayName: Publish

@@ -20,10 +20,6 @@
     <ProjectReference Include="..\dotnetrdf\Libraries\dotNetRDF\dotNetRDF.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="wwwroot\" />
-  </ItemGroup>
-
   <Target Name="CopyTestSuite">
     <ItemGroup>
       <TestSuite Include="..\dotnetrdf\Testing\unittest\resources\shacl\**\*.*" />
