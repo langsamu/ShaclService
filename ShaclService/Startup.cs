@@ -36,6 +36,7 @@
                         { ".ttl", "text/turtle" },
                         { ".json", "application/json" },
                         { ".css", "text/css" },
+                        { ".js", "text/javascript" },
                     }),
                 });
 
@@ -72,6 +73,7 @@
             swaggerUI.DisplayRequestDuration();
             swaggerUI.InjectStylesheet("./openapi.css");
             swaggerUI.EnableDeepLinking();
+            swaggerUI.InjectJavascript("./openapi.js");
         }
 
         private static void ConfigureCors(CorsOptions cors)

@@ -1,10 +1,16 @@
 ﻿.topbar,
 .scheme-container,
 .response-col_links,
-.parameters-container > .opblock-description-wrapper > p {
+.parameters-container > .opblock-description-wrapper > p,
+.info .main .title span {
     display: none
 }
 
 .info > .main > .link::before {
     content: 'OpenApi document: ';
+}
+
+.swagger-ui .info code {
+    color: unset;
+    background-color: unset
 }

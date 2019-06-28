@@ -1,21 +1,24 @@
 ﻿@model (Parameters Parameters, Report Report)
 @{
-    ViewBag.Title = "TITLE";
-    ViewBag.Description = "DESCRIPTION";
+    ViewBag.Title = "Validation";
 }
 
-<details class="container" open="@(Model.Report is null ? string.Empty : null)">
+<details class="container" open>
     <summary>Form</summary>
-    <h1>TITLE</h1>
-    <p class="lead">LEAD</p>
-    <partial name="Form" model="Model.Parameters" />
+    <h1>@ViewBag.Title</h1>
+    <form asp-fragment="report" asp-antiforgery="false" method="post" class="clearfix">
+        <partial name="Form" model="Model.Parameters" />
+        <div class="float-right">
+            <button class="btn btn-primary">Validate</button>
+            <button asp-route-format="ttl" class="btn btn-secondary">Validate raw (Turtle)</button>
+        </div>
+    </form>
 </details>
 
 @if (Model.Report != null)
 {
     <section id="report" class="container">
-        <h1>TITLE</h1>
-        <p class="lead">LEAD</p>
+        <h1>Validation report</h1>
         <partial name="Report" model="Model.Report" />
     </section>
 }

@@ -1,8 +1,8 @@
 ﻿{
   "openapi": "3.0.1",
   "info": {
-    "title": "dotNetRDF SHACL validator service",
-    "description": "- TODO: CORS\n\n- TODO: PR\n\n- TODO: spec\n\n- TODO: implementation report\n\n### Validates a data graph against a SHACL shapes graph and returns a SHACL validation report graph.\n\n- Input graphs are specified as either request body, query string parameters or form parameters.\n\n- Request body takes precedence over parameters.\n\n- When using parameters (not request body), input graphs can be given as either URIs or RDF.\n\n- URI parameters take precedence over RDF parameters.\n\n- When using request body, data graph and shapes graph must both be in the same graph.\n\n- The following combinations of parameters can be used:\n\n  - DataGraphUri & ShapesGraphUri\n\n  - DataGraphUri & ShapesGraphRdf\n\n  - DataGraphRdf & ShapesGraphUri\n\n  - DataGraphRdf & ShapesGraphRdf\n\n  - Request body\n\n- Input graph serialisation format is auto-detected.\n\n  - For RDF parameters the format is chosen based on heuristics by dotNetRDF's [StringParser](https://github.com/dotnetrdf/dotnetrdf/blob/2d8c65f9fd49d8d90e9eedabe709631f99e06207/Libraries/dotNetRDF/Parsing/StringParser.cs#L84-L97).\n\n  - For URI parameters the format is chosen based on the response Content-Type header by dotNetRDF's [MimeTypeHelper](https://github.com/dotnetrdf/dotnetrdf/blob/2d8c65f9fd49d8d90e9eedabe709631f99e06207/Libraries/dotNetRDF/Core/MIMETypesHelper.cs).\n\n- Output graph serialisation format is controlled by the Accept request header. Supported ouput formats:\n\n  - text/html: RDFa (default)\n\n  - text/turtle: Turtle\n\n  - application/n-triples: N-Triples\n\n  - application/ld+json: JSON-LD\n\n  - application/rdf+xml: RDF/XML\n\n  - application/rdf+json: RDF/JSON\n\n- A 'format' parameter can be used to override output format. Supported 'extensions':\n\n  - html: RDFa\n\n  - ttl: Turtle\n\n  - nt: N-Triples\n\n  - json: JSON-LD\n\n  - xml: RDF/XML\n\n  - rj: RDF/JSON",
+    "title": "dotNetRDF SHACL service",
+    "description": "This application exposes a [SHACL](https://www.w3.org/TR/shacl/) procecssor that can check conformance and validate data graphs against shapes graphs.\n\nIt's implemented using the [dotNetGraph](https://github.com/dotnetrdf/dotnetrdf) library. A [pull request](https://github.com/dotnetrdf/dotnetrdf/pull/236) is under review.\n\nThe processor is fully compliant with SHACL Core and SHACL-SPARQL. An [EARL](https://www.w3.org/TR/EARL10-Schema/) implementation report is [available](https://github.com/langsamu/SHACL-dotNetRDF-implementation-report-generator/blob/master/dotnetrdf-shacl-earl.ttl), which I'll [submit](https://w3c.github.io/data-shapes/data-shapes-test-suite/) if the processor is released.\n\nThe service supports [CORS](https://www.w3.org/TR/cors/).\n\n[A web form version](http://langsamu.net/shacl/validate) is also available.\n\n### Usage\n- Input graphs are specified as either request body, query string parameters or form parameters.\n- Request body takes precedence over parameters.\n- When using parameters (not request body), input graphs can be given as either URIs or RDF.\n- URI parameters take precedence over RDF parameters.\n- When using request body, data graph and shapes graph must both be in the same graph.\n- Input graph serialisation format is auto-detected.\n  - For RDF parameters the format is chosen based on heuristics by dotNetRDF's [`StringParser`](https://github.com/dotnetrdf/dotnetrdf/blob/2d8c65f9fd49d8d90e9eedabe709631f99e06207/Libraries/dotNetRDF/Parsing/StringParser.cs#L84-L97).\n  - For URI parameters the format is chosen based on the response Content-Type header by dotNetRDF's [`MimeTypeHelper`](https://github.com/dotnetrdf/dotnetrdf/blob/2d8c65f9fd49d8d90e9eedabe709631f99e06207/Libraries/dotNetRDF/Core/MIMETypesHelper.cs).\n- Output graph serialisation format is controlled by the Accept request header. Supported ouput formats:\n  - `text/html`: RDFa (default)\n  - `text/turtle`: Turtle\n  - `application/n-triples`: N-Triples\n  - `application/ld+json`: JSON-LD\n  - `application/rdf+xml`: RDF/XML\n  - `application/rdf+json`: RDF/JSON\n- An optional `format` parameter can be used to override output format. Supported 'extensions':\n  - `html`: RDFa\n  - `ttl`: Turtle\n  - `nt`: N-Triples\n  - `json`: JSON-LD\n  - `xml`: RDF/XML\n  - `rj`: RDF/JSON",
     "contact": {
       "name": "Written by Samu Láng",
       "url": "https://twitter.com/langsamu"
@@ -70,13 +70,13 @@
       "conforms": {
         "description": "A value representing SHACL conformance.",
         "content": {
-          "text/html": {
-            "schema": { "$ref": "#/components/schemas/rdfa" },
-            "example": "<dl typeof=\"sh:ValidationReport\" prefix=\"sh: http://www.w3.org/ns/shacl# xsd: http://www.w3.org/2001/XMLSchema#\" lang=\"\">\n  <dt>Conforms</dt>\n  <dd property=\"sh:conforms\" datatype=\"xsd:boolean\">False</dd>\n</dl>"
-          },
           "application/json": {
             "schema": { "type": "boolean" },
             "example": false
+          },
+          "text/html": {
+            "schema": { "$ref": "#/components/schemas/rdfa" },
+            "example": "<dl typeof=\"sh:ValidationReport\" prefix=\"sh: http://www.w3.org/ns/shacl# xsd: http://www.w3.org/2001/XMLSchema#\" lang=\"\">\n  <dt>Conforms</dt>\n  <dd property=\"sh:conforms\" datatype=\"xsd:boolean\">False</dd>\n</dl>"
           }
         }
       }

@@ -1,21 +1,24 @@
 ﻿@model (Parameters Parameters, bool? Conforms)
 @{
-    ViewBag.Title = "TITLE";
-    ViewBag.Description = "DESCRIPTION";
+    ViewBag.Title = "Conformance checking";
 }
 
-<details class="container" open="@(Model.Conforms is null ? string.Empty : null)">
+<details class="container" open>
     <summary>Form</summary>
-    <h1>TITLE</h1>
-    <p class="lead">LEAD</p>
-    <partial name="Form" model="Model.Parameters" />
+    <h1>@ViewBag.Title</h1>
+    <form asp-fragment="report" asp-antiforgery="false" class="clearfix">
+        <partial name="Form" model="Model.Parameters" />
+        <div class="float-right">
+            <button class="btn btn-primary">Check conformance</button>
+            <button asp-route-format="json" class="btn btn-secondary">Check conformance raw (JSON)</button>
+        </div>
+    </form>
 </details>
 
 @if (Model.Conforms != null)
 {
     <section id="report" class="container">
-        <h1>TITLE</h1>
-        <p class="lead">LEAD</p>
+        <h1>Validation report</h1>
         <dl typeof="sh:ValidationReport" prefix="sh: http://www.w3.org/ns/shacl# xsd: http://www.w3.org/2001/XMLSchema#" lang="">
             <dt>Conforms</dt>
             <dd property="sh:conforms" datatype="xsd:boolean">@Model.Conforms</dd>

@@ -55,6 +55,8 @@
         }
 
         [HttpGet("conforms")]
+        [HttpPost("conforms.{format}")]
+        [FormatFilter]
         public IActionResult Conforms(Parameters parameters)
         {
             // TODO: Move to parameters

@@ -1,0 +1,52 @@
+﻿@{
+    ViewBag.Title = "dotNetRDF SHACL Service";
+    ViewBag.Description = "This application exposes a SHACL procecssor that can check conformance and validate data graphs against shapes graphs.";
+}
+
+<div class="container">
+    <h1>@ViewBag.Title</h1>
+    <p class="lead">@ViewBag.Description</p>
+    <nav>
+        <ul>
+            <li>
+                <a asp-controller="shacl" asp-action="validate">Validation form</a>
+            </li>
+            <li>
+                <a asp-controller="shacl" asp-action="conforms">Conformance checking form</a>
+            </li>
+            <li>
+                <a href="~/openapi">OpenAPI UI</a>
+            </li>
+            <li>
+                <a href="~/openapi.json">OpenAPI definition</a>
+            </li>
+        </ul>
+    </nav>
+    <details open>
+        <summary>Examples (from the SHACL test suite)</summary>
+        <ul>
+            @{
+                var paths = new[] {
+                    "core/complex/personexample",
+                    "core/misc/message-001",
+                    "core/path/path-complex-001",
+                    "core/path/path-alternative-001",
+                    "core/complex/shacl-shacl-data-shapes",
+                    "sparql/node/prefixes-001"
+                };
+                foreach (var path in paths)
+                {
+                    var u = Url.AbsoluteContent($"~/test-suite/{path}.ttl");
+
+                    <li>
+                        <span>@path</span>
+                        <a asp-controller="shacl" asp-action="validate" asp-route-DataGraphUri="@u" asp-route-ShapesGraphUri="@u" asp-fragment="report">validate</a>
+                        <a asp-controller="shacl" asp-action="validate" asp-route-DataGraphUri="@u" asp-route-ShapesGraphUri="@u" asp-route-format="ttl">ttl</a>
+                        <a asp-controller="shacl" asp-action="conforms" asp-route-DataGraphUri="@u" asp-route-ShapesGraphUri="@u" asp-fragment="report">conforms</a>
+                        <a asp-controller="shacl" asp-action="conforms" asp-route-DataGraphUri="@u" asp-route-ShapesGraphUri="@u" asp-route-format="json">json</a>
+                    </li>
+                }
+            }
+        </ul>
+    </details>
+</div>
