@@ -22,6 +22,16 @@ namespace ShaclServiceTests
 
         public static IEnumerable<object[]> MediaTypes => Configuration.MediaTypes.Select(m => new[] { m.MediaType });
 
+        public static IEnumerable<object[]> HeadRequests
+        {
+            get
+            {
+                yield return new[] { "/" };
+                yield return new[] { "/validate" };
+                yield return new[] { "/conforms" };
+            }
+        }
+
         [ClassInitialize]
         public static void Initialize(TestContext context)
         {
@@ -110,6 +120,19 @@ namespace ShaclServiceTests
                     exists = response.Headers.TryGetValues(HeaderNames.AccessControlAllowMethods, out values);
                     Assert.IsTrue(exists);
                     Assert.IsTrue(values.Contains(HttpMethods.Post));
+                }
+            }
+        }
+
+        [TestMethod]
+        [DynamicData(nameof(HeadRequests))]
+        public async Task Handles_head_requests(string requestUri)
+        {
+            using (var message = new HttpRequestMessage(HttpMethod.Head, requestUri))
+            {
+                using (var response = await client.SendAsync(message))
+                {
+                    Assert.IsTrue(response.IsSuccessStatusCode);
                 }
             }
         }

@@ -22,6 +22,8 @@
 
         [HttpGet("validate")]
         [HttpGet("validate.{format}")]
+        [HttpHead("validate")]
+        [HttpHead("validate.{format}")]
         [FormatFilter]
         public IActionResult Validate(Parameters parameters)
         {
@@ -55,7 +57,10 @@
         }
 
         [HttpGet("conforms")]
+        [HttpGet("conforms.{format}")]
         [HttpPost("conforms.{format}")]
+        [HttpHead("conforms")]
+        [HttpHead("conforms.{format}")]
         [FormatFilter]
         public IActionResult Conforms(Parameters parameters)
         {
