@@ -1,6 +1,6 @@
 ﻿@model (Parameters Parameters, Report Report)
 @{
-    ViewBag.Title = "Validation";
+    ViewBag.Title = "dotNetRDF SHACL validation";
 }
 
 <details class="container" open>
@@ -17,6 +17,7 @@
 
 @if (Model.Report != null)
 {
+    ViewBag.Title = "dotNetRDF SHACL validation result";
     <section id="report" class="container">
         <h1>Validation report</h1>
         <partial name="Report" model="Model.Report" />

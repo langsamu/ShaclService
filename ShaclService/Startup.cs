@@ -67,7 +67,7 @@
 
         private static void ConfigureSwaggerUI(SwaggerUIOptions swaggerUI)
         {
-            swaggerUI.DocumentTitle = "dotNetRDF SHACL validator service";
+            swaggerUI.DocumentTitle = "dotNetRDF SHACL OpenAPI";
             swaggerUI.SwaggerEndpoint("./openapi.json", "live");
             swaggerUI.DefaultModelsExpandDepth(-1);
             swaggerUI.DisplayRequestDuration();

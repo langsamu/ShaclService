@@ -1,6 +1,6 @@
 ﻿@model (Parameters Parameters, bool? Conforms)
 @{
-    ViewBag.Title = "Conformance checking";
+    ViewBag.Title = "dotNetRDF SHACL conformance";
 }
 
 <details class="container" open>
@@ -17,6 +17,7 @@
 
 @if (Model.Conforms != null)
 {
+    ViewBag.Title = "dotNetRDF SHACL conformance result";
     <section id="report" class="container">
         <h1>Validation report</h1>
         <dl typeof="sh:ValidationReport" prefix="sh: http://www.w3.org/ns/shacl# xsd: http://www.w3.org/2001/XMLSchema#" lang="">
