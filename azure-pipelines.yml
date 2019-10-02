@@ -26,7 +26,7 @@ steps:
   inputs:
     command: test
     projects: '$(TestProjects)'
-    arguments: '--configuration $(BuildConfiguration) --collect "Code coverage" --settings:CodeCoverage.runsettings'
+    arguments: '--configuration $(BuildConfiguration) --collect "Code coverage" --settings:ShaclServiceTests/CodeCoverage.runsettings'
 
 - task: DotNetCoreCLI@2
   displayName: Publish
