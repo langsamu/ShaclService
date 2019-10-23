@@ -10,6 +10,7 @@
     using Microsoft.AspNetCore.Rewrite;
     using Microsoft.AspNetCore.StaticFiles;
     using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Hosting;
     using Microsoft.Net.Http.Headers;
     using Swashbuckle.AspNetCore.SwaggerUI;
 
@@ -18,10 +19,11 @@
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCors(ConfigureCors);
-            services.AddMvc(ConfigureMvc);
+            services.AddControllersWithViews(ConfigureMvc);
+            services.Configure<IISServerOptions>(options => options.AllowSynchronousIO = true);
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -42,7 +44,8 @@
 
             app.UseRewriter(new RewriteOptions().AddRewrite("^openapi$", "swagger/index.html", false).AddRewrite("^(swagger|favicon)(.+)$", "swagger/$1$2", true));
             app.UseCors();
-            app.UseMvc();
+            app.UseRouting();
+            app.UseEndpoints(endpoints => endpoints.MapControllers());
             app.UseSwaggerUI(Startup.ConfigureSwaggerUI);
         }
 
