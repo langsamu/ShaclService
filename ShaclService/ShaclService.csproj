@@ -6,15 +6,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="dotNetRDF" Version="2.3.0-pre0001" />
     <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="5.0.0-rc4" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\dotnetrdf\Libraries\dotNetRDF\dotNetRDF.csproj" />
   </ItemGroup>
 
   <Target Name="CopyTestSuite">

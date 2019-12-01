@@ -13,9 +13,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		ShaclService.ruleset = ShaclService.ruleset
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "dotNetRDF", "dotnetrdf\Libraries\dotNetRDF\dotNetRDF.csproj", "{227DE12D-6920-4871-B436-9FC45939920F}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ShaclServiceTests", "ShaclServiceTests\ShaclServiceTests.csproj", "{C52A2BC4-612D-4525-BCA5-ED29AFAD7BAC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShaclServiceTests", "ShaclServiceTests\ShaclServiceTests.csproj", "{C52A2BC4-612D-4525-BCA5-ED29AFAD7BAC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,10 +25,6 @@ Global
 		{A89C1B07-127F-4BC3-B421-EB918CCCE0E3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A89C1B07-127F-4BC3-B421-EB918CCCE0E3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A89C1B07-127F-4BC3-B421-EB918CCCE0E3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{227DE12D-6920-4871-B436-9FC45939920F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{227DE12D-6920-4871-B436-9FC45939920F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{227DE12D-6920-4871-B436-9FC45939920F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{227DE12D-6920-4871-B436-9FC45939920F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{C52A2BC4-612D-4525-BCA5-ED29AFAD7BAC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{C52A2BC4-612D-4525-BCA5-ED29AFAD7BAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C52A2BC4-612D-4525-BCA5-ED29AFAD7BAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
