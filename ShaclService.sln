@@ -15,6 +15,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShaclServiceTests", "ShaclServiceTests\ShaclServiceTests.csproj", "{C52A2BC4-612D-4525-BCA5-ED29AFAD7BAC}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorApp1", "BlazorApp1\BlazorApp1.csproj", "{2556669E-6ADB-4F70-9173-1B7B9816E835}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,6 +31,10 @@ Global
 		{C52A2BC4-612D-4525-BCA5-ED29AFAD7BAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C52A2BC4-612D-4525-BCA5-ED29AFAD7BAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C52A2BC4-612D-4525-BCA5-ED29AFAD7BAC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2556669E-6ADB-4F70-9173-1B7B9816E835}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2556669E-6ADB-4F70-9173-1B7B9816E835}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2556669E-6ADB-4F70-9173-1B7B9816E835}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2556669E-6ADB-4F70-9173-1B7B9816E835}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

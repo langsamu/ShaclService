@@ -1,0 +1,56 @@
+﻿@page "/"
+@using VDS.RDF;
+@using VDS.RDF.Shacl;
+@using VDS.RDF.Shacl.Validation;
+@using VDS.RDF.Writing;
+
+<div>
+    <div>
+        <label for="dataGraphRdf">Data graph</label>
+        <textarea id="dataGraphRdf" @bind="dataGraphRdf"></textarea>
+    </div>
+
+    <div>
+        <label for="shapesGraphRdf">Shapes graph</label>
+        <textarea id="shapesGraphRdf" @bind="shapesGraphRdf"></textarea>
+    </div>
+
+    <div>
+        <button @onclick="Validate">Validate</button>
+    </div>
+
+    @if (validationReport is object)
+    {
+        <div>
+            <textarea>@StringWriter.Write(validationReport.Normalised, new CompressingTurtleWriter())</textarea>
+        </div>
+    }
+</div>
+
+@code {
+    string dataGraphRdf = @"@prefix : <urn:> .
+
+:s :p :o .";
+
+    string shapesGraphRdf = @"@prefix : <urn:> .
+@prefix sh: <http://www.w3.org/ns/shacl#> .
+
+[
+    sh:targetNode :s ;
+    sh:class :C ;
+] .";
+
+    Report validationReport;
+
+    void Validate()
+    {
+        var dataGraph = new Graph();
+        dataGraph.LoadFromString(dataGraphRdf);
+
+        var shapesGraph = new Graph();
+        shapesGraph.LoadFromString(shapesGraphRdf);
+
+        var processor = new ShapesGraph(shapesGraph);
+        validationReport = processor.Validate(dataGraph);
+    }
+}
