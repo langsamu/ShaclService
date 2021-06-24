@@ -1,0 +1,10 @@
+version: 2
+updates:
+  - package-ecosystem: "nuget"
+    directory: "/ShaclService"
+    schedule:
+      interval: "daily"
+  - package-ecosystem: "nuget"
+    directory: "/ShaclServiceTests"
+    schedule:
+      interval: "daily"
