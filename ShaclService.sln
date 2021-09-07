@@ -1,14 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.28922.388
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31612.314
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShaclService", "ShaclService\ShaclService.csproj", "{A89C1B07-127F-4BC3-B421-EB918CCCE0E3}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{45D1ACF8-A2D4-4152-B11C-41C42F948658}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
-		azure-pipelines.yml = azure-pipelines.yml
+		.github\workflows\CI.yml = .github\workflows\CI.yml
+		.github\workflows\Deploy.yml = .github\workflows\Deploy.yml
 		README.md = README.md
 		ShaclService.ruleset = ShaclService.ruleset
 	EndProjectSection

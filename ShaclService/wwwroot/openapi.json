@@ -323,7 +323,7 @@
         "externalDocs": {
           "url": "https://www.w3.org/TR/json-ld/"
         },
-        "type": "string"
+        "type": "object"
       },
       "rdfxml": {
         "description": "RDF 1.1 XML Syntax",
@@ -337,7 +337,7 @@
         "externalDocs": {
           "url": "https://www.w3.org/TR/rdf-json/"
         },
-        "type": "string"
+        "type": "object"
       },
       "csv": {
         "description": "Common Format and MIME Type for Comma-Separated Values (CSV) Files",

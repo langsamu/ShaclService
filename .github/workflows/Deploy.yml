@@ -1,0 +1,53 @@
+name: Deploy
+
+env:
+    CONFIGURATION: Release
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 6.0.x
+        include-prerelease: true
+
+    - name: Restore
+      run: dotnet restore
+
+    - name: Build
+      run: dotnet build --no-restore --configuration $Env:CONFIGURATION
+
+    - name: Test
+      run: dotnet test --no-build --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=opencover
+
+    - name: Codecov
+      uses: codecov/codecov-action@v2
+
+    - name: Publish
+      run: dotnet publish ShaclService --no-build --configuration $Env:CONFIGURATION --output published
+
+    - name: Upload
+      uses: actions/upload-artifact@v2
+      with:
+        name: ShaclService
+        path: published
+
+  deploy:
+    runs-on: windows-latest
+    needs: build
+
+    steps:
+      - name: Download artifact from build job
+        uses: actions/download-artifact@v2
+        with:
+          name: ShaclService
