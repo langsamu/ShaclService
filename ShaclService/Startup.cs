@@ -42,7 +42,7 @@
                     }),
                 });
 
-            app.UseRewriter(new RewriteOptions().AddRewrite("^openapi$", "swagger/index.html", false).AddRewrite("^(swagger|favicon)(.+)$", "swagger/$1$2", true));
+            app.UseRewriter(new RewriteOptions().AddRewrite("^openapi$", "swagger/index.html", true).AddRewrite("^(swagger|favicon)(.+)$", "swagger/$1$2", true));
             app.UseCors();
             app.UseRouting();
             app.UseEndpoints(endpoints => endpoints.MapControllers());
@@ -71,7 +71,7 @@
         private static void ConfigureSwaggerUI(SwaggerUIOptions swaggerUI)
         {
             swaggerUI.DocumentTitle = "dotNetRDF SHACL OpenAPI";
-            swaggerUI.SwaggerEndpoint("./openapi.json", "live");
+            swaggerUI.SwaggerEndpoint("/openapi.json", "live");
             swaggerUI.DefaultModelsExpandDepth(-1);
             swaggerUI.DisplayRequestDuration();
             swaggerUI.InjectStylesheet("./openapi.css");

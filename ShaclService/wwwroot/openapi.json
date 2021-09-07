@@ -51,7 +51,34 @@
           },
           "application/ld+json": {
             "schema": { "$ref": "#/components/schemas/jsonld" },
-            "example": "{\n  \"@context\":{\n    \"sh\":\"http://www.w3.org/ns/shacl#\",\n    \"ex\":\"http://example.com/\"\n  },\n  \"@type\": \"sh:ValidationReport\",\n  \"sh:result\": {\n    \"@type\": \"sh:ValidationResult\",\n    \"sh:focusNode\": {\n      \"@id\": \"ex:s\"\n    },\n    \"sh:resultPath\": {\n      \"@id\": \"ex:p\"\n    },\n    \"sh:value\": {\n      \"@id\": \"ex:o\"\n    },\n    \"sh:sourceShape\": {\n      \"@id\": \"ex:shape\"\n    },\n    \"sh:resultSeverity\": {\n      \"@id\": \"sh:Violation\"\n    },\n    \"sh:sourceConstraintComponent\": {\n      \"@id\": \"sh:PatternConstraintComponent\"\n    }\n  }\n}"
+            "example": {
+              "@context": {
+                "sh": "http://www.w3.org/ns/shacl#",
+                "ex": "http://example.com/"
+              },
+              "@type": "sh:ValidationReport",
+              "sh:result": {
+                "@type": "sh:ValidationResult",
+                "sh:focusNode": {
+                  "@id": "ex:s"
+                },
+                "sh:resultPath": {
+                  "@id": "ex:p"
+                },
+                "sh:value": {
+                  "@id": "ex:o"
+                },
+                "sh:sourceShape": {
+                  "@id": "ex:shape"
+                },
+                "sh:resultSeverity": {
+                  "@id": "sh:Violation"
+                },
+                "sh:sourceConstraintComponent": {
+                  "@id": "sh:PatternConstraintComponent"
+                }
+              }
+            }
           },
           "application/rdf+xml": {
             "schema": { "$ref": "#/components/schemas/rdfxml" },
@@ -59,7 +86,66 @@
           },
           "application/rdf+json": {
             "schema": { "$ref": "#/components/schemas/rdfjson" },
-            "example": "{\n  \"_:b1\": {\n    \"http://www.w3.org/1999/02/22-rdf-syntax-ns#type\": [{\n        \"type\": \"uri\",\n        \"value\": \"http://www.w3.org/ns/shacl#ValidationReport\"\n      }\n    ],\n    \"http://www.w3.org/ns/shacl#result\": [{\n        \"type\": \"bnode\",\n        \"value\": \"_:b2\"\n      }\n    ]\n  },\n  \"_:b2\": {\n    \"http://www.w3.org/1999/02/22-rdf-syntax-ns#type\": [{\n        \"type\": \"uri\",\n        \"value\": \"http://www.w3.org/ns/shacl#ValidationResult\"\n      }\n    ],\n    \"http://www.w3.org/ns/shacl#focusNode\": [{\n        \"type\": \"uri\",\n        \"value\": \"http://example.com/s\"\n      }\n    ],\n    \"http://www.w3.org/ns/shacl#resultPath\": [{\n        \"type\": \"uri\",\n        \"value\": \"http://example.com/p\"\n      }\n    ],\n    \"http://www.w3.org/ns/shacl#value\": [{\n        \"type\": \"uri\",\n        \"value\": \"http://example.com/o\"\n      }\n    ],\n    \"http://www.w3.org/ns/shacl#sourceShape\": [{\n        \"type\": \"uri\",\n        \"value\": \"http://example.com/shape\"\n      }\n    ],\n    \"http://www.w3.org/ns/shacl#resultSeverity\": [{\n        \"type\": \"uri\",\n        \"value\": \"http://www.w3.org/ns/shacl#Violation\"\n      }\n    ],\n    \"http://www.w3.org/ns/shacl#sourceConstraintComponent\": [{\n        \"type\": \"uri\",\n        \"value\": \"http://www.w3.org/ns/shacl#PatternConstraintComponent\"\n      }\n    ]\n  }\n}"
+            "example": {
+              "_:b1": {
+                "http://www.w3.org/1999/02/22-rdf-syntax-ns#type": [
+                  {
+                    "type": "uri",
+                    "value": "http://www.w3.org/ns/shacl#ValidationReport"
+                  }
+                ],
+                "http://www.w3.org/ns/shacl#result": [
+                  {
+                    "type": "bnode",
+                    "value": "_:b2"
+                  }
+                ]
+              },
+              "_:b2": {
+                "http://www.w3.org/1999/02/22-rdf-syntax-ns#type": [
+                  {
+                    "type": "uri",
+                    "value": "http://www.w3.org/ns/shacl#ValidationResult"
+                  }
+                ],
+                "http://www.w3.org/ns/shacl#focusNode": [
+                  {
+                    "type": "uri",
+                    "value": "http://example.com/s"
+                  }
+                ],
+                "http://www.w3.org/ns/shacl#resultPath": [
+                  {
+                    "type": "uri",
+                    "value": "http://example.com/p"
+                  }
+                ],
+                "http://www.w3.org/ns/shacl#value": [
+                  {
+                    "type": "uri",
+                    "value": "http://example.com/o"
+                  }
+                ],
+                "http://www.w3.org/ns/shacl#sourceShape": [
+                  {
+                    "type": "uri",
+                    "value": "http://example.com/shape"
+                  }
+                ],
+                "http://www.w3.org/ns/shacl#resultSeverity": [
+                  {
+                    "type": "uri",
+                    "value": "http://www.w3.org/ns/shacl#Violation"
+                  }
+                ],
+                "http://www.w3.org/ns/shacl#sourceConstraintComponent": [
+                  {
+                    "type": "uri",
+                    "value": "http://www.w3.org/ns/shacl#PatternConstraintComponent"
+                  }
+                ]
+              }
+            }
           },
           "text/csv": {
             "schema": { "$ref": "#/components/schemas/csv" },
@@ -127,7 +213,34 @@
           },
           "application/ld+json": {
             "schema": { "$ref": "#/components/schemas/jsonld" },
-            "example": "{\n  \"@context\": {\n    \"sh\": \"http://www.w3.org/ns/shacl#\",\n    \"ex\": \"http://example.com/\"\n  },\n  \"@graph\": [{\n      \"@id\": \"ex:s\",\n      \"ex:p\": {\n        \"@id\": \"ex:o\"\n      }\n    }, {\n      \"sh:targetNode\": {\n        \"@id\": \"ex:s\"\n      },\n      \"sh:property\": {\n        \"@id\": \"ex:shape\",\n        \"sh:path\": {\n          \"@id\": \"ex:p\"\n        },\n        \"sh:class\": {\n          \"@id\": \"ex:C\"\n        }\n      }\n    }\n  ]\n}"
+            "example": {
+              "@context": {
+                "sh": "http://www.w3.org/ns/shacl#",
+                "ex": "http://example.com/"
+              },
+              "@graph": [
+                {
+                  "@id": "ex:s",
+                  "ex:p": {
+                    "@id": "ex:o"
+                  }
+                },
+                {
+                  "sh:targetNode": {
+                    "@id": "ex:s"
+                  },
+                  "sh:property": {
+                    "@id": "ex:shape",
+                    "sh:path": {
+                      "@id": "ex:p"
+                    },
+                    "sh:class": {
+                      "@id": "ex:C"
+                    }
+                  }
+                }
+              ]
+            }
           },
           "application/rdf+xml": {
             "schema": { "$ref": "#/components/schemas/rdfxml" },
@@ -135,7 +248,44 @@
           },
           "application/rdf+json": {
             "schema": { "$ref": "#/components/schemas/rdfjson" },
-            "example": "{\n  \"http://example.com/s\": {\n    \"http://example.com/p\": [{\n        \"type\": \"uri\",\n        \"value\": \"http://example.com/o\"\n      }\n    ]\n  },\n  \"_:b1\": {\n    \"http://www.w3.org/ns/shacl#targetNode\": [{\n        \"type\": \"uri\",\n        \"value\": \"http://example.com/s\"\n      }\n    ],\n    \"http://www.w3.org/ns/shacl#property\": [{\n        \"type\": \"uri\",\n        \"value\": \"http://example.com/shape\"\n      }\n    ]\n  },\n  \"http://example.com/shape\": {\n    \"http://www.w3.org/ns/shacl#path\": [{\n        \"type\": \"uri\",\n        \"value\": \"http://example.com/p\"\n      }\n    ],\n    \"http://www.w3.org/ns/shacl#class\": [{\n        \"type\": \"uri\",\n        \"value\": \"http://example.com/C\"\n      }\n    ]\n  }\n}"
+            "example": {
+              "http://example.com/s": {
+                "http://example.com/p": [
+                  {
+                    "type": "uri",
+                    "value": "http://example.com/o"
+                  }
+                ]
+              },
+              "_:b1": {
+                "http://www.w3.org/ns/shacl#targetNode": [
+                  {
+                    "type": "uri",
+                    "value": "http://example.com/s"
+                  }
+                ],
+                "http://www.w3.org/ns/shacl#property": [
+                  {
+                    "type": "uri",
+                    "value": "http://example.com/shape"
+                  }
+                ]
+              },
+              "http://example.com/shape": {
+                "http://www.w3.org/ns/shacl#path": [
+                  {
+                    "type": "uri",
+                    "value": "http://example.com/p"
+                  }
+                ],
+                "http://www.w3.org/ns/shacl#class": [
+                  {
+                    "type": "uri",
+                    "value": "http://example.com/C"
+                  }
+                ]
+              }
+            }
           },
           "application/x-www-form-urlencoded": {
             "schema": { "$ref": "#/components/schemas/postValidateForm" }
