@@ -1,4 +1,4 @@
 ﻿# dotNetRDF SHACL validator service
-[langsamu.net/shacl](http://langsamu.net/shacl/)
+[shacl.azurewebsites.net](https://shacl.azurewebsites.net/)
 
 [PR](https://github.com/dotnetrdf/dotnetrdf/pull/236)
