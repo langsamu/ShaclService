@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Web" InitialTargets="CopyTestSuite">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
@@ -14,11 +14,4 @@
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.4.0" />
   </ItemGroup>
 
-  <Target Name="CopyTestSuite">
-    <ItemGroup>
-      <TestSuite Include="..\dotnetrdf\Testing\unittest\resources\shacl\**\*.*" />
-    </ItemGroup>
-
-    <Copy SourceFiles="@(TestSuite)" DestinationFiles="@(TestSuite -> 'wwwroot\%(RecursiveDir)%(Filename)%(Extension)')"></Copy>
-  </Target>
 </Project>
