@@ -1,4 +1,4 @@
-﻿@model INode
+﻿@model NodeWithGraph
 
 @if (Model.NodeType == NodeType.Uri)
 {
@@ -9,7 +9,7 @@ else if (Model.IsListRoot(Model.Graph))
     @foreach (var item in Model.Graph.GetListItems(Model))
     {
         <li>
-            <partial name="Path" model="item" />
+            <partial name="Path" model="item.In(Model.Graph)" />
         </li>
     }
 }
@@ -21,18 +21,18 @@ else
             <dt>
                 <partial name="Node" model="t.Predicate" />
             </dt>
-            @if (t.Object.IsListRoot(t.Graph))
+            @if (t.Object.IsListRoot(Model.Graph))
             {
                 <dd>
                     <ol rel="@t.Predicate" inlist>
-                        <partial name="Path" model="t.Object" />
+                        <partial name="Path" model="t.Object.In(Model.Graph)" />
                     </ol>
                 </dd>
             }
             else
             {
                 <dd rel="@t.Predicate">
-                    <partial name="Path" model="t.Object" />
+                    <partial name="Path" model="t.Object.In(Model.Graph)" />
                 </dd>
             }
         }

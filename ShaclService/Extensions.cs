@@ -37,11 +37,13 @@
             return new Uri(new Uri(request.Scheme + "://" + request.Host.Value), url.Content(contentPath)).ToString();
         }
 
-        internal static IEnumerable<INode> ObjectsOf(this INode predicate, INode subject)
+        public static NodeWithGraph In(this INode node, IGraph graph) => new (node, graph);
+
+        internal static IEnumerable<NodeWithGraph> ObjectsOf(this INode predicate, NodeWithGraph subject)
         {
             return
                 from t in subject.Graph.GetTriplesWithSubjectPredicate(subject, predicate)
-                select t.Object;
+                select t.Object.In(subject.Graph);
         }
 
         internal static IInMemoryQueryableStore AsTripleStore(this IGraph g)
