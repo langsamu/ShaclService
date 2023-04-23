@@ -9,10 +9,10 @@
     using VDS.RDF.Parsing;
     using Shacl = VDS.RDF.Shacl.Vocabulary;
 
-    public class Result : WrapperNode
+    public class Result : NodeWithGraph
     {
-        public Result(INode n)
-            : base(n)
+        public Result(INode n, IGraph g)
+            : base(n, g)
         {
         }
 

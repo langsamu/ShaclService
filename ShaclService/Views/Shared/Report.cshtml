@@ -19,7 +19,7 @@
                             @if (result.Path != null)
                             {
                                 <dt>Path</dt>
-                                @if (result.Path.IsListRoot(result.Graph))
+                                @if (result.Path.IsListRoot(Model.Graph))
                                 {
                                     <dd>
                                         <ol rel="sh:resultPath" inlist>
