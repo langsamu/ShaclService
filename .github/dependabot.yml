@@ -1,10 +1,10 @@
 version: 2
 updates:
   - package-ecosystem: "nuget"
-    directory: "/ShaclService"
+    directory: "/"
     schedule:
-      interval: "daily"
-  - package-ecosystem: "nuget"
-    directory: "/ShaclServiceTests"
+      interval: "weekly"
+  - package-ecosystem: "github-actions"
+    directory: "/"
     schedule:
-      interval: "daily"
+      interval: "weekly"
