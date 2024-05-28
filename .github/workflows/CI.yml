@@ -31,4 +31,4 @@ jobs:
       run: dotnet test --no-build --collect:"XPlat Code Coverage" -- DataCollectionRunSettings.DataCollectors.DataCollector.Configuration.Format=opencover
 
     - name: Codecov
-      uses: codecov/codecov-action@v2
+      uses: codecov/codecov-action@v4
