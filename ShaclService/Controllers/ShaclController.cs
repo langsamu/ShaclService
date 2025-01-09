@@ -89,28 +89,22 @@ public class ShaclController(IOptions<MvcOptions> options, OutputFormatterSelect
     {
         var report = new ShapesGraph(shapes).Validate(data).Normalised;
 
-        switch (this.GetResponseContentType(parameters.Format))
+        return this.GetResponseContentType(parameters.Format) switch
         {
-            case "text/html":
-                return this.View((parameters, Report.Parse(report)));
-
-            default:
-                return this.Ok(report);
-        }
+            "text/html" => this.View((parameters, Report.Parse(report))),
+            _ => this.Ok(report),
+        };
     }
 
     private IActionResult Conforms(IGraph data, IGraph shapes, Parameters parameters)
     {
         var conforms = new ShapesGraph(shapes).Conforms(data);
 
-        switch (this.GetResponseContentType(parameters.Format))
+        return this.GetResponseContentType(parameters.Format) switch
         {
-            case "text/html":
-                return this.View((parameters, (bool?)conforms));
-
-            default:
-                return this.Ok(conforms);
-        }
+            "text/html" => this.View((parameters, (bool?)conforms)),
+            _ => this.Ok(conforms),
+        };
     }
 
     private string GetResponseContentType(string format)
