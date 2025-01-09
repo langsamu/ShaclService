@@ -1,9 +1,9 @@
-﻿using System.Linq;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.Extensions.Options;
 using Microsoft.Net.Http.Headers;
+using System.Linq;
 using VDS.RDF;
 using VDS.RDF.Shacl;
 

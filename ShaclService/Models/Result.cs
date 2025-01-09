@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using VDS.RDF;
-using VDS.RDF.Dynamic;
-using VDS.RDF.Nodes;
-using VDS.RDF.Parsing;
 using Shacl = VDS.RDF.Shacl.Vocabulary;
 
 namespace ShaclService;
