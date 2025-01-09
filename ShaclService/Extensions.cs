@@ -39,12 +39,9 @@ public static class Extensions
 
     public static GraphWrapperNode In(this INode node, IGraph graph) => new (node, graph);
 
-    internal static IEnumerable<GraphWrapperNode> ObjectsOf(this INode predicate, GraphWrapperNode subject)
-    {
-        return
+    internal static IEnumerable<GraphWrapperNode> ObjectsOf(this INode predicate, GraphWrapperNode subject) =>
             from t in subject.Graph.GetTriplesWithSubjectPredicate(subject, predicate)
             select t.Object.In(subject.Graph);
-    }
 
     internal static IInMemoryQueryableStore AsTripleStore(this IGraph g)
     {

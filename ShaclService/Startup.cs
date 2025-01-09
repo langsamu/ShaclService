@@ -79,11 +79,9 @@ public class Startup
         swaggerUI.InjectJavascript("./openapi.js");
     }
 
-    private static void ConfigureCors(CorsOptions cors)
-    {
+    private static void ConfigureCors(CorsOptions cors) =>
         cors.AddDefaultPolicy(policy => policy
             .AllowAnyOrigin()
             .WithHeaders(HeaderNames.ContentType)
             .WithMethods(HttpMethods.Post));
     }
-}

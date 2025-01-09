@@ -31,8 +31,5 @@ internal class GraphOutputFormatter : TextOutputFormatter
         return Task.CompletedTask;
     }
 
-    protected override bool CanWriteType(Type type)
-    {
-        return typeof(IGraph).IsAssignableFrom(type);
-    }
+    protected override bool CanWriteType(Type type) => typeof(IGraph).IsAssignableFrom(type);
 }

@@ -31,8 +31,5 @@ internal class GraphInputFormatter : TextInputFormatter
         return InputFormatterResult.SuccessAsync(g);
     }
 
-    protected override bool CanReadType(Type type)
-    {
-        return typeof(IGraph).IsAssignableFrom(type);
-    }
+    protected override bool CanReadType(Type type) => typeof(IGraph).IsAssignableFrom(type);
 }
