@@ -1,15 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace ShaclService
+namespace ShaclService;
+
+[Route("")]
+public class HomeController : Controller
 {
-    [Route("")]
-    public class HomeController : Controller
+    [HttpGet]
+    [HttpHead]
+    public IActionResult Index()
     {
-        [HttpGet]
-        [HttpHead]
-        public IActionResult Index()
-        {
-            return this.View();
-        }
+        return this.View();
     }
 }

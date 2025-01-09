@@ -1,15 +1,14 @@
 ﻿using VDS.RDF;
 
-namespace ShaclService
+namespace ShaclService;
+
+public class NodeWithGraph : WrapperNode
 {
-    public class NodeWithGraph : WrapperNode
-    {
-        public NodeWithGraph(INode node, IGraph graph)
-            : base(node)
-             => this.Graph = graph;
+    public NodeWithGraph(INode node, IGraph graph)
+        : base(node)
+         => this.Graph = graph;
 
-        public IGraph Graph { get; }
+    public IGraph Graph { get; }
 
-        public INode Original => this.Node;
-    }
+    public INode Original => this.Node;
 }

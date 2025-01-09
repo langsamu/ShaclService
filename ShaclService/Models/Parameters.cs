@@ -2,48 +2,47 @@
 using System.ComponentModel.DataAnnotations;
 using VDS.RDF;
 
-namespace ShaclService
+namespace ShaclService;
+
+public class Parameters
 {
-    public class Parameters
+    [Display(Name = "Data graph URI")]
+    [DataType(DataType.Url)]
+    public Uri DataGraphUri { get; set; }
+
+    [Display(Name = "Data graph RDF")]
+    [DataType(DataType.MultilineText)]
+    public string DataGraphRdf { get; set; }
+
+    [Display(Name = "Shapes graph URI")]
+    [DataType(DataType.Url)]
+    public Uri ShapesGraphUri { get; set; }
+
+    [Display(Name = "Shapes graph RDF")]
+    [DataType(DataType.MultilineText)]
+    public string ShapesGraphRdf { get; set; }
+
+    public string Format { get; set; }
+
+    internal IGraph DataGraph =>
+        this.Load(this.DataGraphUri, this.DataGraphRdf);
+
+    internal IGraph ShapesGraph =>
+        this.Load(this.ShapesGraphUri, this.ShapesGraphRdf);
+
+    private IGraph Load(Uri uri, string rdf)
     {
-        [Display(Name = "Data graph URI")]
-        [DataType(DataType.Url)]
-        public Uri DataGraphUri { get; set; }
+        var g = new Graph();
 
-        [Display(Name = "Data graph RDF")]
-        [DataType(DataType.MultilineText)]
-        public string DataGraphRdf { get; set; }
-
-        [Display(Name = "Shapes graph URI")]
-        [DataType(DataType.Url)]
-        public Uri ShapesGraphUri { get; set; }
-
-        [Display(Name = "Shapes graph RDF")]
-        [DataType(DataType.MultilineText)]
-        public string ShapesGraphRdf { get; set; }
-
-        public string Format { get; set; }
-
-        internal IGraph DataGraph =>
-            this.Load(this.DataGraphUri, this.DataGraphRdf);
-
-        internal IGraph ShapesGraph =>
-            this.Load(this.ShapesGraphUri, this.ShapesGraphRdf);
-
-        private IGraph Load(Uri uri, string rdf)
+        if (uri is null)
         {
-            var g = new Graph();
-
-            if (uri is null)
-            {
-                g.LoadFromString(rdf);
-            }
-            else
-            {
-                g.LoadFromUri(uri);
-            }
-
-            return g;
+            g.LoadFromString(rdf);
         }
+        else
+        {
+            g.LoadFromUri(uri);
+        }
+
+        return g;
     }
 }
