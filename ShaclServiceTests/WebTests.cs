@@ -70,7 +70,7 @@ namespace ShaclServiceTests
             {
                 var result = await response.Content.ReadAsStringAsync();
 
-                StringAssert.Contains(result, "SwaggerUIBundle");
+                StringAssert.Contains(result, "swagger-ui-bundle");
             }
         }
 
