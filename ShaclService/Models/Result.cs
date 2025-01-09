@@ -4,7 +4,7 @@ using Shacl = VDS.RDF.Shacl.Vocabulary;
 
 namespace ShaclService;
 
-public class Result(INode n, IGraph g) : NodeWithGraph(n, g)
+public class Result(INode n, IGraph g) : GraphWrapperNode(n, g)
 {
     public INode SourceConstraintComponent => Shacl.SourceConstraintComponent.ObjectsOf(this).Single();
 

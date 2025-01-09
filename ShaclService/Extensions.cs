@@ -37,9 +37,9 @@ public static class Extensions
         return new Uri(new Uri(request.Scheme + "://" + request.Host.Value), url.Content(contentPath)).ToString();
     }
 
-    public static NodeWithGraph In(this INode node, IGraph graph) => new (node, graph);
+    public static GraphWrapperNode In(this INode node, IGraph graph) => new (node, graph);
 
-    internal static IEnumerable<NodeWithGraph> ObjectsOf(this INode predicate, NodeWithGraph subject)
+    internal static IEnumerable<GraphWrapperNode> ObjectsOf(this INode predicate, GraphWrapperNode subject)
     {
         return
             from t in subject.Graph.GetTriplesWithSubjectPredicate(subject, predicate)

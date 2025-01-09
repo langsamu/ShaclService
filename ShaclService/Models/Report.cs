@@ -7,7 +7,7 @@ using Shacl = VDS.RDF.Shacl.Vocabulary;
 
 namespace ShaclService;
 
-public class Report(INode n, IGraph g) : NodeWithGraph(n, g)
+public class Report(INode n, IGraph g) : GraphWrapperNode(n, g)
 {
     public bool Conforms => Shacl.Conforms.ObjectsOf(this).Single().AsValuedNode().AsBoolean();
 
