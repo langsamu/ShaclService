@@ -27,7 +27,7 @@ public class ShaclController(IOptions<MvcOptions> options, OutputFormatterSelect
         }
 
         // TODO: Validation
-        if ((parameters.DataGraphUri != null && !parameters.DataGraphUri.IsAbsoluteUri) || (parameters.ShapesGraphUri != null && !parameters.ShapesGraphUri.IsAbsoluteUri))
+        if ((parameters.DataGraphUri is not null && !parameters.DataGraphUri.IsAbsoluteUri) || (parameters.ShapesGraphUri is not null && !parameters.ShapesGraphUri.IsAbsoluteUri))
         {
             return this.BadRequest("Absolute URIs only.");
         }
@@ -64,7 +64,7 @@ public class ShaclController(IOptions<MvcOptions> options, OutputFormatterSelect
         }
 
         // TODO: Validation
-        if ((parameters.DataGraphUri != null && !parameters.DataGraphUri.IsAbsoluteUri) || (parameters.ShapesGraphUri != null && !parameters.ShapesGraphUri.IsAbsoluteUri))
+        if ((parameters.DataGraphUri is not null && !parameters.DataGraphUri.IsAbsoluteUri) || (parameters.ShapesGraphUri is not null && !parameters.ShapesGraphUri.IsAbsoluteUri))
         {
             return this.BadRequest("Absolute URIs only.");
         }
@@ -110,7 +110,7 @@ public class ShaclController(IOptions<MvcOptions> options, OutputFormatterSelect
     private string GetResponseContentType(string format)
     {
         var mediaTypes = new MediaTypeCollection();
-        if (format != null)
+        if (format is not null)
         {
             mediaTypes.Add(
                 new MediaTypeHeaderValue(

@@ -52,7 +52,7 @@ public class Startup
     private static void ConfigureMvc(MvcOptions mvc)
     {
         mvc.InputFormatters.Clear();
-        foreach (var item in Configuration.MediaTypes.Where(m => m.Read != null))
+        foreach (var item in Configuration.MediaTypes.Where(m => m.Read is not null))
         {
             mvc.InputFormatters.Add(new GraphInputFormatter(item.MediaType, item.Read));
         }
