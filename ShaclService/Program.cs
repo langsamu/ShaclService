@@ -1,8 +1,8 @@
-﻿namespace ShaclService
-{
-    using Microsoft.AspNetCore.Hosting;
-    using Microsoft.Extensions.Hosting;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Hosting;
 
+namespace ShaclService
+{
     public class Program
     {
         public static void Main(string[] args)

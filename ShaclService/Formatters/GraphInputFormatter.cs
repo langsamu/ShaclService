@@ -1,13 +1,13 @@
-﻿namespace ShaclService
-{
-    using System;
-    using System.IO;
-    using System.Text;
-    using System.Threading.Tasks;
-    using Microsoft.AspNetCore.Mvc.Formatters;
-    using Microsoft.Net.Http.Headers;
-    using VDS.RDF;
+﻿using System;
+using System.IO;
+using System.Text;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc.Formatters;
+using Microsoft.Net.Http.Headers;
+using VDS.RDF;
 
+namespace ShaclService
+{
     internal class GraphInputFormatter : TextInputFormatter
     {
         private readonly Action<IGraph, TextReader> read;

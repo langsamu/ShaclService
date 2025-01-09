@@ -1,13 +1,13 @@
-﻿namespace ShaclService
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using Microsoft.AspNetCore.Mvc;
-    using VDS.RDF;
-    using VDS.RDF.Parsing;
-    using VDS.RDF.Shacl;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Microsoft.AspNetCore.Mvc;
+using VDS.RDF;
+using VDS.RDF.Parsing;
+using VDS.RDF.Shacl;
 
+namespace ShaclService
+{
     public static class Extensions
     {
         private static readonly NamespaceMapper Mapper = new NamespaceMapper();

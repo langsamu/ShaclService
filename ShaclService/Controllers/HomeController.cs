@@ -1,7 +1,7 @@
-﻿namespace ShaclService
-{
-    using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
+namespace ShaclService
+{
     [Route("")]
     public class HomeController : Controller
     {

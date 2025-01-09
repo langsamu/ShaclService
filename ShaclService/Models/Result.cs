@@ -1,14 +1,14 @@
-﻿namespace ShaclService
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using VDS.RDF;
-    using VDS.RDF.Dynamic;
-    using VDS.RDF.Nodes;
-    using VDS.RDF.Parsing;
-    using Shacl = VDS.RDF.Shacl.Vocabulary;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using VDS.RDF;
+using VDS.RDF.Dynamic;
+using VDS.RDF.Nodes;
+using VDS.RDF.Parsing;
+using Shacl = VDS.RDF.Shacl.Vocabulary;
 
+namespace ShaclService
+{
     public class Result : NodeWithGraph
     {
         public Result(INode n, IGraph g)

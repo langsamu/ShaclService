@@ -1,7 +1,7 @@
-﻿namespace ShaclService
-{
-    using VDS.RDF;
+﻿using VDS.RDF;
 
+namespace ShaclService
+{
     public class NodeWithGraph : WrapperNode
     {
         public NodeWithGraph(INode node, IGraph graph)

@@ -1,9 +1,9 @@
-﻿namespace ShaclService
-{
-    using System;
-    using System.ComponentModel.DataAnnotations;
-    using VDS.RDF;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
+using VDS.RDF;
 
+namespace ShaclService
+{
     public class Parameters
     {
         [Display(Name = "Data graph URI")]

@@ -1,14 +1,14 @@
-﻿namespace ShaclService
-{
-    using System.Linq;
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.AspNetCore.Mvc.Formatters;
-    using Microsoft.AspNetCore.Mvc.Infrastructure;
-    using Microsoft.Extensions.Options;
-    using Microsoft.Net.Http.Headers;
-    using VDS.RDF;
-    using VDS.RDF.Shacl;
+﻿using System.Linq;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Formatters;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.Extensions.Options;
+using Microsoft.Net.Http.Headers;
+using VDS.RDF;
+using VDS.RDF.Shacl;
 
+namespace ShaclService
+{
     public class ShaclController : Controller
     {
         private readonly MvcOptions options;

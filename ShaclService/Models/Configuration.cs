@@ -1,13 +1,13 @@
-﻿namespace ShaclService
-{
-    using System;
-    using System.Collections.Generic;
-    using System.IO;
-    using VDS.RDF;
-    using VDS.RDF.Parsing;
-    using VDS.RDF.Query;
-    using VDS.RDF.Writing;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using VDS.RDF;
+using VDS.RDF.Parsing;
+using VDS.RDF.Query;
+using VDS.RDF.Writing;
 
+namespace ShaclService
+{
     public static class Configuration
     {
         public static IEnumerable<(string MediaType, string Extension, Action<IGraph, TextReader> Read, Action<IGraph, TextWriter> Write)> MediaTypes { get; } = new (string, string, Action<IGraph, TextReader>, Action<IGraph, TextWriter>)[]

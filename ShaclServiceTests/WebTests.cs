@@ -1,17 +1,17 @@
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Testing;
+using Microsoft.Net.Http.Headers;
+using Microsoft.OpenApi.Readers;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using ShaclService;
+
 namespace ShaclServiceTests
 {
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Net.Http;
-    using System.Net.Http.Headers;
-    using System.Threading.Tasks;
-    using Microsoft.AspNetCore.Http;
-    using Microsoft.AspNetCore.Mvc.Testing;
-    using Microsoft.Net.Http.Headers;
-    using Microsoft.OpenApi.Readers;
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using ShaclService;
-
     [TestClass]
     public class WebTests
     {
