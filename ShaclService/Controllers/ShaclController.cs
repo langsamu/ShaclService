@@ -9,16 +9,9 @@ using VDS.RDF.Shacl;
 
 namespace ShaclService;
 
-public class ShaclController : Controller
+public class ShaclController(IOptions<MvcOptions> options, OutputFormatterSelector selector) : Controller
 {
-    private readonly MvcOptions options;
-    private readonly OutputFormatterSelector selector;
-
-    public ShaclController(IOptions<MvcOptions> options, OutputFormatterSelector selector)
-    {
-        this.options = options.Value;
-        this.selector = selector;
-    }
+    private readonly MvcOptions options = options.Value;
 
     [HttpGet("validate")]
     [HttpGet("validate.{format}")]
@@ -131,7 +124,7 @@ public class ShaclController : Controller
                         format)));
         }
 
-        var formatter = this.selector.SelectFormatter(
+        var formatter = selector.SelectFormatter(
             new OutputFormatterWriteContext(
                 this.HttpContext,
                 (s, e) => null,

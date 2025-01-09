@@ -4,13 +4,8 @@ using Shacl = VDS.RDF.Shacl.Vocabulary;
 
 namespace ShaclService;
 
-public class Result : NodeWithGraph
+public class Result(INode n, IGraph g) : NodeWithGraph(n, g)
 {
-    public Result(INode n, IGraph g)
-        : base(n, g)
-    {
-    }
-
     public INode SourceConstraintComponent => Shacl.SourceConstraintComponent.ObjectsOf(this).Single();
 
     public INode FocusNode => Shacl.FocusNode.ObjectsOf(this).Single();
