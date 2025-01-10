@@ -30,7 +30,7 @@ public class Parameters
     internal IGraph ShapesGraph =>
         Load(ShapesGraphUri, ShapesGraphRdf);
 
-    private IGraph Load(Uri uri, string rdf)
+    private static IGraph Load(Uri uri, string rdf)
     {
         var g = new Graph();
 
