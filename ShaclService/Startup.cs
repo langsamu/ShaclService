@@ -86,4 +86,4 @@ public class Startup
             .AllowAnyOrigin()
             .WithHeaders(HeaderNames.ContentType)
             .WithMethods(HttpMethods.Post));
-    }
+}
