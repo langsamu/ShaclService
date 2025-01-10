@@ -10,7 +10,7 @@ namespace ShaclService;
 
 public static class Extensions
 {
-    private static readonly NamespaceMapper Mapper = new NamespaceMapper();
+    private static readonly NamespaceMapper Mapper = new();
 
     static Extensions()
     {
@@ -37,7 +37,7 @@ public static class Extensions
         return new Uri(new Uri(request.Scheme + "://" + request.Host.Value), url.Content(contentPath)).ToString();
     }
 
-    public static GraphWrapperNode In(this INode node, IGraph graph) => new (node, graph);
+    public static GraphWrapperNode In(this INode node, IGraph graph) => new(node, graph);
 
     internal static IEnumerable<GraphWrapperNode> ObjectsOf(this INode predicate, GraphWrapperNode subject) =>
             from t in subject.Graph.GetTriplesWithSubjectPredicate(subject, predicate)

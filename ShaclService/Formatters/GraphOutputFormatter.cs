@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc.Formatters;
-using Microsoft.Net.Http.Headers;
 using System;
 using System.IO;
 using System.Text;
@@ -15,7 +14,7 @@ internal class GraphOutputFormatter : TextOutputFormatter
     public GraphOutputFormatter(string mediaType, Action<IGraph, TextWriter> write)
     {
         this.write = write;
-        SupportedMediaTypes.Add(new MediaTypeHeaderValue(mediaType));
+        SupportedMediaTypes.Add(new(mediaType));
         SupportedEncodings.Add(new UTF8Encoding(false));
     }
 

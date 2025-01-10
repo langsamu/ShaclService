@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc.Formatters;
-using Microsoft.Net.Http.Headers;
 using System;
 using System.IO;
 using System.Text;
@@ -15,7 +14,7 @@ internal class GraphInputFormatter : TextInputFormatter
     public GraphInputFormatter(string mediaType, Action<IGraph, TextReader> read)
     {
         this.read = read;
-        SupportedMediaTypes.Add(new MediaTypeHeaderValue(mediaType));
+        SupportedMediaTypes.Add(new(mediaType));
         SupportedEncodings.Add(UTF8EncodingWithoutBOM);
     }
 
