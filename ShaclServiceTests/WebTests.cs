@@ -23,15 +23,11 @@ public class WebTests
 
     public static IEnumerable<object[]> MediaTypes => Configuration.MediaTypes.Select(m => new[] { m.MediaType });
 
-    public static IEnumerable<object[]> HeadRequests
-    {
-        get
-        {
-            yield return new[] { "/" };
-            yield return new[] { "/validate" };
-            yield return new[] { "/conforms" };
-        }
-    }
+    public static IEnumerable<object[]> HeadRequests => [
+        ["/"],
+        ["/validate"],
+        ["/conforms"],
+    ];
 
     [ClassInitialize]
     public static void Initialize(TestContext context)
