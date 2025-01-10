@@ -123,7 +123,7 @@ public class ShaclController(IOptions<MvcOptions> options, OutputFormatterSelect
         var formatter = selector.SelectFormatter(
             new OutputFormatterWriteContext(
                 HttpContext,
-                (s, e) => null,
+                (_, _) => null,
                 typeof(IGraph),
                 null),
             options.OutputFormatters.OfType<GraphOutputFormatter>().Cast<IOutputFormatter>().ToList(),

@@ -60,7 +60,7 @@ public class Startup
         }
 
         // TODO: why?
-        mvc.InputFormatters.Add(new GraphInputFormatter("*/*", (g, reader) => { }));
+        mvc.InputFormatters.Add(new GraphInputFormatter("*/*", (_, _) => { }));
 
         foreach (var item in Configuration.MediaTypes.Reverse())
         {
