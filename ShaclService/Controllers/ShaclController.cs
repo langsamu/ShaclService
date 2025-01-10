@@ -3,11 +3,13 @@ using Microsoft.AspNetCore.Mvc.Formatters;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using Microsoft.Extensions.Options;
 using Microsoft.Net.Http.Headers;
+using ShaclService.Formatters;
+using ShaclService.Models;
 using System.Linq;
 using VDS.RDF;
 using VDS.RDF.Shacl;
 
-namespace ShaclService;
+namespace ShaclService.Controllers;
 
 public class ShaclController(IOptions<MvcOptions> options, OutputFormatterSelector selector) : Controller
 {

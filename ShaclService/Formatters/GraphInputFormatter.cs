@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using VDS.RDF;
 
-namespace ShaclService;
+namespace ShaclService.Formatters;
 
 internal class GraphInputFormatter : TextInputFormatter
 {

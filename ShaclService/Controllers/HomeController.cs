@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-namespace ShaclService;
+namespace ShaclService.Controllers;
 
 [Route("")]
 public class HomeController : Controller

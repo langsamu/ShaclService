@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.StaticFiles;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Net.Http.Headers;
+using ShaclService.Formatters;
+using ShaclService.Models;
 using Swashbuckle.AspNetCore.SwaggerUI;
 using System.Collections.Generic;
 using System.Linq;

@@ -5,7 +5,7 @@ using VDS.RDF.Nodes;
 using VDS.RDF.Parsing;
 using Shacl = VDS.RDF.Shacl.Vocabulary;
 
-namespace ShaclService;
+namespace ShaclService.Models;
 
 public class Report(INode n, IGraph g) : GraphWrapperNode(n, g)
 {

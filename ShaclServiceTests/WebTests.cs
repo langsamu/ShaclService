@@ -4,6 +4,7 @@ using Microsoft.Net.Http.Headers;
 using Microsoft.OpenApi.Readers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ShaclService;
+using ShaclService.Models;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;

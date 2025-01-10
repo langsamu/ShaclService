@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using VDS.RDF;
 
-namespace ShaclService;
+namespace ShaclService.Models;
 
 public class Parameters
 {

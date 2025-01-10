@@ -6,7 +6,7 @@ using VDS.RDF.Parsing;
 using VDS.RDF.Query;
 using VDS.RDF.Writing;
 
-namespace ShaclService;
+namespace ShaclService.Models;
 
 public static class Configuration
 {
