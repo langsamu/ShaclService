@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Net.Http.Headers;
 using Microsoft.OpenApi.Readers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ShaclService;
 using ShaclService.Models;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +15,7 @@ namespace ShaclServiceTests;
 [TestClass]
 public class WebTests
 {
-    private static WebApplicationFactory<Startup> factory;
+    private static WebApplicationFactory<Program> factory;
     private static HttpClient client;
 
     public static IEnumerable<object[]> ExtensionMappings => Configuration.MediaTypes.Select(m => new[] { m.Extension, m.MediaType });
@@ -32,7 +31,7 @@ public class WebTests
     [ClassInitialize]
     public static void Initialize(TestContext context)
     {
-        factory = new WebApplicationFactory<Startup>();
+        factory = new WebApplicationFactory<Program>();
         factory.Server.AllowSynchronousIO = true;
         client = factory.CreateClient();
     }
