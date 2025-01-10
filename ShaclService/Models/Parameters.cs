@@ -25,10 +25,10 @@ public class Parameters
     public string Format { get; set; }
 
     internal IGraph DataGraph =>
-        this.Load(this.DataGraphUri, this.DataGraphRdf);
+        Load(DataGraphUri, DataGraphRdf);
 
     internal IGraph ShapesGraph =>
-        this.Load(this.ShapesGraphUri, this.ShapesGraphRdf);
+        Load(ShapesGraphUri, ShapesGraphRdf);
 
     private IGraph Load(Uri uri, string rdf)
     {

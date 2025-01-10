@@ -25,16 +25,16 @@ public class ShaclController(IOptions<MvcOptions> options, OutputFormatterSelect
         // TODO: Move to parameters
         if (parameters.DataGraphUri is null && parameters.ShapesGraphUri is null && parameters.DataGraphRdf is null && parameters.ShapesGraphRdf is null)
         {
-            return this.View((parameters, (Report)null));
+            return View((parameters, (Report)null));
         }
 
         // TODO: Validation
         if ((parameters.DataGraphUri is not null && !parameters.DataGraphUri.IsAbsoluteUri) || (parameters.ShapesGraphUri is not null && !parameters.ShapesGraphUri.IsAbsoluteUri))
         {
-            return this.BadRequest("Absolute URIs only.");
+            return BadRequest("Absolute URIs only.");
         }
 
-        return this.Validate(parameters.DataGraph, parameters.ShapesGraph, parameters);
+        return Validate(parameters.DataGraph, parameters.ShapesGraph, parameters);
     }
 
     [HttpPost("validate")]
@@ -45,10 +45,10 @@ public class ShaclController(IOptions<MvcOptions> options, OutputFormatterSelect
         // TODO: Validation
         if (g is null || g.IsEmpty)
         {
-            return this.Validate(parameters);
+            return Validate(parameters);
         }
 
-        return this.Validate(g, g, parameters);
+        return Validate(g, g, parameters);
     }
 
     [HttpGet("conforms")]
@@ -62,16 +62,16 @@ public class ShaclController(IOptions<MvcOptions> options, OutputFormatterSelect
         // TODO: Move to parameters
         if (parameters.DataGraphUri is null && parameters.ShapesGraphUri is null && parameters.DataGraphRdf is null && parameters.ShapesGraphRdf is null)
         {
-            return this.View((parameters, (bool?)null));
+            return View((parameters, (bool?)null));
         }
 
         // TODO: Validation
         if ((parameters.DataGraphUri is not null && !parameters.DataGraphUri.IsAbsoluteUri) || (parameters.ShapesGraphUri is not null && !parameters.ShapesGraphUri.IsAbsoluteUri))
         {
-            return this.BadRequest("Absolute URIs only.");
+            return BadRequest("Absolute URIs only.");
         }
 
-        return this.Conforms(parameters.DataGraph, parameters.ShapesGraph, parameters);
+        return Conforms(parameters.DataGraph, parameters.ShapesGraph, parameters);
     }
 
     [HttpPost("conforms")]
@@ -81,20 +81,20 @@ public class ShaclController(IOptions<MvcOptions> options, OutputFormatterSelect
         // TODO: Validation
         if (g is null || g.IsEmpty)
         {
-            return this.Conforms(parameters);
+            return Conforms(parameters);
         }
 
-        return this.Conforms(g, g, parameters);
+        return Conforms(g, g, parameters);
     }
 
     private IActionResult Validate(IGraph data, IGraph shapes, Parameters parameters)
     {
         var report = new ShapesGraph(shapes).Validate(data).Normalised;
 
-        return this.GetResponseContentType(parameters.Format) switch
+        return GetResponseContentType(parameters.Format) switch
         {
-            "text/html" => this.View((parameters, Report.Parse(report))),
-            _ => this.Ok(report),
+            "text/html" => View((parameters, Report.Parse(report))),
+            _ => Ok(report),
         };
     }
 
@@ -102,10 +102,10 @@ public class ShaclController(IOptions<MvcOptions> options, OutputFormatterSelect
     {
         var conforms = new ShapesGraph(shapes).Conforms(data);
 
-        return this.GetResponseContentType(parameters.Format) switch
+        return GetResponseContentType(parameters.Format) switch
         {
-            "text/html" => this.View((parameters, (bool?)conforms)),
-            _ => this.Ok(conforms),
+            "text/html" => View((parameters, (bool?)conforms)),
+            _ => Ok(conforms),
         };
     }
 
@@ -116,17 +116,17 @@ public class ShaclController(IOptions<MvcOptions> options, OutputFormatterSelect
         {
             mediaTypes.Add(
                 new MediaTypeHeaderValue(
-                    this.options.FormatterMappings.GetMediaTypeMappingForFormat(
+                    options.FormatterMappings.GetMediaTypeMappingForFormat(
                         format)));
         }
 
         var formatter = selector.SelectFormatter(
             new OutputFormatterWriteContext(
-                this.HttpContext,
+                HttpContext,
                 (s, e) => null,
                 typeof(IGraph),
                 null),
-            this.options.OutputFormatters.OfType<GraphOutputFormatter>().Cast<IOutputFormatter>().ToList(),
+            options.OutputFormatters.OfType<GraphOutputFormatter>().Cast<IOutputFormatter>().ToList(),
             mediaTypes);
 
         return ((GraphOutputFormatter)formatter).SupportedMediaTypes.Single();

@@ -15,8 +15,8 @@ internal class GraphOutputFormatter : TextOutputFormatter
     public GraphOutputFormatter(string mediaType, Action<IGraph, TextWriter> write)
     {
         this.write = write;
-        this.SupportedMediaTypes.Add(new MediaTypeHeaderValue(mediaType));
-        this.SupportedEncodings.Add(new UTF8Encoding(false));
+        SupportedMediaTypes.Add(new MediaTypeHeaderValue(mediaType));
+        SupportedEncodings.Add(new UTF8Encoding(false));
     }
 
     public override Task WriteResponseBodyAsync(OutputFormatterWriteContext context, Encoding encoding)
@@ -25,7 +25,7 @@ internal class GraphOutputFormatter : TextOutputFormatter
 
         using (var writer = context.WriterFactory(context.HttpContext.Response.Body, encoding))
         {
-            this.write(g, writer);
+            write(g, writer);
         }
 
         return Task.CompletedTask;

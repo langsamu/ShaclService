@@ -15,8 +15,8 @@ internal class GraphInputFormatter : TextInputFormatter
     public GraphInputFormatter(string mediaType, Action<IGraph, TextReader> read)
     {
         this.read = read;
-        this.SupportedMediaTypes.Add(new MediaTypeHeaderValue(mediaType));
-        this.SupportedEncodings.Add(UTF8EncodingWithoutBOM);
+        SupportedMediaTypes.Add(new MediaTypeHeaderValue(mediaType));
+        SupportedEncodings.Add(UTF8EncodingWithoutBOM);
     }
 
     public override Task<InputFormatterResult> ReadRequestBodyAsync(InputFormatterContext context, Encoding encoding)
@@ -25,7 +25,7 @@ internal class GraphInputFormatter : TextInputFormatter
 
         using (var reader = context.ReaderFactory(context.HttpContext.Request.Body, encoding))
         {
-            this.read(g, reader);
+            read(g, reader);
         }
 
         return InputFormatterResult.SuccessAsync(g);

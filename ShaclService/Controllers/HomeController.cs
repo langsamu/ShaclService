@@ -7,5 +7,5 @@ public class HomeController : Controller
 {
     [HttpGet]
     [HttpHead]
-    public IActionResult Index() => this.View();
+    public IActionResult Index() => View();
 }
