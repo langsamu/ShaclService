@@ -48,7 +48,7 @@ public class Startup
         app.UseCors();
         app.UseRouting();
         app.UseEndpoints(endpoints => endpoints.MapControllers());
-        app.UseSwaggerUI(Startup.ConfigureSwaggerUI);
+        app.UseSwaggerUI(Startup.ConfigureSwaggerUi);
     }
 
     private static void ConfigureMvc(MvcOptions mvc)
@@ -70,15 +70,15 @@ public class Startup
         }
     }
 
-    private static void ConfigureSwaggerUI(SwaggerUIOptions swaggerUI)
+    private static void ConfigureSwaggerUi(SwaggerUIOptions swaggerUi)
     {
-        swaggerUI.DocumentTitle = "dotNetRDF SHACL OpenAPI";
-        swaggerUI.SwaggerEndpoint("/openapi.json", "live");
-        swaggerUI.DefaultModelsExpandDepth(-1);
-        swaggerUI.DisplayRequestDuration();
-        swaggerUI.InjectStylesheet("./openapi.css");
-        swaggerUI.EnableDeepLinking();
-        swaggerUI.InjectJavascript("./openapi.js");
+        swaggerUi.DocumentTitle = "dotNetRDF SHACL OpenAPI";
+        swaggerUi.SwaggerEndpoint("/openapi.json", "live");
+        swaggerUi.DefaultModelsExpandDepth(-1);
+        swaggerUi.DisplayRequestDuration();
+        swaggerUi.InjectStylesheet("./openapi.css");
+        swaggerUi.EnableDeepLinking();
+        swaggerUi.InjectJavascript("./openapi.js");
     }
 
     private static void ConfigureCors(CorsOptions cors) =>
