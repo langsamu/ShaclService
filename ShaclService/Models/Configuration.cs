@@ -20,25 +20,26 @@ public static class Configuration
         ("application/rdf+json", "rj", (g, reader) => new RdfJsonParser().Load(g, reader), (g, writer) => new RdfJsonWriter().Save(g, writer)),
         ("text/csv", "csv", null, (g, writer) =>
         {
-            var results = (SparqlResultSet)g.ExecuteQuery($@"
-PREFIX sh: <{VDS.RDF.Shacl.Vocabulary.BaseUri}>
+            var results = (SparqlResultSet)g.ExecuteQuery($$"""
+                PREFIX sh: <{{VDS.RDF.Shacl.Vocabulary.BaseUri}}>
 
-SELECT ?focusNode ?resultPath ?value ?sourceShape ?sourceConstraint ?sourceConstraintComponent ?resultSeverity ?resultMessage
-WHERE {{
-    ?result
-        a sh:ValidationResult ;
-        sh:focusNode ?focusNode ;
-        sh:sourceShape ?sourceShape ;
-        sh:sourceConstraintComponent ?sourceConstraintComponent ;
-        sh:resultSeverity ?resultSeverity ;
-    .
+                SELECT ?focusNode ?resultPath ?value ?sourceShape ?sourceConstraint ?sourceConstraintComponent ?resultSeverity ?resultMessage
+                WHERE {
+                    ?result
+                        a sh:ValidationResult ;
+                        sh:focusNode ?focusNode ;
+                        sh:sourceShape ?sourceShape ;
+                        sh:sourceConstraintComponent ?sourceConstraintComponent ;
+                        sh:resultSeverity ?resultSeverity ;
+                    .
 
-    OPTIONAL {{ ?result sh:resultPath ?resultPath . }}
-    OPTIONAL {{ ?result sh:value ?value . }}
-    OPTIONAL {{ ?result sh:sourceConstraint ?sourceConstraint . }}
-    OPTIONAL {{ ?result sh:resultMessage ?resultMessage . }}
-}}
-");
+                    OPTIONAL { ?result sh:resultPath ?resultPath . }
+                    OPTIONAL { ?result sh:value ?value . }
+                    OPTIONAL { ?result sh:sourceConstraint ?sourceConstraint . }
+                    OPTIONAL { ?result sh:resultMessage ?resultMessage . }
+                }
+
+                """);
 
             new SparqlCsvWriter().Save(results, writer);
         }),
