@@ -1,15 +1,11 @@
-﻿namespace ShaclService
-{
-    using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
-    [Route("")]
-    public class HomeController : Controller
-    {
-        [HttpGet]
-        [HttpHead]
-        public IActionResult Index()
-        {
-            return this.View();
-        }
-    }
+namespace ShaclService.Controllers;
+
+[Route("")]
+public class HomeController : Controller
+{
+    [HttpGet]
+    [HttpHead]
+    public IActionResult Index() => View();
 }

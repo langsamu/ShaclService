@@ -15,7 +15,7 @@
     </form>
 </details>
 
-@if (Model.Conforms != null)
+@if (Model.Conforms is not null)
 {
     ViewBag.Title = "dotNetRDF SHACL conformance result";
     <section id="report" class="container">

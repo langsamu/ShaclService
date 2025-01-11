@@ -29,14 +29,14 @@
         <summary>Examples (from the SHACL test suite)</summary>
         <ul>
             @{
-                var paths = new[] {
+                IEnumerable<string> paths = [
                     "core/complex/personexample",
                     "core/misc/message-001",
                     "core/path/path-complex-001",
                     "core/path/path-alternative-001",
                     "core/complex/shacl-shacl-data-shapes",
-                    "sparql/node/prefixes-001"
-                };
+                    "sparql/node/prefixes-001",
+                ];
                 foreach (var path in paths)
                 {
                     var u = Url.AbsoluteContent($"~/test-suite/{path}.ttl");

@@ -16,7 +16,7 @@
                             <dd rel="sh:focusNode">
                                 <partial name="Node" model="result.FocusNode" />
                             </dd>
-                            @if (result.Path != null)
+                            @if (result.Path is not null)
                             {
                                 <dt>Path</dt>
                                 @if (result.Path.IsListRoot(Model.Graph))
@@ -34,7 +34,7 @@
                                     </dd>
                                 }
                             }
-                            @if (result.Value != null)
+                            @if (result.Value is not null)
                             {
                                 <dt>Value</dt>
                                 <dd rel="sh:value">
@@ -45,7 +45,7 @@
                             <dd rel="sh:sourceShape">
                                 <partial name="Node" model="result.Shape" />
                             </dd>
-                            @if (result.SourceConstraint != null)
+                            @if (result.SourceConstraint is not null)
                             {
                                 <dt>Constraint</dt>
                                 <dd property="sh:sourceConstraint">
@@ -60,7 +60,7 @@
                             <dd rel="sh:resultSeverity">
                                 <partial name="Node" model="result.Severity" />
                             </dd>
-                            @if (result.Message != null)
+                            @if (result.Message is not null)
                             {
                                 <dt>Message</dt>
                                 <dd property="sh:resultMessage">

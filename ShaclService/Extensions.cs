@@ -1,56 +1,45 @@
-﻿namespace ShaclService
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using VDS.RDF;
+using VDS.RDF.Parsing;
+using VDS.RDF.Shacl;
+
+namespace ShaclService;
+
+public static class Extensions
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using Microsoft.AspNetCore.Mvc;
-    using VDS.RDF;
-    using VDS.RDF.Parsing;
-    using VDS.RDF.Shacl;
+    private static readonly NamespaceMapper Mapper = new();
 
-    public static class Extensions
+    static Extensions()
     {
-        private static readonly NamespaceMapper Mapper = new NamespaceMapper();
+        Mapper.AddNamespace("sh", UriFactory.Create(Vocabulary.BaseUri));
+        Mapper.AddNamespace("xsd", UriFactory.Create(XmlSpecsHelper.NamespaceXmlSchema));
+    }
 
-        static Extensions()
-        {
-            Mapper.AddNamespace("sh", UriFactory.Create(Vocabulary.BaseUri));
-            Mapper.AddNamespace("xsd", UriFactory.Create(XmlSpecsHelper.NamespaceXmlSchema));
-        }
+    public static string AsQName(this INode n) => n switch
+    {
+        IUriNode { NodeType: NodeType.Uri } uriNode when Mapper.ReduceToQName(uriNode.Uri.AbsoluteUri, out var qname) => qname,
+        _ => n.ToString(),
+    };
 
-        public static string AsQName(this INode n)
-        {
-            if (n is IUriNode uriNode)
-            {
-                if (Mapper.ReduceToQName(uriNode.Uri.AbsoluteUri, out var qname))
-                {
-                    return qname;
-                }
-            }
+    public static string AbsoluteContent(this IUrlHelper url, string contentPath)
+    {
+        var request = url.ActionContext.HttpContext.Request;
+        return new Uri(new Uri(request.Scheme + "://" + request.Host.Value), url.Content(contentPath)).ToString();
+    }
 
-            return n.ToString();
-        }
+    public static GraphWrapperNode In(this INode node, IGraph graph) => new(node, graph);
 
-        public static string AbsoluteContent(this IUrlHelper url, string contentPath)
-        {
-            var request = url.ActionContext.HttpContext.Request;
-            return new Uri(new Uri(request.Scheme + "://" + request.Host.Value), url.Content(contentPath)).ToString();
-        }
+    internal static IEnumerable<GraphWrapperNode> ObjectsOf(this INode predicate, GraphWrapperNode subject) =>
+        from t in subject.Graph.GetTriplesWithSubjectPredicate(subject, predicate)
+        select t.Object.In(subject.Graph);
 
-        public static NodeWithGraph In(this INode node, IGraph graph) => new (node, graph);
-
-        internal static IEnumerable<NodeWithGraph> ObjectsOf(this INode predicate, NodeWithGraph subject)
-        {
-            return
-                from t in subject.Graph.GetTriplesWithSubjectPredicate(subject, predicate)
-                select t.Object.In(subject.Graph);
-        }
-
-        internal static IInMemoryQueryableStore AsTripleStore(this IGraph g)
-        {
-            var store = new TripleStore();
-            store.Add(g);
-            return store;
-        }
+    internal static IInMemoryQueryableStore AsTripleStore(this IGraph g)
+    {
+        var store = new TripleStore();
+        store.Add(g);
+        return store;
     }
 }
