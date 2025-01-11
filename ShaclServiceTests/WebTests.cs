@@ -18,9 +18,9 @@ public class WebTests
     private static WebApplicationFactory<Program> factory;
     private static HttpClient client;
 
-    public static IEnumerable<object[]> ExtensionMappings => Configuration.MediaTypes.Select(m => new[] { m.Extension, m.MediaType });
+    public static IEnumerable<object[]> ExtensionMappings => Configuration.MediaTypes.Select(static m => new[] { m.Extension, m.MediaType });
 
-    public static IEnumerable<object[]> MediaTypes => Configuration.MediaTypes.Select(m => new[] { m.MediaType });
+    public static IEnumerable<object[]> MediaTypes => Configuration.MediaTypes.Select(static m => new[] { m.MediaType });
 
     public static IEnumerable<object[]> HeadRequests => [
         ["/"],
@@ -29,7 +29,7 @@ public class WebTests
     ];
 
     [ClassInitialize]
-    public static void Initialize(TestContext context)
+    public static void Initialize(TestContext _)
     {
         factory = new WebApplicationFactory<Program>();
         factory.Server.AllowSynchronousIO = true;

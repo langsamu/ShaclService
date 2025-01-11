@@ -20,36 +20,30 @@ public class ShaclController(IOptions<MvcOptions> options, OutputFormatterSelect
     [HttpHead("validate")]
     [HttpHead("validate.{format}")]
     [FormatFilter]
-    public IActionResult Validate(Parameters parameters)
+    public IActionResult Validate(Parameters parameters) => parameters switch
     {
         // TODO: Move to parameters
-        if (parameters.DataGraphUri is null && parameters.ShapesGraphUri is null && parameters.DataGraphRdf is null && parameters.ShapesGraphRdf is null)
-        {
-            return View((parameters, (Report)null));
-        }
+        { DataGraphUri: null, ShapesGraphUri: null, DataGraphRdf: null, ShapesGraphRdf: null } =>
+            View((parameters, null as Report)),
 
         // TODO: Validation
-        if (parameters.DataGraphUri is not null && !parameters.DataGraphUri.IsAbsoluteUri || parameters.ShapesGraphUri is not null && !parameters.ShapesGraphUri.IsAbsoluteUri)
-        {
-            return BadRequest("Absolute URIs only.");
-        }
+        { DataGraphUri.IsAbsoluteUri: false } or
+        { ShapesGraphUri.IsAbsoluteUri: false } =>
+            BadRequest("Absolute URIs only."),
 
-        return Validate(parameters.DataGraph, parameters.ShapesGraph, parameters);
-    }
+        _ => Validate(parameters.DataGraph, parameters.ShapesGraph, parameters),
+    };
 
     [HttpPost("validate")]
     [HttpPost("validate.{format}")]
     [FormatFilter]
-    public IActionResult Validate([FromBody] IGraph g, Parameters parameters)
+    public IActionResult Validate([FromBody] IGraph g, Parameters parameters) => g switch
     {
         // TODO: Validation
-        if (g is null || g.IsEmpty)
-        {
-            return Validate(parameters);
-        }
+        null or { IsEmpty: true } => Validate(parameters),
 
-        return Validate(g, g, parameters);
-    }
+        _ => Validate(g, g, parameters),
+    };
 
     [HttpGet("conforms")]
     [HttpGet("conforms.{format}")]
@@ -57,35 +51,30 @@ public class ShaclController(IOptions<MvcOptions> options, OutputFormatterSelect
     [HttpHead("conforms")]
     [HttpHead("conforms.{format}")]
     [FormatFilter]
-    public IActionResult Conforms(Parameters parameters)
+    public IActionResult Conforms(Parameters parameters) => parameters switch
     {
         // TODO: Move to parameters
-        if (parameters.DataGraphUri is null && parameters.ShapesGraphUri is null && parameters.DataGraphRdf is null && parameters.ShapesGraphRdf is null)
-        {
-            return View((parameters, (bool?)null));
-        }
+        { DataGraphUri: null, ShapesGraphUri: null, DataGraphRdf: null, ShapesGraphRdf: null } =>
+            View((parameters, null as bool?)),
 
         // TODO: Validation
-        if (parameters.DataGraphUri is not null && !parameters.DataGraphUri.IsAbsoluteUri || parameters.ShapesGraphUri is not null && !parameters.ShapesGraphUri.IsAbsoluteUri)
-        {
-            return BadRequest("Absolute URIs only.");
-        }
+        { DataGraphUri.IsAbsoluteUri: false } or
+        { ShapesGraphUri.IsAbsoluteUri: false } =>
+            BadRequest("Absolute URIs only."),
 
-        return Conforms(parameters.DataGraph, parameters.ShapesGraph, parameters);
-    }
+        _ => Conforms(parameters.DataGraph, parameters.ShapesGraph, parameters),
+    };
+
 
     [HttpPost("conforms")]
     [FormatFilter]
-    public IActionResult Conforms([FromBody] IGraph g, Parameters parameters)
+    public IActionResult Conforms([FromBody] IGraph g, Parameters parameters) => g switch
     {
         // TODO: Validation
-        if (g is null || g.IsEmpty)
-        {
-            return Conforms(parameters);
-        }
+        null or { IsEmpty: true } => Conforms(parameters),
 
-        return Conforms(g, g, parameters);
-    }
+        _ => Conforms(g, g, parameters),
+    };
 
     private IActionResult Validate(IGraph data, IGraph shapes, Parameters parameters)
     {

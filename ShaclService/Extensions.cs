@@ -18,18 +18,11 @@ public static class Extensions
         Mapper.AddNamespace("xsd", UriFactory.Create(XmlSpecsHelper.NamespaceXmlSchema));
     }
 
-    public static string AsQName(this INode n)
+    public static string AsQName(this INode n) => n switch
     {
-        if (n is IUriNode uriNode)
-        {
-            if (Mapper.ReduceToQName(uriNode.Uri.AbsoluteUri, out var qname))
-            {
-                return qname;
-            }
-        }
-
-        return n.ToString();
-    }
+        IUriNode { NodeType: NodeType.Uri } uriNode when Mapper.ReduceToQName(uriNode.Uri.AbsoluteUri, out var qname) => qname,
+        _ => n.ToString(),
+    };
 
     public static string AbsoluteContent(this IUrlHelper url, string contentPath)
     {

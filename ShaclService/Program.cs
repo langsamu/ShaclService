@@ -22,19 +22,19 @@ builder.Services.AddCors(cors =>
 builder.Services.AddControllersWithViews(mvc =>
 {
     mvc.InputFormatters.Clear();
-    foreach (var item in Configuration.MediaTypes.Where(m => m.Read is not null))
+    foreach (var (mediaType, _, read, _) in Configuration.MediaTypes.Where(m => m.Read is not null))
     {
-        mvc.InputFormatters.Add(new GraphInputFormatter(item.MediaType, item.Read));
+        mvc.InputFormatters.Add(new GraphInputFormatter(mediaType, read));
     }
 
     // TODO: why?
     mvc.InputFormatters.Add(new GraphInputFormatter("*/*", (_, _) => { }));
 
-    foreach (var item in Configuration.MediaTypes.Reverse())
+    foreach (var (mediaType, extension, _, write) in Configuration.MediaTypes.Reverse())
     {
-        mvc.OutputFormatters.Insert(0, new GraphOutputFormatter(item.MediaType, item.Write));
-        mvc.FormatterMappings.SetMediaTypeMappingForFormat(item.Extension, item.MediaType);
-        mvc.FormatterMappings.SetMediaTypeMappingForFormat(item.MediaType, item.MediaType);
+        mvc.OutputFormatters.Insert(0, new GraphOutputFormatter(mediaType, write));
+        mvc.FormatterMappings.SetMediaTypeMappingForFormat(extension, mediaType);
+        mvc.FormatterMappings.SetMediaTypeMappingForFormat(mediaType, mediaType);
     }
 });
 builder.Services.Configure<IISServerOptions>(options => options.AllowSynchronousIO = true);
@@ -51,10 +51,10 @@ app.UseStaticFiles(
     {
         ContentTypeProvider = new FileExtensionContentTypeProvider(new Dictionary<string, string>
         {
-                    { ".ttl", "text/turtle" },
-                    { ".json", "application/json" },
-                    { ".css", "text/css" },
-                    { ".js", "text/javascript" },
+            [".ttl"] = "text/turtle",
+            [".json"] = "application/json",
+            [".css"] = "text/css",
+            [".js"] = "text/javascript",
         }),
     });
 
