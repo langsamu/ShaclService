@@ -3,7 +3,7 @@
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
   </PropertyGroup>
   <ItemGroup>
-    <PackageVersion Include="dotNetRDF" Version="3.4.1" />
+    <PackageVersion Include="dotNetRDF" Version="3.5.1" />
     <PackageVersion Include="Swashbuckle.AspNetCore.SwaggerUI" Version="10.1.2" />
 
     <PackageVersion Include="Microsoft.AspNetCore.Mvc.Testing" Version="8.0.23" />
