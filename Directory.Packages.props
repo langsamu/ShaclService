@@ -11,6 +11,6 @@
     <PackageVersion Include="Microsoft.OpenApi.Readers" Version="1.6.28" />
     <PackageVersion Include="MSTest.TestAdapter" Version="4.1.0" />
     <PackageVersion Include="MSTest.TestFramework" Version="4.1.0" />
-    <PackageVersion Include="coverlet.collector" Version="6.0.4" />
+    <PackageVersion Include="coverlet.collector" Version="8.0.0" />
   </ItemGroup>
 </Project>
